@@ -3,30 +3,33 @@ package library.ui;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+
 /**
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
  */
 public class CLUI {
+
     private Scanner scanner;
     private ArrayList<String> commands = new ArrayList<>();
-    
+
     public CLUI(Scanner scanner) {
-        this.scanner = scanner;        
+        this.scanner = scanner;
     }
-    
+
     public void init() {
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
         commands.add("sulje - sulkee ohjelman");
         commands.add("help - tulostaa komennot");
         // Laitetaan komennot aakkosjärjestykseen
-        Collections.sort(commands);        
+        Collections.sort(commands);
         System.out.println("##############\n"
-                         + "# Lukuvinkit #\n"
-                         + "##############\n");
+                + "# Lukuvinkit #\n"
+                + "##############\n");
         listCommands();
         // Kysyy ja toteuttaa komentoja kunnes saadaan komento "sulje"
-        loop: while (true) {
+        loop:
+        while (true) {
             System.out.println("\nSyötä komento: ");
             String command = scanner.nextLine();
             System.out.println("");
@@ -46,16 +49,24 @@ public class CLUI {
             }
         }
     }
-    
+
     private void listCommands() {
         System.out.println("Komennot:");
-        for (String s: commands) {
+        for (String s : commands) {
             System.out.println(s);
         }
     }
-    
+
     private void add() {
-        //TODO
-        System.out.println("TODO");
+        String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
+        ArrayList<String> input = new ArrayList<>();
+
+        for (String detail : details) {
+            System.out.print("Anna kirjan " + detail + ":");
+            input.add(scanner.nextLine());
+            System.out.println("");
+        }
+
+        // lisää arraylist tietokantaan? 
     }
 }
