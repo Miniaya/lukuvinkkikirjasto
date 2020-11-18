@@ -12,9 +12,7 @@ public class Main {
         // pääohjelma, tämä käyttää vain LibraryServicen metodeja!
         
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Who are you: ");
-        String name = scanner.nextLine();
-        
-        System.out.println("Hello " + name);
+        CLUI ui = new CLUI(scanner);
+        ui.init();
     }
 }
