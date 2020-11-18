@@ -2,6 +2,7 @@ package library.ui;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 /**
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
  */
@@ -10,14 +11,16 @@ public class CLUI {
     private ArrayList<String> commands = new ArrayList<>();
     
     public CLUI(Scanner scanner) {
-        this.scanner = scanner;
+        this.scanner = scanner;        
+    }
+    
+    public void init() {
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
         commands.add("sulje - sulkee ohjelman");
         commands.add("help - tulostaa komennot");
-    }
-    
-    public void init() {        
+        // Laitetaan komennot aakkosjärjestykseen
+        Collections.sort(commands);        
         System.out.println("##############\n"
                          + "# Lukuvinkit #\n"
                          + "##############\n");
