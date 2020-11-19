@@ -7,7 +7,7 @@ import org.sqlite.SQLiteConfig;
 public class SQLLibraryDao implements LibraryDao {
     // Tänne tietokantaan liittyvät kyselyt
 
-    private static String jdbcStatement; // muotoa "jdbc:sqlite:<tietokantanimi>.db
+    private static String jdbcStatement; // muotoa "jdbc:sqlite:<tietokantanimi>.db"
     private static String dbName; // <tietokantanimi>.db
 
     public SQLLibraryDao(String url, String dbName) {
