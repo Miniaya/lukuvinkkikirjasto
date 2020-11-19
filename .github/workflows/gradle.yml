@@ -6,17 +6,15 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ main ]
-    paths: 
-      - 'Vinkkikirjasto/**'
-        
+       
+defaults:
+  run:
+    working-directory: Vinkkikirjasto
+       
 jobs:
   run_tests:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Vinkkikirjasto
-
 
     steps:
     - uses: actions/checkout@v2
