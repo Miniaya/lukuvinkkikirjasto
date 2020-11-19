@@ -3,6 +3,8 @@ package library.ui;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+import library.dao.LibraryDao;
+import library.dao.SQLLibraryDao;
 import library.domain.Suggestion;
 
 /**
@@ -11,6 +13,7 @@ import library.domain.Suggestion;
 public class CLUI {
 
     private Scanner scanner;
+    static LibraryDao database;
     private ArrayList<String> commands = new ArrayList<>();
 
     public CLUI(Scanner scanner) {
@@ -18,6 +21,8 @@ public class CLUI {
     }
 
     public void init() {
+        database = new SQLLibraryDao("jdbc:sqlite:vinkit.db", "vinkit.db");
+
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
         commands.add("sulje - sulkee ohjelman");
@@ -67,7 +72,7 @@ public class CLUI {
             input.add(scanner.nextLine());
             System.out.println("");
         }
-                
+
         // lisää arraylist tietokantaan?
         Suggestion book = new Suggestion("Book");
         book.addDetails(details, input.toArray(new String[input.size()]));
