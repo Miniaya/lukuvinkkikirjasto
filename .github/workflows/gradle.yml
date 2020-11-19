@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - run: cd Vinkkikirjasto/
     - uses: actions/checkout@v2
     - name: Set up JDK 1.11
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
+    - run: cd Vinkkikirjasto/
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test with Gradle
