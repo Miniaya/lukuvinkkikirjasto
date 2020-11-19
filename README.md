@@ -1,9 +1,3 @@
 # lukuvinkkikirjasto
 
-Tämä on testi
-<<<<<<< HEAD
-
-Tämäkin on testi t. sonja
-=======
-Tääki :D
->>>>>>> b450c0a9a7395196545ba92ddd83aea5ce0f8a4c
+![GitHub Actions](https://github.com/Miniaya/lukuvinkkikirjasto/tree/main/.github/workflows/Java%20CI%20with%20Gradle/badge.svg)
