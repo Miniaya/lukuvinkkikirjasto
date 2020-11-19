@@ -3,6 +3,7 @@ package library.ui;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+import library.domain.Suggestion;
 
 /**
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
@@ -45,7 +46,7 @@ public class CLUI {
                     break;
                 default:
                     System.out.println("Tuntematon komento. Komento \"help\""
-                            + "näyttää sallitut komennot.");
+                            + " näyttää sallitut komennot.");
             }
         }
     }
@@ -66,7 +67,9 @@ public class CLUI {
             input.add(scanner.nextLine());
             System.out.println("");
         }
-
-        // lisää arraylist tietokantaan? 
+                
+        // lisää arraylist tietokantaan?
+        Suggestion book = new Suggestion("Book");
+        book.addDetails(details, input.toArray(new String[input.size()]));
     }
 }
