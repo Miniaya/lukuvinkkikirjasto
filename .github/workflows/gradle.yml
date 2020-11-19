@@ -6,6 +6,12 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ main ]
+    paths: 
+      - 'Vinkkikirjasto/**'
+        
+defaults:
+  run:
+     working-directory: Vinkkikirjasto
 
 jobs:
   run_tests:
@@ -18,7 +24,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - run: cd Vinkkikirjasto/
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test with Gradle
