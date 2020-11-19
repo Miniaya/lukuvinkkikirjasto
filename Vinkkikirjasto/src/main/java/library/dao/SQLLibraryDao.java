@@ -7,11 +7,11 @@ import org.sqlite.SQLiteConfig;
 public class SQLLibraryDao implements LibraryDao {
     // Tänne tietokantaan liittyvät kyselyt
 
-    private static String url;
-    private static String dbName;
+    private static String jdbcStatement; // muotoa "jdbc:sqlite:<tietokantanimi>.db
+    private static String dbName; // <tietokantanimi>.db
 
     public SQLLibraryDao(String url, String dbName) {
-        this.url = url;
+        this.jdbcStatement = url;
         this.dbName = dbName;
         start();
     }
@@ -21,7 +21,7 @@ public class SQLLibraryDao implements LibraryDao {
             createDatabase();
         }
         try {
-            Connection conn = DriverManager.getConnection(url);
+            Connection conn = DriverManager.getConnection(jdbcStatement);
             conn.close();
         } catch (SQLException e) {
             createDatabase();
@@ -36,7 +36,7 @@ public class SQLLibraryDao implements LibraryDao {
             SQLiteConfig config = new SQLiteConfig();
             config.enforceForeignKeys(true);
 
-            conn = DriverManager.getConnection(url, config.toProperties());
+            conn = DriverManager.getConnection(jdbcStatement, config.toProperties());
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
