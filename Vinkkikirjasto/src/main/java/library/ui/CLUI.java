@@ -1,5 +1,6 @@
 package library.ui;
 
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,22 @@ import library.domain.Suggestion;
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
  */
 public class CLUI {
+    
+    public static PrintWriter out;
+    
+    // <ÄÄKKÖSKORJAUS>
+    // https://www.ohjelmointiputka.net/koodivinkit/26866-java-%C3%A4%C3%A4kk%C3%B6set-windowsin-komentorivill%C3%A4
+    // Tässä lohkossa alustetaan edelliset muuttujat.
+    static {
+	// Vastaava tulostuspuolelle.
+	try {
+            out = System.console().writer();
+	} catch (NullPointerException e) {
+            out = new PrintWriter(System.out, true);
+            }
+	}
+    // </ÄÄKKÖSKORJAUS> 
+    
 
     private Scanner scanner;
     static LibraryDao database;
@@ -29,37 +46,37 @@ public class CLUI {
         commands.add("help - tulostaa komennot");
         // Laitetaan komennot aakkosjärjestykseen
         Collections.sort(commands);
-        System.out.println("##############\n"
+        out.println("##############\n"
                 + "# Lukuvinkit #\n"
                 + "##############\n");
         listCommands();
         // Kysyy ja toteuttaa komentoja kunnes saadaan komento "sulje"
         loop:
         while (true) {
-            System.out.println("\nSyötä komento: ");
+            out.println("\nSyötä komento: ");
             String command = scanner.nextLine();
-            System.out.println("");
+            out.println("");
             switch (command) {
                 case "uusi":
                     add();
                     break;
                 case "sulje":
-                    System.out.println("Suljetaan Lukuvinkit");
+                    out.println("Suljetaan Lukuvinkit");
                     break loop;
                 case "help":
                     listCommands();
                     break;
                 default:
-                    System.out.println("Tuntematon komento. Komento \"help\""
+                    out.println("Tuntematon komento. Komento \"help\""
                             + " näyttää sallitut komennot.");
             }
         }
     }
 
     private void listCommands() {
-        System.out.println("Komennot:");
+        out.println("Komennot:");
         for (String s : commands) {
-            System.out.println(s);
+            out.println(s);
         }
     }
 
@@ -68,9 +85,9 @@ public class CLUI {
         ArrayList<String> input = new ArrayList<>();
 
         for (String detail : details) {
-            System.out.print("Anna kirjan " + detail + ":");
+            out.println("Anna kirjan " + detail + ":");
             input.add(scanner.nextLine());
-            System.out.println("");
+            out.println("");
         }
 
         // lisää arraylist tietokantaan?
