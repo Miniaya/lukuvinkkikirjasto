@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         // pääohjelma, tämä käyttää vain LibraryServicen metodeja!
         
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "Cp850");
         CLUI ui = new CLUI(scanner);
         ui.init();
     }
