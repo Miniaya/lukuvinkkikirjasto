@@ -4,6 +4,7 @@ import library.domain.LibraryService;
 
 import java.util.Scanner;
 import library.dao.SQLLibraryDao;
+import library.io.*;
 
 public class Main {
     
@@ -13,7 +14,8 @@ public class Main {
         // pääohjelma, tämä käyttää vain LibraryServicen metodeja!
         
         Scanner scanner = new Scanner(System.in, "Cp850");
-        CLUI ui = new CLUI(scanner, new SQLLibraryDao("jdbc:sqlite:vinkit.db", "vinkit.db"));
+        IO io = new ConsoleIO();
+        CLUI ui = new CLUI(io, scanner, new SQLLibraryDao("jdbc:sqlite:vinkit.db", "vinkit.db"));
         ui.init();
     }
 }

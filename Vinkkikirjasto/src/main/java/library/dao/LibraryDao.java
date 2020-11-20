@@ -1,11 +1,11 @@
 package library.dao;
 
-import java.sql.Connection;
+import library.domain.Suggestion;
 
 public interface LibraryDao {
+    
+    // Returns true, jos lisäys onnistui, muuten false
+    public boolean add(Suggestion suggestion);
+    
 
-    // Talletuksen rajapinta, nämä metodit pitää @Override
-    Connection connect() throws Exception;
-
-    void createDatabase();
 }

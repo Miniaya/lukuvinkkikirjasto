@@ -6,17 +6,20 @@ import java.util.Collections;
 import library.dao.LibraryDao;
 import library.dao.SQLLibraryDao;
 import library.domain.Suggestion;
+import library.io.*;
 
 /**
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
  */
 public class CLUI {
 
+    private IO io;
     private Scanner scanner;
     static LibraryDao database;
     private ArrayList<String> commands = new ArrayList<>();
 
-    public CLUI(Scanner scanner, LibraryDao dao) {
+    public CLUI(IO io, Scanner scanner, LibraryDao dao) {
+        this.io = io;
         this.scanner = scanner;
         database = dao;
     }
@@ -29,35 +32,35 @@ public class CLUI {
         commands.add("help - tulostaa komennot");
         // Laitetaan komennot aakkosjärjestykseen
         Collections.sort(commands);
-        System.out.println("##############\n"
+        io.print("##############\n"
                 + "# Lukuvinkit #\n"
                 + "##############\n");
         listCommands();
         // Kysyy ja toteuttaa komentoja kunnes saadaan komento "sulje"
         loop:
         while (true) {
-            System.out.println("\nSyötä komento: ");
+            io.print("\nSyötä komento: ");
             String command = scanner.nextLine();
-            System.out.println("");
+            io.print("");
             switch (command) {
                 case "uusi":
                     add();
                     break;
                 case "sulje":
-                    System.out.println("Suljetaan Lukuvinkit");
+                    io.print("Suljetaan Lukuvinkit");
                     break loop;
                 case "help":
                     listCommands();
                     break;
                 default:
-                    System.out.println("Tuntematon komento. Komento \"help\""
+                    io.print("Tuntematon komento. Komento \"help\""
                             + " näyttää sallitut komennot.");
             }
         }
     }
 
     private void listCommands() {
-        System.out.println("Komennot:");
+        io.print("Komennot:");
         for (String s : commands) {
             System.out.println(s);
         }
@@ -68,13 +71,19 @@ public class CLUI {
         ArrayList<String> input = new ArrayList<>();
 
         for (String detail : details) {
-            System.out.print("Anna kirjan " + detail + ":");
+            io.print("Anna kirjan " + detail + ":");
             input.add(scanner.nextLine());
-            System.out.println("");
+            io.print("");
         }
 
         // lisää arraylist tietokantaan?
         Suggestion book = new Suggestion("Book");
         book.addDetails(details, input.toArray(new String[input.size()]));
+        
+        if (database.add(book)){
+            io.print("Vinkki lisätty");
+        } else {
+            io.print("Vinkin lisäys epäonnistui");
+        }
     }
 }

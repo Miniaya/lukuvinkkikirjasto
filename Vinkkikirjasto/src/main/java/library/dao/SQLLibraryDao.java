@@ -3,6 +3,7 @@ package library.dao;
 import java.sql.*;
 import java.io.File;
 import org.sqlite.SQLiteConfig;
+import library.domain.Suggestion;
 
 public class SQLLibraryDao implements LibraryDao {
     // Tänne tietokantaan liittyvät kyselyt
@@ -28,7 +29,6 @@ public class SQLLibraryDao implements LibraryDao {
         }
     }
 
-    @Override
     public Connection connect() throws Exception {
         Connection conn = null;
         try {
@@ -44,8 +44,6 @@ public class SQLLibraryDao implements LibraryDao {
         return conn;
     }
 
-
-    @Override
     public void createDatabase() {
         try {
             Connection conn = connect();
@@ -66,5 +64,11 @@ public class SQLLibraryDao implements LibraryDao {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    @Override
+    public boolean add(Suggestion suggestion) {
+        // tänne toteutus, miten vinkki lisätään tietokantaan (returns true, jos onnistui)
+        return false;
     }
 }
