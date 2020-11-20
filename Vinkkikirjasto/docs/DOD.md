@@ -1,3 +1,7 @@
 # Definition of Done
 
-- se on done kun se on done
+- User storyn ominaisuus analysoitu & suunniteltu
+- Ohjelmoitu
+- Testattu & testaus automatisoitu
+- Dokumentoitu
+- Integroitu & toimii muissa tuotantoympäristöissä
