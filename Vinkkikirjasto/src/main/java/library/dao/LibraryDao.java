@@ -1,5 +1,6 @@
 package library.dao;
 
+import java.sql.SQLException;
 import library.domain.Suggestion;
 
 public interface LibraryDao {

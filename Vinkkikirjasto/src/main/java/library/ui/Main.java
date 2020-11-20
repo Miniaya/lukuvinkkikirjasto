@@ -1,24 +1,21 @@
 package library.ui;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import library.domain.LibraryService;
 import java.util.Scanner;
-import library.dao.SQLLibraryDao;
 import library.io.*;
-import java.io.PrintWriter;
 
 public class Main {
     
     private LibraryService service;
     
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException {
         // pääohjelma, tämä käyttää vain LibraryServicen metodeja!
         
         Scanner scanner = new Scanner(System.in, "Cp850");
 
         IO io = new ConsoleIO();
-        CLUI ui = new CLUI(io, scanner, new SQLLibraryDao("vinkit.db"));
+        CLUI ui = new CLUI(io);
         ui.init();
 
 //    public static Scanner in;

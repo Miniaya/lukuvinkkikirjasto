@@ -70,17 +70,16 @@ public class SQLLibraryDao implements LibraryDao {
     @Override
     public boolean add(Suggestion suggestion) {
 
-        
-        Connection conn = connect();
-        Statement s = conn.createStatement();
-        
-        String title = suggestion.getDetail("nimi");
-        String author = suggestion.getDetail("kirjoittaja");
-        String pages = suggestion.getDetail("sivumäärä");
-        
-        s.execute("BEGIN TRANSACTION");
-        
         try {
+            Connection conn = connect();
+            Statement s = conn.createStatement();
+        
+            String title = suggestion.getDetail("nimi");
+            String author = suggestion.getDetail("kirjoittaja");
+            String pages = suggestion.getDetail("sivumäärä");
+        
+            s.execute("BEGIN TRANSACTION");
+        
             PreparedStatement p = conn.prepareStatement("SELECT id FROM Author WHERE name = ?");
          
             p.setString(1, author);
@@ -102,6 +101,9 @@ public class SQLLibraryDao implements LibraryDao {
             p.setInt(3, Integer.valueOf(pages));
                     
             p.executeUpdate();
+            
+            s.execute("COMMIT");
+            conn.close();
                     
             return true;
             
@@ -111,7 +113,5 @@ public class SQLLibraryDao implements LibraryDao {
             return false;
         }
         
-        s.execute("COMMIT");
-        conn.close();
     }
 }

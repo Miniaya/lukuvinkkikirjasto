@@ -16,10 +16,15 @@ public class StubIO implements IO {
         prints = new ArrayList<>();
     }
 
+    @Override
     public void print(String toPrint) {
         prints.add(toPrint);
     }
 
+    @Override
+    public String readLine(String prompt) {
+        return "Next";
+    }
 
 
     public ArrayList<String> getPrints() {

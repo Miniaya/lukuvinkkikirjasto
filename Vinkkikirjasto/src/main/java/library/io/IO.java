@@ -7,4 +7,5 @@ package library.io;
 
 public interface IO {
     void print(String toPrint);
+    public String readLine(String prompt);
 }

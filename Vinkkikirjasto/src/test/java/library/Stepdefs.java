@@ -15,13 +15,13 @@ import java.util.*;
 public class Stepdefs {
     
     CLUI ui;
-    LibraryDao library;
+    LibraryService library;
     StubIO io;
     StringBuilder input;
     
     @Before
     public void setup() {
-        library = new InMemoryLibraryDao();
+        library = new LibraryService(new InMemoryLibraryDao());
         input = new StringBuilder();
         io = new StubIO();
     }
@@ -41,7 +41,7 @@ public class Stepdefs {
     @Then("book is saved to library")
     public void bookIsSaved() {
        input.append("sulje\n");
-       ui = new CLUI(io, new Scanner(input.toString()), library);
+       ui = new CLUI(io, library);
        ui.init();
        assertTrue(io.getPrints().contains("Vinkki lisätty"));
     }

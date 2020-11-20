@@ -15,20 +15,13 @@ public class LibraryService {
         this.libraryDao = dao;
     }
     
-    public void add(Scanner scanner) throws SQLException {
-        String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
-        ArrayList<String> input = new ArrayList<>();
-
-        for (String detail : details) {
-            System.out.print("Anna kirjan " + detail + ":");
-            input.add(scanner.nextLine());
-            System.out.println("");
-        }
-
-        // lisää arraylist tietokantaan?
-        Suggestion book = new Suggestion("Book");
-        book.addDetails(details, input.toArray(new String[input.size()]));
+    public boolean add(String[] detailTypes, String[] detailValues) {
         
-        libraryDao.add(book);
+        Suggestion book = new Suggestion("Book");
+        book.addDetails(detailTypes, detailValues);
+        
+        boolean success = libraryDao.add(book);
+        
+        return success;
     }
 }
