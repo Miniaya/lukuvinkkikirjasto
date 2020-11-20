@@ -11,8 +11,6 @@ public interface LibraryDao {
     
     // Returns true, jos lisäys onnistui, muuten false
     public boolean add(Suggestion suggestion);
-  
-    void addBook(String[] values) throws SQLException;
     
     List<Book> getBooks();
 }
