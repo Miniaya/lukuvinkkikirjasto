@@ -1,11 +1,12 @@
 package library.dao;
 
-import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface LibraryDao {
 
     // Talletuksen rajapinta, nämä metodit pitää @Override
-    Connection connect() throws Exception;
-
-    void createDatabase();
+    
+    void addBook(String[] values) throws SQLException;
 }

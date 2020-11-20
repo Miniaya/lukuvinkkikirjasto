@@ -1,11 +1,17 @@
 package library.ui;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Properties;
 import library.dao.LibraryDao;
 import library.dao.SQLLibraryDao;
 import library.domain.Suggestion;
+import library.domain.LibraryService;
 
 /**
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
@@ -15,13 +21,23 @@ public class CLUI {
     private Scanner scanner;
     static LibraryDao database;
     private ArrayList<String> commands = new ArrayList<>();
+    private LibraryService service;
 
-    public CLUI(Scanner scanner, LibraryDao dao) {
+    public CLUI(Scanner scanner) throws FileNotFoundException, IOException {
+        
+        Properties properties = new Properties();
+        
+        properties.load(new FileInputStream("config.properties"));
+        
+        String libraryDB = properties.getProperty("libraryDB");
+        
+        LibraryDao libraryDBname = new SQLLibraryDao(libraryDB);
+        
         this.scanner = scanner;
-        database = dao;
+        service = new LibraryService(libraryDBname);
     }
 
-    public void init() {
+    public void init() throws SQLException {
 
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
@@ -41,7 +57,7 @@ public class CLUI {
             System.out.println("");
             switch (command) {
                 case "uusi":
-                    add();
+                    service.add(scanner);
                     break;
                 case "sulje":
                     System.out.println("Suljetaan Lukuvinkit");
@@ -63,18 +79,4 @@ public class CLUI {
         }
     }
 
-    private void add() {
-        String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
-        ArrayList<String> input = new ArrayList<>();
-
-        for (String detail : details) {
-            System.out.print("Anna kirjan " + detail + ":");
-            input.add(scanner.nextLine());
-            System.out.println("");
-        }
-
-        // lisää arraylist tietokantaan?
-        Suggestion book = new Suggestion("Book");
-        book.addDetails(details, input.toArray(new String[input.size()]));
-    }
 }
