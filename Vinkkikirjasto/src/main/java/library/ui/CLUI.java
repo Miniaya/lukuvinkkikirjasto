@@ -16,12 +16,12 @@ public class CLUI {
     static LibraryDao database;
     private ArrayList<String> commands = new ArrayList<>();
 
-    public CLUI(Scanner scanner) {
+    public CLUI(Scanner scanner, LibraryDao dao) {
         this.scanner = scanner;
+        database = dao;
     }
 
     public void init() {
-        database = new SQLLibraryDao("jdbc:sqlite:vinkit.db", "vinkit.db");
 
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
