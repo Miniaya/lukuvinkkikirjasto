@@ -39,7 +39,7 @@ public class CLUI {
         this.service = s;
     }
 
-    public void init() throws SQLException {
+    public void init() {
 
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
@@ -60,7 +60,7 @@ public class CLUI {
 
             switch (command) {
                 case "uusi":
-                    service.add(scanner);
+                    add();
                     break;
                 case "sulje":
                     io.print("Suljetaan Lukuvinkit");
