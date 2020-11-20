@@ -18,7 +18,7 @@ Käynnistys komentoriviltä komennolla:
 - `gradlew run`
 
 
-**Ohjelman komennot:**
+Ohjelman komennot:
 - `help` - listaa kaikki komennot
 - `uusi` - lisää uusi vinkki
 - `sulje` - sulje sovellus
