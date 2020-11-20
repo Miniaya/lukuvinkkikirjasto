@@ -5,10 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import library.dao.LibraryDao;
 import library.dao.SQLLibraryDao;
 import library.io.*;
+import library.domain.Book;
+import library.domain.Suggestion;
 import library.domain.LibraryService;
 
 /**
@@ -43,6 +46,7 @@ public class CLUI {
 
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
+        commands.add("listaa - listaa vinkit");
         commands.add("sulje - sulkee ohjelman");
         commands.add("help - tulostaa komennot");
         // Laitetaan komennot aakkosjärjestykseen
@@ -61,6 +65,9 @@ public class CLUI {
             switch (command) {
                 case "uusi":
                     add();
+                    break;
+                case "listaa":
+                    service.listSuggestions();
                     break;
                 case "sulje":
                     io.print("Suljetaan Lukuvinkit");

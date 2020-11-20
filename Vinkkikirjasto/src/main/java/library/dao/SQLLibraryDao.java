@@ -5,6 +5,9 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import library.domain.Book;
+import library.domain.Suggestion;
 import org.sqlite.SQLiteConfig;
 import library.domain.Suggestion;
 
@@ -40,8 +43,8 @@ public class SQLLibraryDao implements LibraryDao {
         conn = DriverManager.getConnection(jdbcStatement, config.toProperties());
         return conn;
     }
-
-    private void createDatabase() {
+    
+    public void createDatabase() {
         try {
             Connection conn = connect();
             Statement s = conn.createStatement();
@@ -111,5 +114,23 @@ public class SQLLibraryDao implements LibraryDao {
             return false;
         }
         
+    }
+    
+    @Override
+    public List<Book> getBooks() {
+        List<Book> books = new ArrayList<>();
+        try {
+            Connection conn = connect();
+            
+            PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
+            ResultSet r = p.executeQuery();
+            while (r.next()) {
+                Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"));
+                books.add(book);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return books;
     }
 }

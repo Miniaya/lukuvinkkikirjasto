@@ -2,6 +2,7 @@ package library.domain;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import library.dao.LibraryDao;
 
@@ -23,5 +24,16 @@ public class LibraryService {
         boolean success = libraryDao.add(book);
         
         return success;
+    }
+    
+    public void listSuggestions() {
+        List<Book> books = libraryDao.getBooks();
+        if (books == null) {
+            System.out.println("No suggestions were added yet.");
+        } else {
+            for (Book book: books) {
+                System.out.println(book.toString());
+            }
+        }
     }
 }
