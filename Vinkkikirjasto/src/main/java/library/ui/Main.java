@@ -2,7 +2,11 @@ package library.ui;
 
 import library.domain.LibraryService;
 import java.util.Scanner;
+<<<<<<< HEAD
 import java.io.PrintWriter;
+=======
+import library.dao.SQLLibraryDao;
+>>>>>>> d6cefcce677fe7399a1aa8bb897018df55f4ef0f
 
 public class Main {
     
@@ -29,8 +33,13 @@ public class Main {
     public static void main(String[] args) {
         // pääohjelma, tämä käyttää vain LibraryServicen metodeja!
         
+<<<<<<< HEAD
 //        Scanner scanner = new Scanner(System.in, "Cp850");
         CLUI ui = new CLUI(in);
+=======
+        Scanner scanner = new Scanner(System.in, "Cp850");
+        CLUI ui = new CLUI(scanner, new SQLLibraryDao("jdbc:sqlite:vinkit.db", "vinkit.db"));
+>>>>>>> d6cefcce677fe7399a1aa8bb897018df55f4ef0f
         ui.init();
     }
 }
