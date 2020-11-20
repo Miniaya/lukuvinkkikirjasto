@@ -15,9 +15,11 @@ Löydät lisämateriaalit ja käyttöohjeen alta.
 Asenna sovellus.
 
 Käynnistys komentoriviltä komennolla:
+
 `gradlew run`
 
 Ohjelman komennot:
-`help` - listaa kaikki komennot
-`uusi` - lisää uusi vinkki
-`sulje` - sulje sovellus
+
+- `help` - listaa kaikki komennot
+- `uusi` - lisää uusi vinkki
+- `sulje` - sulje sovellus
