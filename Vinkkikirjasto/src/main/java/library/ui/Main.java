@@ -1,21 +1,21 @@
 package library.ui;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import library.domain.LibraryService;
 import java.util.Scanner;
-import java.io.PrintWriter;
+import library.io.*;
 
 public class Main {
     
     private LibraryService service;
     
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException {
         // pääohjelma, tämä käyttää vain LibraryServicen metodeja!
         
         Scanner scanner = new Scanner(System.in, "Cp850");
-        CLUI ui = new CLUI(scanner);
-        
+
+        IO io = new ConsoleIO();
+        CLUI ui = new CLUI(io);
         ui.init();
 
 //    public static Scanner in;

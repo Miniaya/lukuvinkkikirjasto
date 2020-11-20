@@ -3,44 +3,24 @@ package library.ui;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 import library.dao.LibraryDao;
 import library.dao.SQLLibraryDao;
-import library.domain.Suggestion;
+import library.io.*;
 import library.domain.LibraryService;
 
 /**
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
  */
 public class CLUI {
-    
-    public static PrintWriter out;
-    
-    // <ÄÄKKÖSKORJAUS>
-    // https://www.ohjelmointiputka.net/koodivinkit/26866-java-%C3%A4%C3%A4kk%C3%B6set-windowsin-komentorivill%C3%A4
-    // Tässä lohkossa alustetaan edelliset muuttujat.
-    static {
-	// Vastaava tulostuspuolelle.
-	try {
-            out = System.console().writer();
-	} catch (NullPointerException e) {
-            out = new PrintWriter(System.out, true);
-            }
-	}
-    // </ÄÄKKÖSKORJAUS> 
-    
-
-    private Scanner scanner;
-    static LibraryDao database;
+   
+    private IO io;
     private ArrayList<String> commands = new ArrayList<>();
     private LibraryService service;
 
-    public CLUI(Scanner scanner) throws FileNotFoundException, IOException {
+    public CLUI(IO io) throws FileNotFoundException, IOException {
         
         Properties properties = new Properties();
         
@@ -50,8 +30,13 @@ public class CLUI {
         
         LibraryDao libraryDBname = new SQLLibraryDao(libraryDB);
         
-        this.scanner = scanner;
         service = new LibraryService(libraryDBname);
+        this.io = io;
+    }
+    
+    public CLUI(IO io, LibraryService s) {
+        this.io = io;
+        this.service = s;
     }
 
     public void init() throws SQLException {
@@ -62,38 +47,56 @@ public class CLUI {
         commands.add("help - tulostaa komennot");
         // Laitetaan komennot aakkosjärjestykseen
         Collections.sort(commands);
-        out.println("##############\n"
+
+        io.print("##############\n"
                 + "# Lukuvinkit #\n"
                 + "##############\n");
         listCommands();
         // Kysyy ja toteuttaa komentoja kunnes saadaan komento "sulje"
         loop:
         while (true) {
-            out.println("\nSyötä komento: ");
-            String command = scanner.nextLine();
-            out.println("");
+            String command = io.readLine("\nSyötä komento: ");
+            io.print("");
+
             switch (command) {
                 case "uusi":
                     service.add(scanner);
                     break;
                 case "sulje":
-                    out.println("Suljetaan Lukuvinkit");
+                    io.print("Suljetaan Lukuvinkit");
                     break loop;
                 case "help":
                     listCommands();
                     break;
                 default:
-                    out.println("Tuntematon komento. Komento \"help\""
+                    io.print("Tuntematon komento. Komento \"help\""
                             + " näyttää sallitut komennot.");
             }
         }
     }
 
     private void listCommands() {
-        out.println("Komennot:");
+        io.print("Komennot:");
         for (String s : commands) {
-            out.println(s);
+            io.print(s);
         }
     }
 
+    private void add() {
+        String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
+        ArrayList<String> input = new ArrayList<>();
+
+        for (String detail : details) {
+            input.add(io.readLine("Anna kirjan " + detail + ": "));
+            io.print("");
+        }
+
+        boolean success = service.add(details, input.toArray(new String[input.size()]));
+        
+        if (success){
+            io.print("Vinkki lisätty");
+        } else {
+            io.print("Vinkin lisäys epäonnistui");
+        }
+    }
 }

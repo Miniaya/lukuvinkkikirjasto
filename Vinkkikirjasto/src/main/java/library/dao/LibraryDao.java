@@ -1,12 +1,11 @@
 package library.dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import library.domain.Suggestion;
 
 public interface LibraryDao {
-
-    // Talletuksen rajapinta, nämä metodit pitää @Override
     
-    void addBook(String[] values) throws SQLException;
+    // Returns true, jos lisäys onnistui, muuten false
+    public boolean add(Suggestion suggestion);
+  
 }

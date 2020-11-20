@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.sqlite.SQLiteConfig;
+import library.domain.Suggestion;
 
 public class SQLLibraryDao implements LibraryDao {
     // Tänne tietokantaan liittyvät kyselyt
@@ -65,18 +66,18 @@ public class SQLLibraryDao implements LibraryDao {
     }
     
     @Override
-    public void addBook(String[] values) throws SQLException {
-        
-        Connection conn = connect();
-        Statement s = conn.createStatement();
-        
-        String title = values[0];
-        String author = values[1];
-        String pages = values[2];
-        
-        s.execute("BEGIN TRANSACTION");
-        
+    public boolean add(Suggestion suggestion) {
+
         try {
+            Connection conn = connect();
+            Statement s = conn.createStatement();
+        
+            String title = suggestion.getDetail("nimi");
+            String author = suggestion.getDetail("kirjoittaja");
+            String pages = suggestion.getDetail("sivumäärä");
+        
+            s.execute("BEGIN TRANSACTION");
+        
             PreparedStatement p = conn.prepareStatement("SELECT id FROM Author WHERE name = ?");
          
             p.setString(1, author);
@@ -98,15 +99,17 @@ public class SQLLibraryDao implements LibraryDao {
             p.setInt(3, Integer.valueOf(pages));
                     
             p.executeUpdate();
+            
+            s.execute("COMMIT");
+            conn.close();
                     
-            System.out.println("Kirjan lisääminen onnistui.");
+            return true;
             
         } catch (SQLException e){
             System.out.println("VIRHE: Kirjan lisääminen epäonnistui.");
             System.out.println(e.getMessage());
+            return false;
         }
         
-        s.execute("COMMIT");
-        conn.close();
     }
 }

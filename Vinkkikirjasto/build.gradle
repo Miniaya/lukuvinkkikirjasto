@@ -8,9 +8,17 @@ repositories {
     mavenCentral()
 }
 
+project.ext {
+    cucumberVersion = '6.8.1'
+    junitVersion = '4.13'
+}
+
 dependencies {
     testImplementation 'junit:junit:4.13'
     implementation 'org.xerial:sqlite-jdbc:3.30.1'
+    testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
+    testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
+    testCompile 'junit:junit:' + junitVersion
 }
 
 jar {
