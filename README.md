@@ -15,7 +15,7 @@ Löydät lisämateriaalit ja käyttöohjeen alta.
 Asenna sovellus.
 
 Käynnistys komentoriviltä komennolla:
-- `gradlew run`
+- `gradlew run` Windows / `gradle run` Linux
 
 
 Ohjelman komennot:
