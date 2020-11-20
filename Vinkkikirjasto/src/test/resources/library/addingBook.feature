@@ -1,8 +1,8 @@
    Feature: A book suggestion can be added to the library
 
-    Scenario: The system asks me for the name of the book
+    Scenario: A book can be added when correct information is given
         Given command uusi is selected
-        Then  system will respond with "Anna kirjan nimi:"
-
+        When  correct book information is given
+        Then  book is saved to library
     
      

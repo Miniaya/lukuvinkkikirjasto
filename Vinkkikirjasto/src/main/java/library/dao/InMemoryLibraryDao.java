@@ -8,6 +8,10 @@ public class InMemoryLibraryDao implements LibraryDao {
     
     ArrayList<Suggestion> suggestions;
     
+    public InMemoryLibraryDao() {
+        suggestions = new ArrayList<>();
+    }
+    
     @Override
     public boolean add(Suggestion sug) {
         suggestions.add(sug);

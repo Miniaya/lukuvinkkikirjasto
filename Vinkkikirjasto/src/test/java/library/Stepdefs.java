@@ -9,18 +9,21 @@ import static org.junit.Assert.*;
 import library.dao.*;
 import library.domain.*;
 import library.ui.*;
+import library.io.*;
 import java.util.*;
 
 public class Stepdefs {
     
     CLUI ui;
     LibraryDao library;
+    StubIO io;
     StringBuilder input;
     
     @Before
     public void setup() {
         library = new InMemoryLibraryDao();
         input = new StringBuilder();
+        io = new StubIO();
     }
     
     @Given("command uusi is selected")
@@ -28,31 +31,20 @@ public class Stepdefs {
         input.append("uusi\n");
     }
     
-    @Then("system will respond with {string}")
-    public void systemRespondsWith(String viesti) {
-       ui = new CLUI(new Scanner(input.toString()), library);
+    @When("correct book information is given")
+    public void correctBookInfoGive() {
+        input.append("kirja\n");
+        input.append("kirjoittaja\n");
+        input.append("100\n");
+    }
+    
+    @Then("book is saved to library")
+    public void bookIsSaved() {
+       input.append("sulje\n");
+       ui = new CLUI(io, new Scanner(input.toString()), library);
        ui.init();
-       
+       assertTrue(io.getPrints().contains("Vinkki lisätty"));
     }
 
-//    @When("it is incremented")
-//    public void itIsIncremented() {
-//        counter.increase();
-//    }
-//
-//    @Then("the value should be {int}")
-//    public void theValueShouldBe(Integer val) {
-//        assertEquals(val.intValue(), counter.value());
-//    }
-//
-//    @When("it is incremented by {int}")
-//    public void itIsIncrementedBy(Integer val) {
-//         counter.increment(val);       
-//    }    
-//
-//    @When("it is reset")
-//    public void itIsReset() {
-//        counter.reset();
-//    }
 
 }
