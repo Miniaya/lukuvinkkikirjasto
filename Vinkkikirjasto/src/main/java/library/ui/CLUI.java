@@ -110,10 +110,10 @@ public class CLUI {
     private void listSuggestions() {
         List<Book> books = service.listSuggestions();
         if (books == null) {
-            System.out.println("No suggestions were added yet.");
+            io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
             for (Book book: books) {
-                System.out.println(book.toString());
+                io.print(book.toString());
             }
         }
     }

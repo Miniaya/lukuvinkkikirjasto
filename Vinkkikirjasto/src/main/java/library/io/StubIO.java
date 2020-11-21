@@ -23,7 +23,7 @@ public class StubIO implements IO {
 
     @Override
     public String readLine(String prompt) {
-        return "Next";
+        return "sulje";
     }
 
 
