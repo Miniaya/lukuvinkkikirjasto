@@ -67,7 +67,7 @@ public class CLUI {
                     add();
                     break;
                 case "listaa":
-                    service.listSuggestions();
+                    listSuggestions();
                     break;
                 case "sulje":
                     io.print("Suljetaan Lukuvinkit");
@@ -104,6 +104,17 @@ public class CLUI {
             io.print("Vinkki lisätty");
         } else {
             io.print("Vinkin lisäys epäonnistui");
+        }
+    }
+    
+    private void listSuggestions() {
+        List<Book> books = service.listSuggestions();
+        if (books == null) {
+            System.out.println("No suggestions were added yet.");
+        } else {
+            for (Book book: books) {
+                System.out.println(book.toString());
+            }
         }
     }
 }

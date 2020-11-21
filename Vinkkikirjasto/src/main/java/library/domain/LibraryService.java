@@ -26,14 +26,8 @@ public class LibraryService {
         return success;
     }
     
-    public void listSuggestions() {
+    public List<Book> listSuggestions() {
         List<Book> books = libraryDao.getBooks();
-        if (books == null) {
-            System.out.println("No suggestions were added yet.");
-        } else {
-            for (Book book: books) {
-                System.out.println(book.toString());
-            }
-        }
+        return books;
     }
 }

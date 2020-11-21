@@ -23,6 +23,6 @@ public class Book {
     
     @Override
     public String toString() {
-        return "Name: " + name + ", author: " + author + ", pages: " + pages;
+        return "Nimi: " + name + ", kirjoittaja: " + author + ", sivumäärä: " + pages;
     }
 }
