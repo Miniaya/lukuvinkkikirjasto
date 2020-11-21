@@ -11,9 +11,13 @@ import java.util.List;
 public class StubIO implements IO {
 
     private ArrayList<String> prints;
+    private ArrayList<String> inputs;
+    private int index;
 
-    public StubIO() {
+    public StubIO(ArrayList<String> inputs) {
         prints = new ArrayList<>();
+        this.inputs = inputs;
+        index = 0;
     }
 
     @Override
@@ -23,7 +27,12 @@ public class StubIO implements IO {
 
     @Override
     public String readLine(String prompt) {
-        return "sulje";
+        String line = inputs.get(index);
+        index++;
+        if (index >= inputs.size()) {
+            index = 0;
+        }
+        return line;
     }
 
 

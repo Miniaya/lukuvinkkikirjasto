@@ -17,30 +17,30 @@ public class Stepdefs {
     CLUI ui;
     LibraryService library;
     StubIO io;
-    StringBuilder input;
+    ArrayList<String> input;
     
     @Before
     public void setup() {
         library = new LibraryService(new InMemoryLibraryDao());
-        input = new StringBuilder();
-        io = new StubIO();
+        input = new ArrayList<>();
     }
     
     @Given("command uusi is selected")
     public void commandUusiIsSelected() {
-        input.append("uusi\n");
+        input.add("uusi");
     }
     
     @When("correct book information is given")
     public void correctBookInfoGive() {
-        input.append("kirja\n");
-        input.append("kirjoittaja\n");
-        input.append("100\n");
+        input.add("kirja");
+        input.add("kirjoittaja");
+        input.add("100");
     }
     
     @Then("book is saved to library")
     public void bookIsSaved() {
-       input.append("sulje\n");
+       input.add("sulje");
+       io = new StubIO(input);
        ui = new CLUI(io, library);
        ui.init();
        assertTrue(io.getPrints().contains("Vinkki lisätty"));
