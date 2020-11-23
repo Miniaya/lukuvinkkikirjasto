@@ -122,13 +122,13 @@ public class CLUI {
         }
     }
 
-    private boolean checkType(String in, int i) {
-        switch (i) {
+    private boolean checkType(String input, int index) {
+        switch (index) {
             //atm ainoastaan sivumäärä haluaa numeroita, helppo lisätä myöhemmin jos tulee muita
             case 2:
-                return in.matches("[0-9]+");
+                return input.matches("[0-9]+");
             default:
-                return in.matches("[a-zAZ]+");
+                return true;
         }
     }
 
