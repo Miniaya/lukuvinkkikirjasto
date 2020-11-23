@@ -11,7 +11,6 @@ import library.dao.LibraryDao;
 import library.dao.SQLLibraryDao;
 import library.io.*;
 import library.domain.Book;
-import library.domain.Suggestion;
 import library.domain.LibraryService;
 
 /**

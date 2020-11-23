@@ -7,7 +7,7 @@ import library.domain.Book;
 
 public class InMemoryLibraryDao implements LibraryDao {
     
-    ArrayList<Suggestion> suggestions;
+    List<Suggestion> suggestions;
     
     public InMemoryLibraryDao() {
         suggestions = new ArrayList<>();
@@ -19,13 +19,13 @@ public class InMemoryLibraryDao implements LibraryDao {
         return true;
     }
     
-    public ArrayList<Suggestion> getSuggestions() {
+    public List<Suggestion> getSuggestions() {
         return suggestions;
     }
     
     //Tämä metodi ei ole käytössä
     @Override
     public List<Book> getBooks() {
-        return new ArrayList<>();
+        return new ArrayList<Book>();
     }
 }

@@ -2,12 +2,9 @@ package library.dao;
 
 import java.sql.*;
 import java.io.File;
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import library.domain.Book;
-import library.domain.Suggestion;
 import org.sqlite.SQLiteConfig;
 import library.domain.Suggestion;
 
@@ -109,7 +106,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
             
         } catch (SQLException e){
-            System.out.println("VIRHE: Kirjan lisääminen epäonnistui.");
             System.out.println(e.getMessage());
             return false;
         }

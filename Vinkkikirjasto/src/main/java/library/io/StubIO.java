@@ -10,8 +10,8 @@ import java.util.List;
 
 public class StubIO implements IO {
 
-    private ArrayList<String> prints;
-    private ArrayList<String> inputs;
+    private List<String> prints;
+    private List<String> inputs;
     private int index;
 
     public StubIO(ArrayList<String> inputs) {
@@ -36,7 +36,7 @@ public class StubIO implements IO {
     }
 
 
-    public ArrayList<String> getPrints() {
+    public List<String> getPrints() {
         return prints;
     }
     
