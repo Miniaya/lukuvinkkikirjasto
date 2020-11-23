@@ -1,31 +1,31 @@
 package library.domain;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import library.dao.InMemoryLibraryDao;
+import library.dao.LibraryDao;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author machenna
- */
 public class LibraryServiceTest {
     
-    public LibraryServiceTest() {
-    }
+    private LibraryDao dao;
+    private LibraryService service;
     
     @Before
     public void setUp() {
+        dao = new InMemoryLibraryDao();
+        service = new LibraryService(dao);
     }
     
     @After
     public void tearDown() {
     }
-
+    
+    @Test
+    public void addingValidBookReturnsTrue() {
+        
+    }
     
 }

@@ -17,11 +17,13 @@ public class Stepdefs {
     CLUI ui;
     LibraryService library;
     StubIO io;
-    ArrayList<String> input;
+    List<String> input;
     
     @Before
     public void setup() {
         library = new LibraryService(new InMemoryLibraryDao());
+        io = new StubIO();
+        ui = new CLUI(io, library);
         input = new ArrayList<>();
     }
     
@@ -40,8 +42,8 @@ public class Stepdefs {
     @Then("book is saved to library")
     public void bookIsSaved() {
        input.add("sulje");
-       io = new StubIO(input);
-       ui = new CLUI(io, library);
+       
+       io.setInputs(input);
        ui.init();
        assertTrue(io.getPrints().contains("Vinkki lisätty"));
     }

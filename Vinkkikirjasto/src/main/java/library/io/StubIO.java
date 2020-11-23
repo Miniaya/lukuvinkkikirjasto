@@ -13,8 +13,14 @@ public class StubIO implements IO {
     private List<String> prints;
     private List<String> inputs;
     private int index;
+    
+    public StubIO() {
+        prints = new ArrayList();
+        inputs = new ArrayList();
+        index = 0;
+    }
 
-    public StubIO(ArrayList<String> inputs) {
+    public StubIO(List<String> inputs) {
         prints = new ArrayList<>();
         this.inputs = inputs;
         index = 0;
@@ -35,9 +41,12 @@ public class StubIO implements IO {
         return line;
     }
 
-
     public List<String> getPrints() {
         return prints;
+    }
+    
+    public void setInputs(List<String> inputs) {
+        this.inputs = inputs;
     }
     
 }

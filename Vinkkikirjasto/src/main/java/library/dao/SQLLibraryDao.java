@@ -114,19 +114,27 @@ public class SQLLibraryDao implements LibraryDao {
     
     @Override
     public List<Book> getBooks() {
-        List<Book> books = new ArrayList<>();
         try {
             Connection conn = connect();
             
             PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
             ResultSet r = p.executeQuery();
+            
+            List<Book> books = null;
+            
             while (r.next()) {
+                books = new ArrayList<>();
                 Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"));
                 books.add(book);
             }
+            r.close();
+            conn.close();
+            
+            return books;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return books;
+        
+        return null;
     }
 }
