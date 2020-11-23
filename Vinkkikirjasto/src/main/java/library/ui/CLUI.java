@@ -18,25 +18,25 @@ import library.domain.LibraryService;
  * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
  */
 public class CLUI {
-   
+
     private IO io;
     private ArrayList<String> commands = new ArrayList<>();
     private LibraryService service;
 
     public CLUI(IO io) throws FileNotFoundException, IOException {
-        
+
         Properties properties = new Properties();
-        
+
         properties.load(new FileInputStream("config.properties"));
-        
+
         String libraryDB = properties.getProperty("libraryDB");
-        
+
         LibraryDao libraryDBname = new SQLLibraryDao(libraryDB);
-        
+
         service = new LibraryService(libraryDBname);
         this.io = io;
     }
-    
+
     public CLUI(IO io, LibraryService s) {
         this.io = io;
         this.service = s;
@@ -90,29 +90,54 @@ public class CLUI {
     }
 
     private void add() {
+                             
         String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
         ArrayList<String> input = new ArrayList<>();
 
-        for (String detail : details) {
-            input.add(io.readLine("Anna kirjan " + detail + ": "));
-            io.print("");
+//        for (String detail : details) {
+//            input.add(io.readLine("Anna kirjan " + detail + ": "));
+//            io.print("");
+//        }
+        boolean correctType;
+        for (int i = 0; i < details.length; i++) {
+            correctType = false;
+            while (!correctType) {
+                String in = io.readLine("Anna kirjan " + details[i] + ": ");
+                io.print("");
+                correctType = checkType(in, i);
+                if (correctType) {
+                    input.add(in);
+                } else {
+                    io.print("Syötä " + details[i] + " uudelleen. Varmista, että nimessä ja kirjoittajassa ei numeroita, sekä sivumäärässä kirjaimia ");
+                }
+            }
         }
 
         boolean success = service.add(details, input.toArray(new String[input.size()]));
-        
-        if (success){
+
+        if (success) {
             io.print("Vinkki lisätty");
         } else {
             io.print("Vinkin lisäys epäonnistui");
         }
     }
-    
+
+    private boolean checkType(String in, int i) {
+        switch (i) {
+            //atm ainoastaan sivumäärä haluaa numeroita, helppo lisätä myöhemmin jos tulee muita
+            case 2:
+                return in.matches("[0-9]+");
+            default:
+                return in.matches("[a-zAZ]+");
+        }
+    }
+
     private void listSuggestions() {
         List<Book> books = service.listSuggestions();
         if (books == null) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
-            for (Book book: books) {
+            for (Book book : books) {
                 io.print(book.toString());
             }
         }

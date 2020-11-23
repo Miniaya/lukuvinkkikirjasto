@@ -58,7 +58,7 @@ public class SQLLibraryDao implements LibraryDao {
             s.execute("CREATE TABLE Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "author_id INTEGER REFERENCES Author, "
-                    + "pages INTEGER, "
+                    + "pages VARCHAR, "
                     + "time_of_adding DATE,"
                     + "time_of_modifying DATE)");
 
