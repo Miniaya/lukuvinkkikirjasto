@@ -10,13 +10,14 @@ Löydät lisämateriaalit ja käyttöohjeen alta.
 ## LINKIT
 - [Backlog & Sprintlogit](https://docs.google.com/spreadsheets/d/1XuvgQQRyYOgVvAYmBFQm1ab_-g5Kg-24XLIuX7o79t4/)
 - [Definition of Done](https://github.com/Miniaya/lukuvinkkikirjasto/blob/main/Vinkkikirjasto/docs/DOD.md)
+- [GitHub Actions](https://github.com/Miniaya/lukuvinkkikirjasto/actions)
 
 ## KÄYTTÖOHJE
 
 Asenna sovellus.
 
 Käynnistys komentoriviltä komennolla:
-- `./gradlew run --console=plain` Windows / `gradle run` Linux
+- `./gradlew run --console=plain` 
 
 
 Ohjelman komennot:
