@@ -87,7 +87,7 @@ public class CLUITest {
         io.setInputs(input);
         
         ui.init();
-        assertTrue(io.getPrints().contains("Nimi: Hulabaloo, kirjoittaja: Piraatit, sivumäärä: 250"));
+        assertTrue(io.getPrints().contains("Nimi: Hulabaloo\nkirjoittaja: Piraatit\nsivumäärä: 250\n"));
     }
     
     @Test

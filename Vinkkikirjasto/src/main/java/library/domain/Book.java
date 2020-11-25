@@ -23,6 +23,29 @@ public class Book implements Suggestion{
         this.details = new HashMap<String, String>();
     }
 
+    public void setName(String name) {
+        details.put("nimi", name);
+    }
+
+    public void setAuthor(String author) {
+        details.put("kirjoittaja", author);
+    }
+
+    public void setPages(int pages) {
+        details.put("sivumäärä", Integer.toString(pages));
+    }
+
+    public String getName() {
+        return details.get("nimi");
+    }
+
+    public String getAuthor() {
+        return details.get("kirjoittaja");
+    }
+
+    public int getPages() {
+        return Integer.valueOf(details.get("sivumäärä"));
+    }
     
     @Override
     public String toString() {
