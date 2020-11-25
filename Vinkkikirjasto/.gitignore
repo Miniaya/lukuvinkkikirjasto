@@ -4,5 +4,6 @@
 # Ignore Gradle build output directory
 build
 
-#ignore database file .db
+# Ignore database file .db and temporary db-journal
 *.db
+*.db-journal

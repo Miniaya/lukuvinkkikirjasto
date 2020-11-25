@@ -12,6 +12,8 @@ import java.util.HashMap;
  * @author aleksi
  */
 public interface Suggestion {
+    
+    void addDetail(String detailType, String value);
 
     /**
      * Lisää vinkkiin useamman tyyppi:arvo-parin. Lisättävien taulujen täytyy

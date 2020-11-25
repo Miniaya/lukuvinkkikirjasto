@@ -1,9 +1,6 @@
 package library.domain;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import library.dao.LibraryDao;
 
 public class LibraryService {

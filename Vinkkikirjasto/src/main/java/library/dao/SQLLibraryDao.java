@@ -2,12 +2,9 @@ package library.dao;
 
 import java.sql.*;
 import java.io.File;
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import library.domain.Book;
-import library.domain.Suggestion;
 import org.sqlite.SQLiteConfig;
 import library.domain.Suggestion;
 
@@ -58,7 +55,7 @@ public class SQLLibraryDao implements LibraryDao {
             s.execute("CREATE TABLE Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "author_id INTEGER REFERENCES Author, "
-                    + "pages INTEGER, "
+                    + "pages VARCHAR, "
                     + "time_of_adding DATE,"
                     + "time_of_modifying DATE)");
 
@@ -112,7 +109,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
             
         } catch (SQLException e){
-            System.out.println("VIRHE: Kirjan lisääminen epäonnistui.");
             System.out.println(e.getMessage());
             return false;
         }
@@ -121,19 +117,27 @@ public class SQLLibraryDao implements LibraryDao {
     
     @Override
     public List<Book> getBooks() {
-        List<Book> books = new ArrayList<>();
         try {
             Connection conn = connect();
             
             PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
             ResultSet r = p.executeQuery();
+            
+            List<Book> books = null;
+            
             while (r.next()) {
+                books = new ArrayList<>();
                 Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"));
                 books.add(book);
             }
+            r.close();
+            conn.close();
+            
+            return books;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return books;
+        
+        return null;
     }
 }

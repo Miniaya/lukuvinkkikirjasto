@@ -7,7 +7,8 @@ import library.domain.Book;
 
 public class InMemoryLibraryDao implements LibraryDao {
     
-    ArrayList<Suggestion> suggestions;
+    List<Suggestion> suggestions;
+    List<Book> books;
     
     public InMemoryLibraryDao() {
         suggestions = new ArrayList<>();
@@ -15,17 +16,20 @@ public class InMemoryLibraryDao implements LibraryDao {
     
     @Override
     public boolean add(Suggestion sug) {
+        if(books == null) {
+            books = new ArrayList<>();
+        }
         suggestions.add(sug);
+        books.add(new Book(sug.getDetail("nimi"), sug.getDetail("kirjoittaja"), Integer.parseInt(sug.getDetail("sivumäärä"))));
         return true;
     }
     
-    public ArrayList<Suggestion> getSuggestions() {
+    public List<Suggestion> getSuggestions() {
         return suggestions;
     }
     
-    //Tämä metodi ei ole käytössä
     @Override
     public List<Book> getBooks() {
-        return new ArrayList<>();
+        return books;
     }
 }
