@@ -15,7 +15,9 @@ import library.domain.Suggestion;
 import library.domain.LibraryService;
 
 /**
- * Komentoriviä käyttävä UI. Ottaa Scanner-olion konstruktorin parametrina.
+ * Komentoriviä käyttävä UI. Ottaa IO:n ja LibraryServicen konstruktorin parametrina.
+ * Tulostukset ja syötteet toteuteaan IO-oliolla.
+ * LibraryService vastaa sovelluslogiikasta.
  */
 public class CLUI {
    
@@ -113,7 +115,7 @@ public class CLUI {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
             for (Book book: books) {
-                io.print(book.toString());
+                io.print(book.toString() + "\n");
             }
         }
     }

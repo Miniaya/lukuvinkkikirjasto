@@ -1,36 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package library.domain;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
- * Luokka johon tallennetaan syötetyt vinkit.
+ *
+ * @author aleksi
  */
-public class Suggestion {
-    private String type;
-    private ArrayList<String> detailTypes;
-    private HashMap<String, String> details;
-    
-    /**
-     * Konstruktorille annetaan tyyppi joka vastaa jotain tietokannan taulun
-     * nimeä.
-     * @param type vinkin tyyppi Stringinä (esim. "Book", "Article" jne.)
-     */
-    public Suggestion(String type) {
-        this.type = type;
-        this.detailTypes = new ArrayList<>();
-        this.details = new HashMap<>();
-    }
-    
-    /**
-     * Lisää vinkkiin tietoa ("nimi", "kirjoittaja" jne.).
-     * @param detailType arvon tyyppi
-     * @param value arvo
-     */
-    public void addDetail(String detailType, String value) {
-        detailTypes.add(detailType);
-        details.put(detailType, value);
-    }
-    
+public interface Suggestion {
+
     /**
      * Lisää vinkkiin useamman tyyppi:arvo-parin. Lisättävien taulujen täytyy
      * olla järjestetty niin että tyyppi ja sitä vastaava arvo ovat samassa
@@ -38,55 +20,34 @@ public class Suggestion {
      * @param types lisättävien arvojen tyypit tauluna
      * @param values lisättävät arvot tauluna
      */
-    public void addDetails(String[] types, String[] values) {
-        for (int i = 0; i < types.length; i++) {
-            detailTypes.add(types[i]);
-            details.put(types[i], values[i]);
-        }
-    }
-    
-    /**
-     * Getteri tämän vinkin tyypille.
-     * @return vinkin tyyppi Stringinä
-     */
-    public String getType() {
-        return this.type;
-    }
-    
-    /**
-     * Getteri yksittäisen tyyppi:arvo-parin arvolle.
-     * @param detailType palautettavan arvon tyyppi
-     * @return annettua tyyppiä vastaava arvo Stringinä
-     */
-    public String getDetail(String detailType) {
-        return details.getOrDefault(detailType, "n/a");
-    }
-    
+    void addDetails(String[] types, String[] values);
+
     /**
      * Getteri tämän vinkin sisältämille tietotyypeille.
      * @return tietotyypit String-tauluna
      */
-    public String[] getDetailTypes() {
-        return detailTypes.toArray(new String[detailTypes.size()]);
-    }
+    String[] getDetailTypes();
     
     /**
-     * Getteri tämän vinkin sisältämille arvoille.
-     * @return arvot String-tauluna
+     * Palauttaa annettua tyyppiä vastaavan arvon. Esim:
+     * book.getDetail("nimi") palauttaa "Iloinen Aapinen" jne.
+     * @param detailType haettavan kentän tyyppi
+     * @return kentän arvo Stringinä
      */
-    public String[] getDetailValues() {
-        String[] detailValues = new String[detailTypes.size()];
-        for (int i = 0; i < detailTypes.size(); i++) {
-            detailValues[i] = getDetail(detailTypes.get(i));
-        }
-        return detailValues;
-    }
+    String getDetail(String detailType);
+
+    /**
+     * Getteri tämän vinkin tyypille ("Book", "Article" jne.).
+     * @return vinkin tyyppi Stringinä
+     */
+    String getType();
     
     /**
-     * Getteri tämän vinkin sisältämille tyyppi:arvo-pareille.
-     * @return tyyppi:arvo-parit hajautustauluna
+     * UI:n käyttämä tulostusmetodi. Formaatti:
+     * "[Kenttä 1]: " + [arvo 1] + ... + "\n[Kenttä n]: " + [arvo n]
+     * Book-luokasta voi katsoa myös mallia.
+     * @return oikein formatoitu String joka sisältää objektin kentät ja arvot
      */
-    public HashMap getDetails() {
-        return details;
-    }
+    @Override
+    String toString();
 }

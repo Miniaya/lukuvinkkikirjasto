@@ -78,6 +78,9 @@ public class SQLLibraryDao implements LibraryDao {
             String title = suggestion.getDetail("nimi");
             String author = suggestion.getDetail("kirjoittaja");
             String pages = suggestion.getDetail("sivumäärä");
+            if (pages.equals("")) {
+                pages = "-1";
+            }
         
             s.execute("BEGIN TRANSACTION");
         

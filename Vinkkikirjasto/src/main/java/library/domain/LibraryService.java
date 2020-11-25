@@ -18,7 +18,7 @@ public class LibraryService {
     
     public boolean add(String[] detailTypes, String[] detailValues) {
         
-        Suggestion book = new Suggestion("Book");
+        Suggestion book = new Book();
         book.addDetails(detailTypes, detailValues);
         
         boolean success = libraryDao.add(book);
