@@ -91,6 +91,21 @@ public class CLUI {
     }
 
     private void add() {
+        
+        while (true) {
+            String suggestionType = "";
+            String in = io.readLine("Lisää kirja komennolla kirja tai artikkeli komennolla artikkeli.");
+            if (in.equals("kirja")) {
+                addBook();
+            } else if (in.equals("artikkeli")) {
+                addArticle();
+            } else {
+                io.print("Tuntematon komento.");
+            }
+        }
+    }
+        
+    private void addBook() {
                              
         String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
         ArrayList<String> input = new ArrayList<>();
@@ -99,6 +114,7 @@ public class CLUI {
 //            input.add(io.readLine("Anna kirjan " + detail + ": "));
 //            io.print("");
 //        }
+        
         boolean correctType;
         for (int i = 0; i < details.length; i++) {
             correctType = false;
@@ -114,7 +130,41 @@ public class CLUI {
             }
         }
 
-        boolean success = service.add(details, input.toArray(new String[input.size()]));
+        boolean success = service.add("book", details, input.toArray(new String[input.size()]));
+
+        if (success) {
+            io.print("Vinkki lisätty");
+        } else {
+            io.print("Vinkin lisäys epäonnistui");
+        }
+    }
+    
+    private void addArticle() {
+                             
+        String[] details = new String[]{"nimi", "url"};
+        ArrayList<String> input = new ArrayList<>();
+
+//        for (String detail : details) {
+//            input.add(io.readLine("Anna kirjan " + detail + ": "));
+//            io.print("");
+//        }
+        
+        boolean correctType;
+        for (int i = 0; i < details.length; i++) {
+            correctType = false;
+            while (!correctType) {
+                String in = io.readLine("Anna artikkelin " + details[i] + ": ");
+                io.print("");
+                correctType = checkType(in, i);
+                if (correctType) {
+                    input.add(in);
+                } else {
+                    io.print("Syötä " + details[i] + " uudelleen.");
+                }
+            }
+        }
+
+        boolean success = service.add("article", details, input.toArray(new String[input.size()]));
 
         if (success) {
             io.print("Vinkki lisätty");

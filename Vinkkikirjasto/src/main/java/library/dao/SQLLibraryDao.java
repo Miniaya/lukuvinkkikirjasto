@@ -58,6 +58,12 @@ public class SQLLibraryDao implements LibraryDao {
                     + "pages VARCHAR, "
                     + "time_of_adding DATE,"
                     + "time_of_modifying DATE)");
+            s.execute("DROP TABLE IF EXISTS Article;");
+            s.execute("CREATE TABLE Article (id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "title TEXT, "
+                    + "url TEXT, "
+                    + "time_of_adding DATE,"
+                    + "time_of_modifying DATE)");
 
             conn.close();
         } catch (Exception e) {
@@ -67,7 +73,17 @@ public class SQLLibraryDao implements LibraryDao {
     
     @Override
     public boolean add(Suggestion suggestion) {
-
+        
+        if (suggestion.getType().equals("Book")) {
+            return addBook(suggestion);
+        } else if (suggestion.getType().equals("Article")) {
+            return addArticle(suggestion);
+        }
+        return false;
+    }
+    
+    private boolean addBook(Suggestion suggestion) {
+        
         try {
             Connection conn = connect();
             Statement s = conn.createStatement();
@@ -101,6 +117,36 @@ public class SQLLibraryDao implements LibraryDao {
             p.setString(2, author);
             p.setInt(3, Integer.valueOf(pages));
                     
+            p.executeUpdate();
+            
+            s.execute("COMMIT");
+            conn.close();
+                    
+            return true;
+            
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
+    }
+    
+    private boolean addArticle(Suggestion suggestion) {
+        
+        try {
+            Connection conn = connect();
+            Statement s = conn.createStatement();
+        
+            String title = suggestion.getDetail("nimi");
+            String url = suggestion.getDetail("url");
+        
+            s.execute("BEGIN TRANSACTION");
+            
+            PreparedStatement p = conn.prepareStatement("INSERT INTO Article (title, url, time_of_adding, time_of_modifying) "
+                    + "VALUES (?, ?, datetime('now'), datetime('now'))");
+            p.setString(1, title);
+            p.setString(2, url);
+
             p.executeUpdate();
             
             s.execute("COMMIT");

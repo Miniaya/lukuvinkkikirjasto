@@ -13,12 +13,19 @@ public class LibraryService {
         this.libraryDao = dao;
     }
     
-    public boolean add(String[] detailTypes, String[] detailValues) {
+    public boolean add(String suggestionType, String[] detailTypes, String[] detailValues) {
+        boolean success = false;
+        if (suggestionType.equals("book")) {
+            Suggestion book = new Book();
+            book.addDetails(detailTypes, detailValues);
         
-        Suggestion book = new Book();
-        book.addDetails(detailTypes, detailValues);
+            success = libraryDao.add(book);
+        } else if (suggestionType.equals("article")) {
+            Suggestion article = new Article();
+            article.addDetails(detailTypes, detailValues);
         
-        boolean success = libraryDao.add(book);
+            success = libraryDao.add(article);
+        }
         
         return success;
     }
