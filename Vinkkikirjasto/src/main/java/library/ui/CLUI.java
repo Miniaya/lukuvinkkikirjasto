@@ -93,16 +93,19 @@ public class CLUI {
     }
 
     private void add() {
-        
+
         while (true) {
             String suggestionType = "";
             String in = io.readLine("Lisää kirja komennolla kirja tai artikkeli komennolla artikkeli.");
             if (in.equals("kirja")) {
                 addBook();
+                break;
             } else if (in.equals("artikkeli")) {
                 addArticle();
+                break;
             } else {
                 io.print("Tuntematon komento.");
+                break;
             }
         }
     }
