@@ -49,8 +49,8 @@ public class Book implements Suggestion{
     
     @Override
     public String toString() {
-        return "Nimi: " + details.get("nimi") + "\nkirjoittaja: " 
-                + details.get("kirjoittaja") + "\nsivumäärä: " 
+        return "Tyyppi: Kirja" + "\nNimi: " + details.get("nimi") + "\nKirjoittaja: " 
+                + details.get("kirjoittaja") + "\nSivumäärä: " 
                 + details.get("sivumäärä");
     }
     

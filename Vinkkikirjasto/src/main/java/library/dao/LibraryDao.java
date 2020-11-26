@@ -10,7 +10,7 @@ public interface LibraryDao {
     // Returns true, jos lisäys onnistui, muuten false
     public boolean add(Suggestion suggestion);
     
-    List<Suggestion> getBooks();
+    List<Book> getBooks();
     
-    List<Suggestion> getArticles();
+    List<Article> getArticles();
 }

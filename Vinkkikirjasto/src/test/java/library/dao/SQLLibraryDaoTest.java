@@ -47,7 +47,7 @@ public class SQLLibraryDaoTest {
         book.addDetail("kirjoittaja", "Test Author");
         book.addDetail("sivumäärä", "100");
         sqldao.add(book);
-        List<Suggestion> books = sqldao.getBooks();
+        List<Book> books = sqldao.getBooks();
         assertEquals("Test Name", books.get(0).getDetail("nimi"));
     }
 }

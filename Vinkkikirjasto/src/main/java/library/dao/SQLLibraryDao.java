@@ -163,17 +163,17 @@ public class SQLLibraryDao implements LibraryDao {
     }
     
     @Override
-    public List<Suggestion> getBooks() {
+    public List<Book> getBooks() {
         try {
             Connection conn = connect();
             
             PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
             ResultSet r = p.executeQuery();
             
-            List<Suggestion> books = null;
+            List<Book> books = null;
             
+            books = new ArrayList<>();
             while (r.next()) {
-                books = new ArrayList<>();
                 Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"));
                 books.add(book);
             }
@@ -189,17 +189,18 @@ public class SQLLibraryDao implements LibraryDao {
     }
     
     @Override
-    public List<Suggestion> getArticles() {
+    public List<Article> getArticles() {
         try {
             Connection conn = connect();
             
             PreparedStatement p = conn.prepareStatement("SELECT * From Article");
             ResultSet r = p.executeQuery();
             
-            List<Suggestion> articles = null;
+            List<Article> articles = null;
+            
+            articles = new ArrayList<>();
             
             while (r.next()) {
-                articles = new ArrayList<>();
                 Article article = new Article(r.getString("title"), r.getString("url"));
                 articles.add(article);
             }

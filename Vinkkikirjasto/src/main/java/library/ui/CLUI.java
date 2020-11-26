@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Properties;
 import library.dao.LibraryDao;
 import library.dao.SQLLibraryDao;
+import library.domain.Article;
 import library.io.*;
 import library.domain.Book;
 import library.domain.LibraryService;
@@ -135,6 +136,7 @@ public class CLUI {
 
         if (success) {
             io.print("Vinkki lisätty");
+            io.print("");
         } else {
             io.print("Vinkin lisäys epäonnistui");
         }
@@ -169,6 +171,7 @@ public class CLUI {
 
         if (success) {
             io.print("Vinkki lisätty");
+            io.print("");
         } else {
             io.print("Vinkin lisäys epäonnistui");
         }
@@ -185,12 +188,16 @@ public class CLUI {
     }
 
     private void listSuggestions() {
-        List<Suggestion> all = service.listSuggestions();
-        if (all == null) {
+        List<Book> books = service.listBooks();
+        List<Article> articles = service.listArticles();
+        if (books == null && articles == null) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
-            for (Suggestion suggestion: all) {
-                io.print(suggestion.toString() + "\n");
+            for (Book book: books) {
+                io.print(book.toString() + "\n");
+            }
+            for (Article article: articles) {
+                io.print(article.toString() + "\n");
             }
         }
     }

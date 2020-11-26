@@ -1,6 +1,8 @@
 package library.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import library.dao.LibraryDao;
 
 public class LibraryService {
@@ -15,12 +17,12 @@ public class LibraryService {
     
     public boolean add(String suggestionType, String[] detailTypes, String[] detailValues) {
         boolean success = false;
-        if (suggestionType.equals("Book")) {
+        if (suggestionType.equals("book")) {
             Suggestion book = new Book();
             book.addDetails(detailTypes, detailValues);
         
             success = libraryDao.add(book);
-        } else if (suggestionType.equals("Article")) {
+        } else if (suggestionType.equals("article")) {
             Suggestion article = new Article();
             article.addDetails(detailTypes, detailValues);
         
@@ -30,10 +32,11 @@ public class LibraryService {
         return success;
     }
     
-    public List<Suggestion> listSuggestions() {
-        List<Suggestion> books = libraryDao.getBooks();
-        List<Suggestion> articles = libraryDao.getArticles();
-        books.addAll(articles);
-        return books;
+    public List<Book> listBooks() {
+        return libraryDao.getBooks();
+    }
+    
+    public List<Article> listArticles() {
+        return libraryDao.getArticles();
     }
 }
