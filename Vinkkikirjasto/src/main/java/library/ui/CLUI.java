@@ -12,6 +12,7 @@ import library.dao.SQLLibraryDao;
 import library.io.*;
 import library.domain.Book;
 import library.domain.LibraryService;
+import library.domain.Suggestion;
 
 /**
  * Komentoriviä käyttävä UI. Ottaa IO:n ja LibraryServicen konstruktorin parametrina.
@@ -184,12 +185,12 @@ public class CLUI {
     }
 
     private void listSuggestions() {
-        List<Book> books = service.listSuggestions();
-        if (books == null) {
+        List<Suggestion> all = service.listSuggestions();
+        if (all == null) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
-            for (Book book: books) {
-                io.print(book.toString() + "\n");
+            for (Suggestion suggestion: all) {
+                io.print(suggestion.toString() + "\n");
             }
         }
     }

@@ -4,6 +4,7 @@ import java.sql.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import library.domain.Article;
 import library.domain.Book;
 import org.sqlite.SQLiteConfig;
 import library.domain.Suggestion;
@@ -162,14 +163,14 @@ public class SQLLibraryDao implements LibraryDao {
     }
     
     @Override
-    public List<Book> getBooks() {
+    public List<Suggestion> getBooks() {
         try {
             Connection conn = connect();
             
             PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
             ResultSet r = p.executeQuery();
             
-            List<Book> books = null;
+            List<Suggestion> books = null;
             
             while (r.next()) {
                 books = new ArrayList<>();
@@ -180,6 +181,32 @@ public class SQLLibraryDao implements LibraryDao {
             conn.close();
             
             return books;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return null;
+    }
+    
+    @Override
+    public List<Suggestion> getArticles() {
+        try {
+            Connection conn = connect();
+            
+            PreparedStatement p = conn.prepareStatement("SELECT * From Article");
+            ResultSet r = p.executeQuery();
+            
+            List<Suggestion> articles = null;
+            
+            while (r.next()) {
+                articles = new ArrayList<>();
+                Article article = new Article(r.getString("title"), r.getString("url"));
+                articles.add(article);
+            }
+            r.close();
+            conn.close();
+            
+            return articles;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -3,12 +3,14 @@ package library.dao;
 
 import library.domain.Suggestion;
 import java.util.*;
+import library.domain.Article;
 import library.domain.Book;
 
 public class InMemoryLibraryDao implements LibraryDao {
     
     List<Suggestion> suggestions;
-    List<Book> books;
+    List<Suggestion> books;
+    List<Suggestion> articles;
     
     public InMemoryLibraryDao() {
         suggestions = new ArrayList<>();
@@ -16,12 +18,22 @@ public class InMemoryLibraryDao implements LibraryDao {
     
     @Override
     public boolean add(Suggestion sug) {
-        if(books == null) {
-            books = new ArrayList<>();
+        if (sug.getType().equals("Book")) {
+            if (books == null) {
+                books = new ArrayList<>();
+            }
+            suggestions.add(sug);
+            books.add(new Book(sug.getDetail("nimi"), sug.getDetail("kirjoittaja"), Integer.parseInt(sug.getDetail("sivumäärä"))));
+            return true;
+        } else if (sug.getType().equals("Article")) {
+            if (articles == null) {
+                articles = new ArrayList<>();
+            }
+            suggestions.add(sug);
+            articles.add(new Article(sug.getDetail("nimi"), sug.getDetail("url")));
+            return true;
         }
-        suggestions.add(sug);
-        books.add(new Book(sug.getDetail("nimi"), sug.getDetail("kirjoittaja"), Integer.parseInt(sug.getDetail("sivumäärä"))));
-        return true;
+        return false;
     }
     
     public List<Suggestion> getSuggestions() {
@@ -29,7 +41,12 @@ public class InMemoryLibraryDao implements LibraryDao {
     }
     
     @Override
-    public List<Book> getBooks() {
+    public List<Suggestion> getBooks() {
         return books;
+    }
+    
+    @Override
+    public List<Suggestion> getArticles() {
+        return articles;
     }
 }

@@ -45,9 +45,8 @@ public class Article implements Suggestion {
     
     @Override
     public String toString() {
-        return "Nimi: " + details.get("nimi") + "\nkirjoittaja: " 
-                + details.get("kirjoittaja") + "\nsivumäärä: " 
-                + details.get("sivumäärä");
+        return "Nimi: " + details.get("nimi") + "\nUrl: " 
+                + details.get("url");
     }
     
     @Override

@@ -15,12 +15,12 @@ public class LibraryService {
     
     public boolean add(String suggestionType, String[] detailTypes, String[] detailValues) {
         boolean success = false;
-        if (suggestionType.equals("book")) {
+        if (suggestionType.equals("Book")) {
             Suggestion book = new Book();
             book.addDetails(detailTypes, detailValues);
         
             success = libraryDao.add(book);
-        } else if (suggestionType.equals("article")) {
+        } else if (suggestionType.equals("Article")) {
             Suggestion article = new Article();
             article.addDetails(detailTypes, detailValues);
         
@@ -30,8 +30,10 @@ public class LibraryService {
         return success;
     }
     
-    public List<Book> listSuggestions() {
-        List<Book> books = libraryDao.getBooks();
+    public List<Suggestion> listSuggestions() {
+        List<Suggestion> books = libraryDao.getBooks();
+        List<Suggestion> articles = libraryDao.getArticles();
+        books.addAll(articles);
         return books;
     }
 }
