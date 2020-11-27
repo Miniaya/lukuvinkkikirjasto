@@ -241,11 +241,15 @@ public class CLUI {
         if (books == null && articles == null) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
-            for (Book book: books) {
-                io.print(book.toString() + "\n");
+            if (books != null) {
+                for (Book book: books) {
+                    io.print(book.toString() + "\n");
+                }
             }
-            for (Article article: articles) {
-                io.print(article.toString() + "\n");
+            if (articles != null) {
+                for (Article article: articles) {
+                    io.print(article.toString() + "\n");
+                }
             }
         }
     }

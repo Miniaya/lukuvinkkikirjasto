@@ -34,6 +34,7 @@ public class CLUITest {
     @Test
     public void addingBookWithValidInformationWorks() {
         input.add("uusi");
+        input.add("kirja");
         input.add("Kotkanpesä");
         input.add("Ilkka Remes");
         input.add("450");
@@ -48,6 +49,7 @@ public class CLUITest {
     @Test
     public void addingBookWithInvalidPageNumberDoesntWork() {
         input.add("uusi");
+        input.add("kirja");
         input.add("Vahtisokeat");
         input.add("Tuuli Rannikko");
         input.add("ASO");
@@ -63,6 +65,7 @@ public class CLUITest {
     @Test
     public void addingBookWithNegativePageNumberDoesntWork() {
         input.add("uusi");
+        input.add("kirja");
         input.add("Pikkuveli");
         input.add("PMMP");
         input.add("-50");
@@ -78,6 +81,7 @@ public class CLUITest {
     @Test
     public void addedBookCanBeListed() {
         input.add("uusi");
+        input.add("kirja");
         input.add("Hulabaloo");
         input.add("Piraatit");
         input.add("250");
@@ -87,7 +91,7 @@ public class CLUITest {
         io.setInputs(input);
         
         ui.init();
-        assertTrue(io.getPrints().contains("Nimi: Hulabaloo\nkirjoittaja: Piraatit\nsivumäärä: 250\n"));
+        assertTrue(io.getPrints().contains("Tyyppi: Kirja\nNimi: Hulabaloo\nKirjoittaja: Piraatit\nSivumäärä: 250\n"));
     }
     
     @Test
