@@ -32,7 +32,7 @@ public class SQLLibraryDaoTest {
     
     @Test
     public void addingSuggestionsToDatabaseWorks() {
-        sqldao = new SQLLibraryDao("lisaystestiDB");
+        sqldao = new SQLLibraryDao("lisaystesti.db");
         Suggestion book = new Book();
         book.addDetail("nimi", "Test Name");
         book.addDetail("kirjoittaja", "Test Author");
