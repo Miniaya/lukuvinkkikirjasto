@@ -163,6 +163,12 @@ public class SQLLibraryDao implements LibraryDao {
     }
     
     @Override
+    public boolean remove(String name, String type) {
+        // TODO tänne poiston toteutus sql:ssä
+        return false;
+    }
+    
+    @Override
     public List<Book> getBooks() {
         try {
             Connection conn = connect();

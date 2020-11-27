@@ -32,6 +32,10 @@ public class LibraryService {
         return success;
     }
     
+    public boolean remove(String name, String type) {
+        return false;
+    }
+    
     public List<Book> listBooks() {
         return libraryDao.getBooks();
     }

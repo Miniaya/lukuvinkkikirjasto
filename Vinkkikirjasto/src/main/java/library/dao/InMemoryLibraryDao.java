@@ -37,6 +37,12 @@ public class InMemoryLibraryDao implements LibraryDao {
     }
     
     @Override
+    public boolean remove(String name, String type) {
+        // tee tämä jos tarpeen
+        return false;
+    }
+    
+    @Override
     public List<Book> getBooks() {
         return books;
     }

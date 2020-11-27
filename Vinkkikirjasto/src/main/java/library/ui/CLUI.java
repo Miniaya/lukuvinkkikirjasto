@@ -49,6 +49,7 @@ public class CLUI {
 
         // Lisätään toteutetut komennot commands-listaan.
         commands.add("uusi - lisää uuden vinkin");
+        commands.add("poista - poista olemassaoleva vinkki");
         commands.add("listaa - listaa vinkit");
         commands.add("sulje - sulkee ohjelman");
         commands.add("help - tulostaa komennot");
@@ -68,6 +69,9 @@ public class CLUI {
             switch (command) {
                 case "uusi":
                     add();
+                    break;
+                case "poista":
+                    remove();
                     break;
                 case "listaa":
                     listSuggestions();
@@ -95,7 +99,6 @@ public class CLUI {
     private void add() {
 
         while (true) {
-            String suggestionType = "";
             String in = io.readLine("Lisää kirja komennolla kirja tai artikkeli komennolla artikkeli.");
             if (in.equals("kirja")) {
                 addBook();
@@ -178,6 +181,39 @@ public class CLUI {
         } else {
             io.print("Vinkin lisäys epäonnistui");
         }
+    }
+    
+    private void remove() {
+        String in = io.readLine("Mitä poistetaan? (kirja/artikkeli)");
+        while(true)
+        if (in.equals("kirja")) {
+            removeBook();
+            break;
+        } else if (in.equals("artikkeli")) {
+            removeArticle();
+            break;
+        } else if (in.equals("")) {
+            break;
+        } else {
+            in = io.readLine("Tuntematon. Anna poistettava tyyppi (kirja / artikkeli). Tyhjä peruuttaa.");
+        }
+    }
+    
+    private void removeBook() {
+        String name = io.readLine("Anna kirjan nimi: ");
+        if (service.remove(name, "book")) {
+            io.print("Kirja " + name + " poistettu vinkkikirjastosta.");
+        } else {
+            io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
+            String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+            if (in.equals("k")) {
+                removeBook();
+            }
+        }
+    }
+    
+    private void removeArticle() {
+        
     }
 
     private boolean checkType(String input, int index) {
