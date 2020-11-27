@@ -213,7 +213,16 @@ public class CLUI {
     }
     
     private void removeArticle() {
-        
+        String name = io.readLine("Anna artikkelin otsikko:");
+        if (service.remove(name, "article")) {
+            io.print("Artikkeli " + name + "poistettu vinkkikirjastosta.");
+        } else {
+            io.print("Virhe. Tarkista, että kirjoitit otsikon oikein.");
+            String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+            if (in.equals("k")) {
+                removeArticle();
+            }
+        }
     }
 
     private boolean checkType(String input, int index) {

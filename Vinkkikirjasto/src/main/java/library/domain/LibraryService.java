@@ -33,7 +33,7 @@ public class LibraryService {
     }
     
     public boolean remove(String name, String type) {
-        return false;
+        return libraryDao.remove(name, type);
     }
     
     public List<Book> listBooks() {
