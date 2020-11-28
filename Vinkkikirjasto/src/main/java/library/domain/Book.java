@@ -11,12 +11,13 @@ public class Book implements Suggestion{
     private String[] detailTypes;
     private HashMap<String, String> details;
     
-    public Book(String name, String author, int pages) {
-        this.detailTypes = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
+    public Book(String name, String author, int pages, double read) {
+        this.detailTypes = new String[]{"nimi", "kirjoittaja", "sivumäärä", "luettu"};
         this.details = new HashMap<>();
         details.put("nimi", name);
         details.put("kirjoittaja", author);
         details.put("sivumäärä", Integer.toString(pages));
+        details.put("luettu", Double.toString(read));
     }
     
     public Book() {
@@ -34,6 +35,10 @@ public class Book implements Suggestion{
     public void setPages(int pages) {
         details.put("sivumäärä", Integer.toString(pages));
     }
+    
+    public void setRead(double read) {
+        details.put("luettu", Double.toString(read));
+    }
 
     public String getName() {
         return details.get("nimi");
@@ -47,11 +52,17 @@ public class Book implements Suggestion{
         return Integer.valueOf(details.get("sivumäärä"));
     }
     
+    public double getRead() {
+        return Double.valueOf(details.get("luettu"));
+    }
+    
     @Override
     public String toString() {
-        return "Tyyppi: Kirja" + "\nNimi: " + details.get("nimi") + "\nKirjoittaja: " 
-                + details.get("kirjoittaja") + "\nSivumäärä: " 
-                + details.get("sivumäärä");
+        return "Tyyppi: Kirja" 
+                + "\nNimi: " + details.get("nimi") 
+                + "\nKirjoittaja: "  + details.get("kirjoittaja") 
+                + "\nSivumäärä: " + details.get("sivumäärä")
+                + "\nLuettu: " + details.get("luettu") + "%";
     }
     
     @Override

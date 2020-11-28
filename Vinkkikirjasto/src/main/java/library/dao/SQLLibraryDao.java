@@ -56,8 +56,9 @@ public class SQLLibraryDao implements LibraryDao {
             s.execute("CREATE TABLE Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "author_id INTEGER REFERENCES Author, "
-                    + "pages VARCHAR, "
-                    + "time_of_adding DATE,"
+                    + "pages INTEGER, "
+                    + "pages_read INTEGER DEFAULT 0, "
+                    + "time_of_adding DATE, "
                     + "time_of_modifying DATE)");
             s.execute("DROP TABLE IF EXISTS Article;");
             s.execute("CREATE TABLE Article (id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -225,13 +226,14 @@ public class SQLLibraryDao implements LibraryDao {
         try {
             Connection conn = connect();
             
-            PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
+            PreparedStatement p = conn.prepareStatement("SELECT B.title, A.name, B.pages, ROUND(((CAST(B.pages_read AS float)/B.pages)*100), 1) AS percentage "
+                    + "From Book B LEFT JOIN Author A WHERE B.author_id=A.id;");
             ResultSet r = p.executeQuery();
             
             List<Book> books = new ArrayList<>();
             
             while (r.next()) {
-                Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"));
+                Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"), r.getDouble("percentage"));
                 books.add(book);
             }
             r.close();

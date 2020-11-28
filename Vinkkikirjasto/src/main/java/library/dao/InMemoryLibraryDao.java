@@ -23,7 +23,7 @@ public class InMemoryLibraryDao implements LibraryDao {
                 books = new ArrayList<>();
             }
             suggestions.add(sug);
-            books.add(new Book(sug.getDetail("nimi"), sug.getDetail("kirjoittaja"), Integer.parseInt(sug.getDetail("sivumäärä"))));
+            books.add(new Book(sug.getDetail("nimi"), sug.getDetail("kirjoittaja"), Integer.parseInt(sug.getDetail("sivumäärä")), 0));
             return true;
         } else if (sug.getType().equals("Article")) {
             if (articles == null) {
