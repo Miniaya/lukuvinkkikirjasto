@@ -121,6 +121,9 @@ public class SQLLibraryDao implements LibraryDao {
             p.executeUpdate();
             
             s.execute("COMMIT");
+            
+            s.close();
+            p.close();
             conn.close();
                     
             return true;
@@ -266,5 +269,23 @@ public class SQLLibraryDao implements LibraryDao {
         }
         
         return null;
+    }
+    
+    public void clearDatabase() {
+        try {
+            Connection conn = connect();
+            
+            Statement s = conn.createStatement();
+            
+            s.execute("DELETE FROM Author");
+            s.execute("DELETE FROM Book");
+            s.execute("DELETE FROM Article");
+            
+            s.close();
+            conn.close();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
