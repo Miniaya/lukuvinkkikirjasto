@@ -151,6 +151,9 @@ public class SQLLibraryDao implements LibraryDao {
             p.executeUpdate();
             
             s.execute("COMMIT");
+            
+            s.close();
+            p.close();
             conn.close();
                     
             return true;
@@ -164,8 +167,54 @@ public class SQLLibraryDao implements LibraryDao {
     
     @Override
     public boolean remove(String name, String type) {
-        // TODO tänne poiston toteutus sql:ssä
+        
+        if (type.equals("book")) {
+            return removeBook(name);
+        } else if (type.equals("article")) {
+            return removeArticle(name);
+        }
+        
         return false;
+    }
+    
+    private boolean removeBook(String name) {
+        try {
+            Connection conn = connect();
+            
+            PreparedStatement p = conn.prepareStatement("DELETE FROM Book WHERE title = ?");
+            p.setString(1, name);
+            
+            p.executeUpdate();
+            
+            p.close();
+            conn.close();
+            
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    private boolean removeArticle(String name) {
+        try {
+            Connection conn = connect();
+            
+            PreparedStatement p = conn.prepareStatement("DELETE FROM Article WHERE title = ?");
+            p.setString(1, name);
+            
+            p.executeUpdate();
+            
+            p.close();
+            conn.close();
+            
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
     
     @Override
@@ -176,9 +225,8 @@ public class SQLLibraryDao implements LibraryDao {
             PreparedStatement p = conn.prepareStatement("SELECT * From Book LEFT JOIN Author WHERE Book.author_id=Author.id");
             ResultSet r = p.executeQuery();
             
-            List<Book> books = null;
+            List<Book> books = new ArrayList<>();
             
-            books = new ArrayList<>();
             while (r.next()) {
                 Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"));
                 books.add(book);
@@ -202,11 +250,10 @@ public class SQLLibraryDao implements LibraryDao {
             PreparedStatement p = conn.prepareStatement("SELECT * From Article");
             ResultSet r = p.executeQuery();
             
-            List<Article> articles = null;
-            
-            articles = new ArrayList<>();
+            List<Article> articles = new ArrayList<>();
             
             while (r.next()) {
+                articles = new ArrayList<>();
                 Article article = new Article(r.getString("title"), r.getString("url"));
                 articles.add(article);
             }

@@ -185,6 +185,7 @@ public class CLUI {
     
     private void remove() {
         String in = io.readLine("Mitä poistetaan? (kirja/artikkeli)");
+        io.print("");
         while(true)
         if (in.equals("kirja")) {
             removeBook();
@@ -196,11 +197,13 @@ public class CLUI {
             break;
         } else {
             in = io.readLine("Tuntematon. Anna poistettava tyyppi (kirja / artikkeli). Tyhjä peruuttaa.");
+            io.print("");
         }
     }
     
     private void removeBook() {
         String name = io.readLine("Anna kirjan nimi: ");
+        io.print("");
         if (service.remove(name, "book")) {
             io.print("Kirja " + name + " poistettu vinkkikirjastosta.");
         } else {
@@ -214,8 +217,9 @@ public class CLUI {
     
     private void removeArticle() {
         String name = io.readLine("Anna artikkelin otsikko:");
+        io.print("");
         if (service.remove(name, "article")) {
-            io.print("Artikkeli " + name + "poistettu vinkkikirjastosta.");
+            io.print("Artikkeli " + name + " poistettu vinkkikirjastosta.");
         } else {
             io.print("Virhe. Tarkista, että kirjoitit otsikon oikein.");
             String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
@@ -238,7 +242,7 @@ public class CLUI {
     private void listSuggestions() {
         List<Book> books = service.listBooks();
         List<Article> articles = service.listArticles();
-        if (books == null && articles == null) {
+        if ((books == null && articles == null) || (books.isEmpty() && articles.isEmpty())) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
             if (books != null) {
