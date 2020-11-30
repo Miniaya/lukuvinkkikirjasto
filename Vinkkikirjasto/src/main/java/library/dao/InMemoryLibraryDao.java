@@ -1,4 +1,3 @@
-
 package library.dao;
 
 import library.domain.Suggestion;
@@ -7,15 +6,15 @@ import library.domain.Article;
 import library.domain.Book;
 
 public class InMemoryLibraryDao implements LibraryDao {
-    
+
     List<Suggestion> suggestions;
     List<Book> books;
     List<Article> articles;
-    
+
     public InMemoryLibraryDao() {
         suggestions = new ArrayList<>();
     }
-    
+
     @Override
     public boolean add(Suggestion sug) {
         if (sug.getType().equals("Book")) {
@@ -35,18 +34,23 @@ public class InMemoryLibraryDao implements LibraryDao {
         }
         return false;
     }
-    
+
     @Override
     public boolean remove(String name, String type) {
         // tee tämä jos tarpeen
         return false;
     }
-    
+
+    @Override
+    public boolean update(String type, String name, String pages) {
+        return false;
+    }
+
     @Override
     public List<Book> getBooks() {
         return books;
     }
-    
+
     @Override
     public List<Article> getArticles() {
         return articles;

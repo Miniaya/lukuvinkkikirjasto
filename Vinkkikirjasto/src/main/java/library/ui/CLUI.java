@@ -16,9 +16,9 @@ import library.domain.LibraryService;
 import library.domain.Suggestion;
 
 /**
- * Komentoriviä käyttävä UI. Ottaa IO:n ja LibraryServicen konstruktorin parametrina.
- * Tulostukset ja syötteet toteuteaan IO-oliolla.
- * LibraryService vastaa sovelluslogiikasta.
+ * Komentoriviä käyttävä UI. Ottaa IO:n ja LibraryServicen konstruktorin
+ * parametrina. Tulostukset ja syötteet toteuteaan IO-oliolla. LibraryService
+ * vastaa sovelluslogiikasta.
  */
 public class CLUI {
 
@@ -51,6 +51,7 @@ public class CLUI {
         commands.add("uusi - lisää uuden vinkin");
         commands.add("poista - poista olemassaoleva vinkki");
         commands.add("listaa - listaa vinkit");
+        commands.add("muokkaa - päivitä tietokannan tietoja");
         commands.add("sulje - sulkee ohjelman");
         commands.add("help - tulostaa komennot");
         // Laitetaan komennot aakkosjärjestykseen
@@ -75,6 +76,9 @@ public class CLUI {
                     break;
                 case "listaa":
                     listSuggestions();
+                    break;
+                case "muokkaa":
+                    update();
                     break;
                 case "sulje":
                     io.print("Suljetaan Lukuvinkit");
@@ -112,9 +116,9 @@ public class CLUI {
             }
         }
     }
-        
+
     private void addBook() {
-                             
+
         String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
         ArrayList<String> input = new ArrayList<>();
 
@@ -122,7 +126,6 @@ public class CLUI {
 //            input.add(io.readLine("Anna kirjan " + detail + ": "));
 //            io.print("");
 //        }
-        
         boolean correctType;
         for (int i = 0; i < details.length; i++) {
             correctType = false;
@@ -147,9 +150,9 @@ public class CLUI {
             io.print("Vinkin lisäys epäonnistui");
         }
     }
-    
+
     private void addArticle() {
-                             
+
         String[] details = new String[]{"nimi", "url"};
         ArrayList<String> input = new ArrayList<>();
 
@@ -157,7 +160,6 @@ public class CLUI {
 //            input.add(io.readLine("Anna kirjan " + detail + ": "));
 //            io.print("");
 //        }
-        
         boolean correctType;
         for (int i = 0; i < details.length; i++) {
             correctType = false;
@@ -182,25 +184,26 @@ public class CLUI {
             io.print("Vinkin lisäys epäonnistui");
         }
     }
-    
+
     private void remove() {
         String in = io.readLine("Mitä poistetaan? (kirja/artikkeli)");
         io.print("");
-        while(true)
-        if (in.equals("kirja")) {
-            removeBook();
-            break;
-        } else if (in.equals("artikkeli")) {
-            removeArticle();
-            break;
-        } else if (in.equals("")) {
-            break;
-        } else {
-            in = io.readLine("Tuntematon. Anna poistettava tyyppi (kirja / artikkeli). Tyhjä peruuttaa.");
-            io.print("");
+        while (true) {
+            if (in.equals("kirja")) {
+                removeBook();
+                break;
+            } else if (in.equals("artikkeli")) {
+                removeArticle();
+                break;
+            } else if (in.equals("")) {
+                break;
+            } else {
+                in = io.readLine("Tuntematon. Anna poistettava tyyppi (kirja / artikkeli). Tyhjä peruuttaa.");
+                io.print("");
+            }
         }
     }
-    
+
     private void removeBook() {
         String name = io.readLine("Anna kirjan nimi: ");
         io.print("");
@@ -214,7 +217,7 @@ public class CLUI {
             }
         }
     }
-    
+
     private void removeArticle() {
         String name = io.readLine("Anna artikkelin otsikko:");
         io.print("");
@@ -246,14 +249,38 @@ public class CLUI {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
             if (books != null) {
-                for (Book book: books) {
+                for (Book book : books) {
                     io.print(book.toString() + "\n");
                 }
             }
             if (articles != null) {
-                for (Article article: articles) {
+                for (Article article : articles) {
                     io.print(article.toString() + "\n");
                 }
+            }
+        }
+    }
+
+    private void update() {
+//pystyy lisää muuta muokattavaa myöhemmin
+//        String in = io.readLine("Mitä muokataan? (kirja/artikkeli)");
+//        io.print("");
+        updateReadPages();
+    }
+
+    private void updateReadPages() {
+        io.print("Muokataan kirjan luettua sivumäärää");
+        String name = io.readLine("Anna kirjan nimi: ");
+        io.print("");
+        String pages = io.readLine("Anna luettu sivumäärä ");
+        io.print("");
+        if (service.update("book", name, pages)) {
+            io.print("Luettu sivumäärä päivitetty.");
+        } else {
+            io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
+            String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+            if (in.equals("k")) {
+                updateReadPages();
             }
         }
     }

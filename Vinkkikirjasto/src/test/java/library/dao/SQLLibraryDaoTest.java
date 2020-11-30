@@ -87,6 +87,12 @@ public class SQLLibraryDaoTest {
         assertFalse(removed);
     }
     
+    @Test
+    public void updatingReadPagesWorks(){
+        boolean updated = sqldao.update("book", "Test Book", "10");
+        assertTrue(updated);
+    }
+    
     @After
     public void tearDown() {
         sqldao.clearDatabase();
