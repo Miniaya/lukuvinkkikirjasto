@@ -123,6 +123,7 @@ public class SQLLibraryDao implements LibraryDao {
 
             s.execute("COMMIT");
 
+            r.close();
             s.close();
             p.close();
             conn.close();
@@ -184,8 +185,17 @@ public class SQLLibraryDao implements LibraryDao {
     private boolean removeBook(String name) {
         try {
             Connection conn = connect();
+            
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM Book WHERE title = ?");
+            p.setString(1, name);
+            
+            ResultSet r = p.executeQuery();
+            
+            if (!r.next()) {
+                return false;
+            }
 
-            PreparedStatement p = conn.prepareStatement("DELETE FROM Book WHERE title = ?");
+            p = conn.prepareStatement("DELETE FROM Book WHERE title = ?");
             p.setString(1, name);
 
             p.executeUpdate();
@@ -204,8 +214,17 @@ public class SQLLibraryDao implements LibraryDao {
     private boolean removeArticle(String name) {
         try {
             Connection conn = connect();
+            
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM Article WHERE title = ?");
+            p.setString(1, name);
+            
+            ResultSet r = p.executeQuery();
+            
+            if (!r.next()) {
+                return false;
+            }
 
-            PreparedStatement p = conn.prepareStatement("DELETE FROM Article WHERE title = ?");
+            p = conn.prepareStatement("DELETE FROM Article WHERE title = ?");
             p.setString(1, name);
 
             p.executeUpdate();
