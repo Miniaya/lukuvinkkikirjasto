@@ -10,6 +10,10 @@ public class Book implements Suggestion{
     
     private String[] detailTypes;
     private HashMap<String, String> details;
+    private String RED = "\033[0;31m";     // RED
+    private String GREEN = "\033[0;32m";   // GREEN
+    private String YELLOW = "\033[0;33m";  // YELLOW
+    private String RESET = "\033[0m";  // RESET
     
     public Book(String name, String author, int pages, double read) {
         this.detailTypes = new String[]{"nimi", "kirjoittaja", "sivumäärä", "luettu"};
@@ -58,11 +62,19 @@ public class Book implements Suggestion{
     
     @Override
     public String toString() {
+        String prosentti = details.get("luettu");
+        if (prosentti == "100") {
+            prosentti = GREEN + prosentti + "%" + RESET;
+        } else if (Double.valueOf(prosentti) > 0) {
+            prosentti = YELLOW + prosentti + "%" + RESET;
+        } else {
+            prosentti = RED + prosentti + "%" + RESET;
+        }
         return "Tyyppi: Kirja" 
                 + "\nNimi: " + details.get("nimi") 
                 + "\nKirjoittaja: "  + details.get("kirjoittaja") 
                 + "\nSivumäärä: " + details.get("sivumäärä")
-                + "\nLuettu: " + details.get("luettu") + "%";
+                + "\nLuettu: " + prosentti;
     }
     
     @Override
