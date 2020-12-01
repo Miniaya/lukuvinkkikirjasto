@@ -63,7 +63,7 @@ public class Book implements Suggestion{
     @Override
     public String toString() {
         String prosentti = details.get("luettu");
-        if (prosentti == "100") {
+        if (Double.valueOf(prosentti) >= 100) {
             prosentti = GREEN + prosentti + "%" + RESET;
         } else if (Double.valueOf(prosentti) > 0) {
             prosentti = YELLOW + prosentti + "%" + RESET;
