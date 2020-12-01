@@ -1,5 +1,4 @@
 # VINKKIKIRJASTO
-
 ![GitHub Actions](https://github.com/Miniaya/lukuvinkkikirjasto/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![codecov](https://codecov.io/gh/Miniaya/lukuvinkkikirjasto/branch/main/graph/badge.svg?token=M85UDMO56Y)](https://codecov.io/gh/Miniaya/lukuvinkkikirjasto)
 
@@ -13,14 +12,33 @@ Löydät lisämateriaalit ja käyttöohjeen alta.
 - [GitHub Actions](https://github.com/Miniaya/lukuvinkkikirjasto/actions)
 
 ## KÄYTTÖOHJE
+Asenna sovellus **release**-sivulta.
+Pura tiedosto.
+Siirry kansioon ja käynnistä sovellus komentoriviltä komennolla:
+- `./gradlew run --console=plain` tai `gradle run`
 
-Asenna sovellus.
 
-Käynnistys komentoriviltä komennolla:
-- `./gradlew run --console=plain` 
-
-
-Ohjelman komennot:
+## KOMENNOT
 - `help` - listaa kaikki komennot
-- `uusi` - lisää uusi vinkki
+
+Tällä komennolla voit nähdä kaikki mahdolliset toiminnot.
+
+- `listaa` - listaa kaikki vinkit
+
+Näet kaikki sovellukseen lisätyt vinkit. Kirjoissa näet kirjan nimen, kirjoittajan, sivumäärän ja lukemasi prosentin. Artikkeleista näet nimen ja URLin.
+
+- `muokkaa` - päivitä vinkkiä
+
+Tällä hetkellä voit lisätä kirjavinkkeihin luetun sivumäärän ja päivittää sitä.
+
+- `poista` - poista vinkki
+
+Voit poistaa vinkin kirjastosta.
+
 - `sulje` - sulje sovellus
+
+Sulkee sovelluksen. Kaikki antamasi vinkit säilyvät sovelluksessa.
+
+- `uusi` - lisää uusi vinkki, joko kirja tai artikkeli
+
+Lisää uusi vinkki kirjastoon. Spesifioi, haluatko lisätä kirjan vai artikkelin, ja anna sitten pyydetty info.
