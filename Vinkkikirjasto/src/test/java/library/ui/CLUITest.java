@@ -6,7 +6,7 @@ import java.util.List;
 
 import library.dao.InMemoryLibraryDao;
 import library.dao.LibraryDao;
-import library.domain.LibraryService;
+import library.domain.*;
 import library.io.IO;
 import library.io.StubIO;
 
@@ -33,16 +33,10 @@ public class CLUITest {
     
     @Test
     public void addingBookWithValidInformationWorks() {
-        input.add("uusi");
-        input.add("kirja");
-        input.add("Kotkanpesä");
-        input.add("Ilkka Remes");
-        input.add("450");
+        this.inputBookKotkanpesa();
         input.add("sulje");
         
-        io.setInputs(input);
-        
-        ui.init();
+        this.runClui();
         assertTrue(io.getPrints().contains("Vinkki lisätty"));
     }
     
@@ -56,9 +50,7 @@ public class CLUITest {
         input.add("530");
         input.add("sulje");
         
-        io.setInputs(input);
-        
-        ui.init();
+        this.runClui();
         assertTrue(io.getPrints().contains("Syötä sivumäärä uudelleen. Varmista, että nimessä ja kirjoittajassa ei numeroita, sekä sivumäärässä kirjaimia "));
     }
     
@@ -72,9 +64,7 @@ public class CLUITest {
         input.add("50");
         input.add("sulje");
         
-        io.setInputs(input);
-        
-        ui.init();
+        this.runClui();
         assertTrue(io.getPrints().contains("Syötä sivumäärä uudelleen. Varmista, että nimessä ja kirjoittajassa ei numeroita, sekä sivumäärässä kirjaimia "));
     }
     
@@ -87,11 +77,9 @@ public class CLUITest {
         input.add("250");
         input.add("listaa");
         input.add("sulje");
-        
-        io.setInputs(input);
-        
-        ui.init();
-        assertTrue(io.getPrints().contains("Tyyppi: Kirja\nNimi: Hulabaloo\nKirjoittaja: Piraatit\nSivumäärä: 250\nLuettu: 0.0%\n"));
+        Book b = new Book("Hulabaloo", "Piraatit", 250, 0.0);
+        this.runClui();
+        assertTrue(io.getPrints().contains(b.toString() + "\n"));
     }
     
     @Test
@@ -99,9 +87,7 @@ public class CLUITest {
         input.add("listaa");
         input.add("sulje");
         
-        io.setInputs(input);
-        
-        ui.init();
+        this.runClui();
         assertTrue(io.getPrints().contains("Vinkkikirjastossa ei ole vielä vinkkejä."));
     }
     
@@ -110,9 +96,7 @@ public class CLUITest {
         input.add("help");
         input.add("sulje");
         
-        io.setInputs(input);
-        
-        ui.init();
+        this.runClui();
         assertFalse(io.getPrints().indexOf("Komennot:") == io.getPrints().lastIndexOf("Komennot:"));
     }
     
@@ -121,9 +105,68 @@ public class CLUITest {
         input.add("ussi");
         input.add("sulje");
         
-        io.setInputs(input);
-        
-        ui.init();
+        this.runClui();
         assertTrue(io.getPrints().contains("Tuntematon komento. Komento \"help\" näyttää sallitut komennot."));
+    }
+    
+    @Test
+    public void deletingBookWorks() {
+        this.inputBookKotkanpesa();
+        input.add("poista");
+        input.add("kirja");
+        input.add("Kotkanpesä");
+        input.add("sulje");
+        
+        this.runClui();
+        assertTrue(io.getPrints().contains("Vinkki lisätty"));
+        assertTrue(io.getPrints().contains("Kirja Kotkanpesä poistettu vinkkikirjastosta."));
+        
+    }
+    
+    @Test
+    public void deletingArticleWorks() {
+        this.inputArticleOhtu();
+        input.add("poista");
+        input.add("artikkeli");
+        input.add("Ohtumateriaali");
+        input.add("sulje");
+        
+        this.runClui();
+        assertTrue(io.getPrints().contains("Vinkki lisätty"));
+        assertTrue(io.getPrints().contains("Artikkeli Ohtumateriaali poistettu vinkkikirjastosta."));
+    }
+    
+    @Test
+    public void deletingNonexistentDoesntDeleteAnything() {
+        this.inputArticleOhtu();
+        this.inputBookKotkanpesa();
+        input.add("poista");
+        input.add("kirja");
+        input.add("Sanakirja");
+        input.add("e");
+        input.add("sulje");
+        
+        this.runClui();
+        assertTrue(io.getPrints().contains("Virhe. Tarkista, että kirjoitit nimen oikein.")); 
+    }
+    
+    private void inputBookKotkanpesa() {
+        input.add("uusi");
+        input.add("kirja");
+        input.add("Kotkanpesä");
+        input.add("Ilkka Remes");
+        input.add("450");
+    }
+    
+    private void inputArticleOhtu() {
+        input.add("uusi");
+        input.add("artikkeli");
+        input.add("Ohtumateriaali");
+        input.add("https://ohjelmistotuotanto-hy.github.io/");
+    }
+    
+    private void runClui() {
+        io.setInputs(input);
+        ui.init();
     }
 }

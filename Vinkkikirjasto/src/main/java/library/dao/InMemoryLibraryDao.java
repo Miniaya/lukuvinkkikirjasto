@@ -37,8 +37,31 @@ public class InMemoryLibraryDao implements LibraryDao {
 
     @Override
     public boolean remove(String name, String type) {
-        // tee tämä jos tarpeen
-        return false;
+        boolean removed = false;
+        ArrayList<Suggestion> toRemove = new ArrayList<>();
+        if (type.equals("book")) {
+            for (Book book: books) {
+                if (book.getName().equals(name)) {
+                    toRemove.add(book);
+                    removed = true;
+                }
+            }
+            for (Suggestion s: toRemove) {
+                books.remove((Book) s);
+            }
+            toRemove.clear();
+        } else if (type.equals("article")) {
+            for (Article article: articles) {
+                if (article.getName().equals(name)) {
+                    toRemove.add(article);
+                    removed = true;
+                }
+            }
+            for (Suggestion s: toRemove) {
+                articles.remove((Article) s);
+            }
+        }
+        return removed;
     }
 
     @Override
