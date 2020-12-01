@@ -12,8 +12,10 @@ Löydät lisämateriaalit ja käyttöohjeen alta.
 - [GitHub Actions](https://github.com/Miniaya/lukuvinkkikirjasto/actions)
 
 ## KÄYTTÖOHJE
-Asenna sovellus **release**-sivulta.
+Asenna sovellus [release](https://github.com/Miniaya/lukuvinkkikirjasto/releases)-sivulta.
+
 Pura tiedosto.
+
 Siirry kansioon ja käynnistä sovellus komentoriviltä komennolla:
 - `./gradlew run --console=plain` tai `gradle run`
 
