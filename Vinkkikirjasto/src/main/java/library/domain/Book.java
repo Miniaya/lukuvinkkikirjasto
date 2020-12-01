@@ -59,10 +59,8 @@ public class Book implements Suggestion{
     public double getRead() {
         return Double.valueOf(details.get("luettu"));
     }
-    
-    @Override
-    public String toString() {
-        String prosentti = details.get("luettu");
+
+    public String getPercentColor(String prosentti) {
         if (Double.valueOf(prosentti) >= 100) {
             prosentti = GREEN + prosentti + "%" + RESET;
         } else if (Double.valueOf(prosentti) > 0) {
@@ -70,6 +68,13 @@ public class Book implements Suggestion{
         } else {
             prosentti = RED + prosentti + "%" + RESET;
         }
+        return prosentti;
+    }
+    
+    @Override
+    public String toString() {
+        String prosentti = details.get("luettu");
+        prosentti = getPercentColor(prosentti);
         return "Tyyppi: Kirja" 
                 + "\nNimi: " + details.get("nimi") 
                 + "\nKirjoittaja: "  + details.get("kirjoittaja") 
