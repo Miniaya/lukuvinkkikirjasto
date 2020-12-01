@@ -277,7 +277,7 @@ public class CLUI {
         if (service.update("book", name, pages)) {
             io.print("Luettu sivumäärä päivitetty.");
         } else {
-            io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
+            io.print("Virhe. Tarkista, että kirjoitit nimen oikein tai annoit oikean sivumäärän.");
             String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
             if (in.equals("k")) {
                 updateReadPages();

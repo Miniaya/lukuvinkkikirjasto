@@ -186,12 +186,22 @@ public class SQLLibraryDao implements LibraryDao {
         try {
             Connection conn = connect();
             
+            Statement s = conn.createStatement();
+            
+            s.execute("BEGIN TRANSACTION");
+            
             PreparedStatement p = conn.prepareStatement("SELECT * FROM Book WHERE title = ?");
             p.setString(1, name);
             
             ResultSet r = p.executeQuery();
             
             if (!r.next()) {
+                s.execute("COMMIT");
+                
+                s.close();
+                r.close();
+                p.close();
+                
                 return false;
             }
 
@@ -199,7 +209,11 @@ public class SQLLibraryDao implements LibraryDao {
             p.setString(1, name);
 
             p.executeUpdate();
+            
+            s.execute("COMMIT");
 
+            s.close();
+            r.close();
             p.close();
             conn.close();
 
@@ -214,6 +228,9 @@ public class SQLLibraryDao implements LibraryDao {
     private boolean removeArticle(String name) {
         try {
             Connection conn = connect();
+            Statement s = conn.createStatement();
+            
+            s.execute("BEGIN TRANSACTION");
             
             PreparedStatement p = conn.prepareStatement("SELECT * FROM Article WHERE title = ?");
             p.setString(1, name);
@@ -221,6 +238,12 @@ public class SQLLibraryDao implements LibraryDao {
             ResultSet r = p.executeQuery();
             
             if (!r.next()) {
+                s.execute("COMMIT");
+                
+                s.close();
+                r.close();
+                p.close();
+                
                 return false;
             }
 
@@ -228,7 +251,11 @@ public class SQLLibraryDao implements LibraryDao {
             p.setString(1, name);
 
             p.executeUpdate();
+            
+            s.execute("COMMIT");
 
+            s.close();
+            r.close();
             p.close();
             conn.close();
 
@@ -252,14 +279,37 @@ public class SQLLibraryDao implements LibraryDao {
     private boolean updateReadPages(String name, String pages) {
         try {
             Connection conn = connect();
+            
+            Statement s = conn.createStatement();
+            
+            s.execute("BEGIN TRANSACTION");
+            
+            PreparedStatement p = conn.prepareStatement("SELECT pages FROM Book WHERE title = ?");
+            p.setString(1, name);
+            
+            ResultSet r = p.executeQuery();
+            
+            if (!r.next() || r.getInt("pages") < Integer.valueOf(pages)) {
+                s.execute("COMMIT");
+                
+                s.close();
+                r.close();
+                p.close();
+                
+                return false;
+            }
 
-            PreparedStatement p = conn.prepareStatement("UPDATE Book SET pages_read = ? WHERE title = ?");
+            p = conn.prepareStatement("UPDATE Book SET pages_read = ? WHERE title = ?");
 
             p.setInt(1, Integer.valueOf(pages));
             p.setString(2, name);
 
             p.executeUpdate();
+            
+            s.execute("COMMIT");
 
+            s.close();
+            r.close();
             p.close();
             conn.close();
 
