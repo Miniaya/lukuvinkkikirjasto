@@ -1,5 +1,6 @@
 package library.domain;
 
+import java.util.ArrayList;
 import library.dao.InMemoryLibraryDao;
 import library.dao.LibraryDao;
 
@@ -25,7 +26,6 @@ public class LibraryServiceTest {
     
     @Test
     public void addingValidBookReturnsTrue() {
-        
     }
     
 }

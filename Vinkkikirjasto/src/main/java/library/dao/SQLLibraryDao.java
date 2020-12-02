@@ -182,7 +182,7 @@ public class SQLLibraryDao implements LibraryDao {
         return false;
     }
 
-    private boolean removeBook(String name) {
+    public boolean removeBook(String name) {
         try {
             Connection conn = connect();
             
@@ -225,7 +225,7 @@ public class SQLLibraryDao implements LibraryDao {
         }
     }
 
-    private boolean removeArticle(String name) {
+    public boolean removeArticle(String name) {
         try {
             Connection conn = connect();
             Statement s = conn.createStatement();

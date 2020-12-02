@@ -88,9 +88,29 @@ public class SQLLibraryDaoTest {
     }
     
     @Test
-    public void updatingReadPagesWorks(){
+    public void cantDeleteNonexistentBookOrArticle() {
+        boolean removedBook = sqldao.removeBook("Non Existent");
+        assertFalse(removedBook);
+        boolean removedArticle = sqldao.removeArticle("Non Existent");
+        assertFalse(removedArticle);
+    }
+    
+    @Test
+    public void updatingReadPagesWorks() {
         boolean updated = sqldao.update("book", "Test Book", "10");
         assertTrue(updated);
+    }
+    
+    @Test
+    public void updatingNonexistentBookDoesntWork() {
+        boolean updated = sqldao.update("book", "Non Existent", "100");
+        assertFalse(updated);
+    }
+    
+    @Test
+    public void updatingOnlyWorksForBooks() {
+        boolean updated = sqldao.update("article", "Article", "100");
+        assertFalse(updated);
     }
     
     @After
