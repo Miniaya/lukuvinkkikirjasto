@@ -206,7 +206,6 @@ public class Stepdefs {
                 result = true;
             }
         }
-//        result = true;
         assertTrue(result);
     }
 }
