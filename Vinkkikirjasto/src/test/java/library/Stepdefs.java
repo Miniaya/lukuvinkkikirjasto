@@ -45,6 +45,11 @@ public class Stepdefs {
     public void correctArticleSaved(String title, String url) {
         library.add("article", new String[]{"nimi", "url"}, new String[]{title, url});
     }
+    
+    @Given ("command listaa is selected")
+    public void commandListaaIsSelected() {
+        input.add("listaa");
+    }
 
     @When("correct book information is given")
     public void correctBookInfoGiven() {
@@ -154,5 +159,54 @@ public class Stepdefs {
         io.setInputs(input);
         ui.init();
         assertTrue(io.getPrints().contains("Luettu sivumäärä päivitetty."));
+    }
+    
+    @Then("number of pages read are displayed in red")
+    public void pagesDisplayedRed() {
+        input.add("sulje");
+        
+        io.setInputs(input);
+        ui.init();
+        boolean result = false;
+        for (String s: io.getPrints()) {
+            if (s.contains("\nLuettu: \033[0;31m")) {
+                result = true;
+            }
+        }
+        assertTrue(result);
+    }
+    
+    @Then("number of pages read are displayed in yellow")
+    public void pagesDisplayedYellow() {
+        input.add("sulje");
+        
+        io.setInputs(input);
+        ui.init();
+        boolean result = false;
+        for (String s: io.getPrints()) {
+            if (s.contains("\nLuettu: \033[0;33m")) {
+                result = true;
+            }
+        }
+        assertTrue(result);
+    }
+    
+    @Then("number of pages read are displayed in green")
+    public void pagesDisplayedGreen() {
+        input.add("sulje");
+        
+        io.setInputs(input);
+        ui.init();
+        boolean result = false;
+        // BUGI: jostain syystä tätä testiä ei saa toimimaan vaikka se on
+        // periaatteessa täsmälleen samanlainen kuin testit punaiselle ja
+        // keltaiselle. Ohjelma myös toimii toivotulla tavalla.
+        for (String s: io.getPrints()) {
+            if (s.contains("\nLuettu: \033[0;32m")) {
+                result = true;
+            }
+        }
+//        result = true;
+        assertTrue(result);
     }
 }

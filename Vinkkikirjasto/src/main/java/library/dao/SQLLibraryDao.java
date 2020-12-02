@@ -360,7 +360,6 @@ public class SQLLibraryDao implements LibraryDao {
             while (r.next()) {
                 Article article = new Article(r.getString("title"), r.getString("url"));
                 articles.add(article);
-                System.out.println("testi");
             }
             r.close();
             conn.close();
