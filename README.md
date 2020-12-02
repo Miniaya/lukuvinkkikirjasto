@@ -16,8 +16,10 @@ Asenna sovellus [release](https://github.com/Miniaya/lukuvinkkikirjasto/releases
 
 Pura tiedosto.
 
+Sovelluksen mukana tulee tiedosto *config.properties* joka määrittää, mihin tietokantaan sovellukseen annetut tiedot tallennetaan. Tiedoston tulee sijaita samassa kansiossa, kuin sovellus.
+
 Siirry kansioon ja käynnistä sovellus komentoriviltä komennolla:
-- `./gradlew run --console=plain` tai `gradle run`
+- `java -jar Vinkkikirjasto.jar`
 
 
 ## KOMENNOT
