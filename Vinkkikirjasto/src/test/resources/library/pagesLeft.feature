@@ -16,3 +16,4 @@ Feature: Reading progress for books is displayed as red for not started, yellow 
         When  name of the book "kirja" and amount of pages read "100" is given
         And command listaa is selected
         Then number of pages read are displayed in green
+        
