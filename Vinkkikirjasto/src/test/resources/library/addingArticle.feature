@@ -4,3 +4,4 @@ Feature: An article suggestion can be added to the library
         Given command uusi is selected
         When  correct article information is given
         Then  article is saved to library
+
