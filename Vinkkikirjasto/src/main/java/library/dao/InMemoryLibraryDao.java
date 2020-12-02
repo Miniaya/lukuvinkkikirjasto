@@ -40,24 +40,24 @@ public class InMemoryLibraryDao implements LibraryDao {
         boolean removed = false;
         ArrayList<Suggestion> toRemove = new ArrayList<>();
         if (type.equals("book")) {
-            for (Book book: books) {
+            for (Book book : books) {
                 if (book.getName().equals(name)) {
                     toRemove.add(book);
                     removed = true;
                 }
             }
-            for (Suggestion s: toRemove) {
+            for (Suggestion s : toRemove) {
                 books.remove((Book) s);
             }
             toRemove.clear();
         } else if (type.equals("article")) {
-            for (Article article: articles) {
+            for (Article article : articles) {
                 if (article.getName().equals(name)) {
                     toRemove.add(article);
                     removed = true;
                 }
             }
-            for (Suggestion s: toRemove) {
+            for (Suggestion s : toRemove) {
                 articles.remove((Article) s);
             }
         }
@@ -66,7 +66,16 @@ public class InMemoryLibraryDao implements LibraryDao {
 
     @Override
     public boolean update(String type, String name, String pages) {
-        return false;
+        boolean updated = false;
+        if (type.equals("book")) {
+            for (Book book : books) {
+                if (book.getName().equals(name)) {
+                    book.setRead(Double.valueOf(pages));
+                    updated = true;
+                }
+            }
+        }
+        return updated;
     }
 
     @Override
