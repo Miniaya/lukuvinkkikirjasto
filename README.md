@@ -16,7 +16,7 @@ Asenna sovellus [release](https://github.com/Miniaya/lukuvinkkikirjasto/releases
 
 Pura tiedosto.
 
-Sovelluksen mukana tulee tiedosto *config.properties* joka määrittää, mihin tietokantaan sovellukseen annetut tiedot tallennetaan. Tiedoston tulee sijaita samassa kansiossa, kuin sovellus.
+Sovelluksen mukana tulee tiedosto *config.properties* joka määrittää, mihin tietokantaan sovellukseen annetut tiedot tallennetaan. Tiedoston tulee sijaita samassa kansiossa sovelluksen kanssa.
 
 Siirry kansioon ja käynnistä sovellus komentoriviltä komennolla:
 - `java -jar Vinkkikirjasto.jar`
