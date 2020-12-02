@@ -148,8 +148,8 @@ public class Stepdefs {
     @When("name of the book {string} and amount of pages read {string} is given")
     public void nameOfTheBookAndAmountOfPagesReadIsGiven(String string, String string2) {
         input.add("muokkaa");
-        input.add("kirja");
-        input.add("50");
+        input.add(string);
+        input.add(string2);
     }
 
     @Then("pages read is updated with the new value")
