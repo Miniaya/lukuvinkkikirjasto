@@ -29,7 +29,7 @@ public class InMemoryLibraryDao implements LibraryDao {
                 articles = new ArrayList<>();
             }
             suggestions.add(sug);
-            articles.add(new Article(sug.getDetail("nimi"), sug.getDetail("url")));
+            articles.add(new Article(sug.getDetail("nimi"), sug.getDetail("url"), sug.getDetail("tagit")));
             return true;
         }
         return false;

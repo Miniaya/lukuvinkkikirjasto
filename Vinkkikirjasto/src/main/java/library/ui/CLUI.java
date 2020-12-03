@@ -149,7 +149,7 @@ public class CLUI {
 
     private void addArticle() {
 
-        String[] details = new String[]{"nimi", "url"};
+        String[] details = new String[]{"nimi", "url", "tagit"};
         ArrayList<String> input = new ArrayList<>();
 
         boolean correctType;

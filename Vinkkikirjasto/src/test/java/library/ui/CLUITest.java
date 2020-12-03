@@ -78,7 +78,7 @@ public class CLUITest {
         input.add("tagi");
         input.add("listaa");
         input.add("sulje");
-        Book b = new Book("Hulabaloo", "Piraatit", 250, 0.0, "tagi ");
+        Book b = new Book("Hulabaloo", "Piraatit", 250, 0.0, "tagi");
         this.runClui();
         assertTrue(io.getPrints().contains(b.toString() + "\n"));
     }
@@ -165,6 +165,7 @@ public class CLUITest {
         input.add("artikkeli");
         input.add("Ohtumateriaali");
         input.add("https://ohjelmistotuotanto-hy.github.io/");
+        input.add("Opiskelu");
     }
     
     private void runClui() {

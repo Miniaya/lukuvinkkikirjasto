@@ -16,11 +16,12 @@ public class Article implements Suggestion {
     private String[] detailTypes;
     private HashMap<String, String> details;
     
-    public Article(String name, String url) {
-        this.detailTypes = new String[]{"nimi", "url"};
+    public Article(String name, String url, String tags) {
+        this.detailTypes = new String[]{"nimi", "url", "tagit"};
         this.details = new HashMap<>();
         details.put("nimi", name);
         details.put("url", url);
+        details.put("tagit", tags);
     }
     
     public Article() {
@@ -45,8 +46,10 @@ public class Article implements Suggestion {
     
     @Override
     public String toString() {
-        return "Tyyppi: Artikkeli" + "\nNimi: " + details.get("nimi") + "\nUrl: " 
-                + details.get("url");
+        return "Tyyppi: Artikkeli" 
+                + "\nNimi: " + details.get("nimi") 
+                + "\nUrl: " + details.get("url")
+                + "\nTagit: " + details.get("tagit");
     }
     
     @Override

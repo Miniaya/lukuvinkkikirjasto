@@ -18,8 +18,24 @@ public class LibraryService {
         boolean success = false;
         if (suggestionType.equals("book")) {
             Suggestion book = new Book();
-            
-            String tagInput = detailValues[3];
+            detailValues[3] = trimTags(3, detailValues);
+            book.addDetails(detailTypes, detailValues);
+
+            success = libraryDao.add(book);
+        } else if (suggestionType.equals("article")) {
+            Suggestion article = new Article();
+            detailValues[2] = trimTags(2, detailValues);
+            article.addDetails(detailTypes, detailValues);
+
+            success = libraryDao.add(article);
+        }
+
+        return success;
+    }
+    
+    private String trimTags(int index, String[] detailValues) {
+        
+        String tagInput = detailValues[index];
             String[] tags = tagInput.trim().split("\\s*,\\s*");
             StringBuilder tagString = new StringBuilder();
             
@@ -28,20 +44,7 @@ public class LibraryService {
                 tagString.append(" ");
             }
             
-            tagString.trimToSize();
-            detailValues[3] = String.valueOf(tagString);
-                    
-            book.addDetails(detailTypes, detailValues);
-
-            success = libraryDao.add(book);
-        } else if (suggestionType.equals("article")) {
-            Suggestion article = new Article();
-            article.addDetails(detailTypes, detailValues);
-
-            success = libraryDao.add(article);
-        }
-
-        return success;
+            return tagString.toString().trim();
     }
 
     public boolean remove(String name, String type) {

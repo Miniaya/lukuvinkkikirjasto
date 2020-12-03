@@ -365,7 +365,7 @@ public class SQLLibraryDao implements LibraryDao {
             List<Article> articles = new ArrayList<>();
 
             while (r.next()) {
-                Article article = new Article(r.getString("title"), r.getString("url"));
+                Article article = new Article(r.getString("title"), r.getString("url"), r.getString("tags"));
                 articles.add(article);
             }
             r.close();

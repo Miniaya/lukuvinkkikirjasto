@@ -43,7 +43,7 @@ public class Stepdefs {
 
     @Given("article {string} with url {string} is saved")
     public void correctArticleSaved(String title, String url) {
-        library.add("article", new String[]{"nimi", "url"}, new String[]{title, url});
+        library.add("article", new String[]{"nimi", "url", "tagit"}, new String[]{title, url, "tag"});
     }
     
     @Given ("command listaa is selected")
@@ -135,6 +135,7 @@ public class Stepdefs {
         input.add("artikkeli");
         input.add("artikkeli");
         input.add("www.garbage.com");
+        input.add("Nonsense");
     }
 
     @Then("article is saved to library")
