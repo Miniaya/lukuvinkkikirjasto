@@ -48,9 +48,14 @@ public class SQLLibraryDao implements LibraryDao {
             Statement s = conn.createStatement();
 
             s.execute("PRAGMA foreign_keys = ON");
+            
             s.execute("DROP TABLE IF EXISTS Author;");
             s.execute("CREATE TABLE Author (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "name TEXT NOT NULL)");
+            
+            s.execute("DROP TABLE IF EXISTS Tag");
+            s.execute("CREATE TABLE Tag (id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "tag TEXT NOT NULL)");
 
             s.execute("DROP TABLE IF EXISTS Book;");
             s.execute("CREATE TABLE Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -58,12 +63,19 @@ public class SQLLibraryDao implements LibraryDao {
                     + "author_id INTEGER REFERENCES Author, "
                     + "pages INTEGER, "
                     + "pages_read INTEGER DEFAULT 0, "
+                    + "tag1 INTEGER REFERENCES Tag, "
+                    + "tag2 INTEGER REFERENCES Tag, "
+                    + "tag3 INTEGER REFERENCES Tag, "
                     + "time_of_adding DATE, "
                     + "time_of_modifying DATE)");
+            
             s.execute("DROP TABLE IF EXISTS Article;");
             s.execute("CREATE TABLE Article (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "url TEXT, "
+                    + "tag1 INTEGER REFERENCES Tag, "
+                    + "tag2 INTEGER REFERENCES Tag, "
+                    + "tag3 INTEGER REFERENCES Tag, "
                     + "time_of_adding DATE,"
                     + "time_of_modifying DATE)");
 
