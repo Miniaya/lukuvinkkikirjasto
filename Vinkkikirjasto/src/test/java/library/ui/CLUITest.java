@@ -25,9 +25,7 @@ public class CLUITest {
     
     @Before
     public void setUp() {
-        io = new StubIO();
         service = new LibraryService(new InMemoryLibraryDao());
-        ui = new CLUI(io, service);
         input = new ArrayList<>();
     }
     
@@ -48,6 +46,7 @@ public class CLUITest {
         input.add("Tuuli Rannikko");
         input.add("ASO");
         input.add("530");
+        input.add("tagi");
         input.add("sulje");
         
         this.runClui();
@@ -62,6 +61,7 @@ public class CLUITest {
         input.add("PMMP");
         input.add("-50");
         input.add("50");
+        input.add("tagi");
         input.add("sulje");
         
         this.runClui();
@@ -75,9 +75,10 @@ public class CLUITest {
         input.add("Hulabaloo");
         input.add("Piraatit");
         input.add("250");
+        input.add("tagi");
         input.add("listaa");
         input.add("sulje");
-        Book b = new Book("Hulabaloo", "Piraatit", 250, 0.0);
+        Book b = new Book("Hulabaloo", "Piraatit", 250, 0.0, "tagi ");
         this.runClui();
         assertTrue(io.getPrints().contains(b.toString() + "\n"));
     }
@@ -156,6 +157,7 @@ public class CLUITest {
         input.add("Kotkanpesä");
         input.add("Ilkka Remes");
         input.add("450");
+        input.add("Dystopia");
     }
     
     private void inputArticleOhtu() {
@@ -166,7 +168,8 @@ public class CLUITest {
     }
     
     private void runClui() {
-        io.setInputs(input);
+        io = new StubIO(input);
+        ui = new CLUI(io, service);
         ui.init();
     }
 }

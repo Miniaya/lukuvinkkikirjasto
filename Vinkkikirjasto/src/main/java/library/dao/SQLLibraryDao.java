@@ -52,10 +52,6 @@ public class SQLLibraryDao implements LibraryDao {
             s.execute("DROP TABLE IF EXISTS Author;");
             s.execute("CREATE TABLE Author (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "name TEXT NOT NULL)");
-            
-            s.execute("DROP TABLE IF EXISTS Tag");
-            s.execute("CREATE TABLE Tag (id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "tag TEXT NOT NULL)");
 
             s.execute("DROP TABLE IF EXISTS Book;");
             s.execute("CREATE TABLE Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -63,9 +59,7 @@ public class SQLLibraryDao implements LibraryDao {
                     + "author_id INTEGER REFERENCES Author, "
                     + "pages INTEGER, "
                     + "pages_read INTEGER DEFAULT 0, "
-                    + "tag1 INTEGER REFERENCES Tag, "
-                    + "tag2 INTEGER REFERENCES Tag, "
-                    + "tag3 INTEGER REFERENCES Tag, "
+                    + "tags TEXT, "
                     + "time_of_adding DATE, "
                     + "time_of_modifying DATE)");
             
@@ -73,9 +67,7 @@ public class SQLLibraryDao implements LibraryDao {
             s.execute("CREATE TABLE Article (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "url TEXT, "
-                    + "tag1 INTEGER REFERENCES Tag, "
-                    + "tag2 INTEGER REFERENCES Tag, "
-                    + "tag3 INTEGER REFERENCES Tag, "
+                    + "tags TEXT, "
                     + "time_of_adding DATE,"
                     + "time_of_modifying DATE)");
 
@@ -105,6 +97,7 @@ public class SQLLibraryDao implements LibraryDao {
             String title = suggestion.getDetail("nimi");
             String author = suggestion.getDetail("kirjoittaja");
             String pages = suggestion.getDetail("sivumäärä");
+            String tags = suggestion.getDetail("tagit");
             if (pages.equals("")) {
                 pages = "-1";
             }
@@ -125,11 +118,12 @@ public class SQLLibraryDao implements LibraryDao {
                 p.executeUpdate();
             }
 
-            p = conn.prepareStatement("INSERT INTO Book (title, author_id, pages, time_of_adding, time_of_modifying) "
-                    + "VALUES (?, (SELECT id FROM Author WHERE name = ?), ?, datetime('now'), datetime('now'))");
+            p = conn.prepareStatement("INSERT INTO Book (title, author_id, pages, tags, time_of_adding, time_of_modifying) "
+                    + "VALUES (?, (SELECT id FROM Author WHERE name = ?), ?, ?, datetime('now'), datetime('now'))");
             p.setString(1, title);
             p.setString(2, author);
             p.setInt(3, Integer.valueOf(pages));
+            p.setString(4, tags);
 
             p.executeUpdate();
 
@@ -338,14 +332,15 @@ public class SQLLibraryDao implements LibraryDao {
         try {
             Connection conn = connect();
 
-            PreparedStatement p = conn.prepareStatement("SELECT B.title, A.name, B.pages, ROUND(((CAST(B.pages_read AS float)/B.pages)*100), 1) AS percentage "
+            PreparedStatement p = conn.prepareStatement("SELECT B.title, A.name, B.pages, "
+                    + "ROUND(((CAST(B.pages_read AS float)/B.pages)*100), 1) AS percentage, B.tags "
                     + "From Book B LEFT JOIN Author A WHERE B.author_id=A.id;");
             ResultSet r = p.executeQuery();
 
             List<Book> books = new ArrayList<>();
 
             while (r.next()) {
-                Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"), r.getDouble("percentage"));
+                Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"), r.getDouble("percentage"), r.getString("tags"));
                 books.add(book);
             }
             r.close();

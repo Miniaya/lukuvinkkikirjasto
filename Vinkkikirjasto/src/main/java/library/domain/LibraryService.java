@@ -18,6 +18,19 @@ public class LibraryService {
         boolean success = false;
         if (suggestionType.equals("book")) {
             Suggestion book = new Book();
+            
+            String tagInput = detailValues[3];
+            String[] tags = tagInput.trim().split("\\s*,\\s*");
+            StringBuilder tagString = new StringBuilder();
+            
+            for (int i = 0 ; i < tags.length ; i++) {
+                tagString.append(tags[i]);
+                tagString.append(" ");
+            }
+            
+            tagString.trimToSize();
+            detailValues[3] = String.valueOf(tagString);
+                    
             book.addDetails(detailTypes, detailValues);
 
             success = libraryDao.add(book);

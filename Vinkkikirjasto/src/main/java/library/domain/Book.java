@@ -15,13 +15,14 @@ public class Book implements Suggestion{
     private String YELLOW = "\033[0;33m";  // YELLOW
     private String RESET = "\033[0m";  // RESET
     
-    public Book(String name, String author, int pages, double read) {
-        this.detailTypes = new String[]{"nimi", "kirjoittaja", "sivumäärä", "luettu"};
+    public Book(String name, String author, int pages, double read, String tags) {
+        this.detailTypes = new String[]{"nimi", "kirjoittaja", "sivumäärä", "luettu", "tagit"};
         this.details = new HashMap<>();
         details.put("nimi", name);
         details.put("kirjoittaja", author);
         details.put("sivumäärä", Integer.toString(pages));
         details.put("luettu", Double.toString(read));
+        details.put("tagit", tags);
     }
     
     public Book() {
@@ -43,6 +44,10 @@ public class Book implements Suggestion{
     public void setRead(double read) {
         details.put("luettu", Double.toString(read));
     }
+    
+    public void setTags(String tags) {
+        details.put("tagit", tags);
+    }
 
     public String getName() {
         return details.get("nimi");
@@ -59,11 +64,15 @@ public class Book implements Suggestion{
     public double getRead() {
         return Double.valueOf(details.get("luettu"));
     }
+    
+    public String getTags() {
+        return details.get("tagit");
+    }
 
     public String getPercentColor(String prosentti) {
-        if (Double.valueOf(prosentti) >= 100) {
+        if (Double.valueOf(prosentti) >= 100.0) {
             prosentti = GREEN + prosentti + "%" + RESET;
-        } else if (Double.valueOf(prosentti) > 0) {
+        } else if (Double.valueOf(prosentti) > 0.0) {
             prosentti = YELLOW + prosentti + "%" + RESET;
         } else {
             prosentti = RED + prosentti + "%" + RESET;
@@ -79,7 +88,8 @@ public class Book implements Suggestion{
                 + "\nNimi: " + details.get("nimi") 
                 + "\nKirjoittaja: "  + details.get("kirjoittaja") 
                 + "\nSivumäärä: " + details.get("sivumäärä")
-                + "\nLuettu: " + prosentti;
+                + "\nLuettu: " + prosentti
+                + "\nTagit: " + details.get("tagit");
     }
     
     @Override

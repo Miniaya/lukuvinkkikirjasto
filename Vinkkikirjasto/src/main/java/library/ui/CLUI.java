@@ -119,13 +119,9 @@ public class CLUI {
 
     private void addBook() {
 
-        String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä"};
+        String[] details = new String[]{"nimi", "kirjoittaja", "sivumäärä", "tagit"};
         ArrayList<String> input = new ArrayList<>();
 
-//        for (String detail : details) {
-//            input.add(io.readLine("Anna kirjan " + detail + ": "));
-//            io.print("");
-//        }
         boolean correctType;
         for (int i = 0; i < details.length; i++) {
             correctType = false;
@@ -156,10 +152,6 @@ public class CLUI {
         String[] details = new String[]{"nimi", "url"};
         ArrayList<String> input = new ArrayList<>();
 
-//        for (String detail : details) {
-//            input.add(io.readLine("Anna kirjan " + detail + ": "));
-//            io.print("");
-//        }
         boolean correctType;
         for (int i = 0; i < details.length; i++) {
             correctType = false;

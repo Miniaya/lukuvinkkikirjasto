@@ -33,7 +33,7 @@ public class Stepdefs {
 
     @Given("book {string} with author {string} and pages {string} is saved")
     public void correctBookSaved(String title, String author, String pages) {
-        library.add("book", new String[]{"nimi", "kirjoittaja", "sivumäärä"}, new String[]{title, author, pages});
+        library.add("book", new String[]{"nimi", "kirjoittaja", "sivumäärä", "tagit"}, new String[]{title, author, pages, "tag"});
     }
 
     @Given("^command poista is selected$")
@@ -57,6 +57,7 @@ public class Stepdefs {
         input.add("kirja");
         input.add("kirjoittaja");
         input.add("100");
+        input.add("tagi");
     }
 
     @When("incorrect book title is given")
