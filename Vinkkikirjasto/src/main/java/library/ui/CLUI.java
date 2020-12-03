@@ -128,7 +128,7 @@ public class CLUI {
             while (!correctType) {
                 String in = io.readLine("Anna kirjan " + details[i] + ": ");
                 io.print("");
-                correctType = checkType(in, i);
+                correctType = checkBook(in, i);
                 if (correctType) {
                     input.add(in);
                 } else {
@@ -158,7 +158,7 @@ public class CLUI {
             while (!correctType) {
                 String in = io.readLine("Anna artikkelin " + details[i] + ": ");
                 io.print("");
-                correctType = checkType(in, i);
+                correctType = checkArticle(in, i);
                 if (correctType) {
                     input.add(in);
                 } else {
@@ -224,14 +224,17 @@ public class CLUI {
         }
     }
 
-    private boolean checkType(String input, int index) {
+    private boolean checkBook(String input, int index) {
         switch (index) {
-            //atm ainoastaan sivumäärä haluaa numeroita, helppo lisätä myöhemmin jos tulee muita
             case 2:
                 return input.matches("[0-9]+");
             default:
                 return true;
         }
+    }
+
+    private boolean checkArticle(String input, int index) {
+                return true;
     }
 
     private void listSuggestions() {
