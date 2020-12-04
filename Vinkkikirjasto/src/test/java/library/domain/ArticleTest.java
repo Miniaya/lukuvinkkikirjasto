@@ -5,10 +5,7 @@
  */
 package library.domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,28 +15,33 @@ import static org.junit.Assert.*;
  */
 public class ArticleTest {
     
-    public ArticleTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    private Article testArticle1;
+    private Article testArticle2;
     
     @Before
     public void setUp() {
+        this.testArticle1 = new Article("TestArticle", "www.test.fi", "TestTag");
+        this.testArticle2 = new Article("TestArticle2", "www.test2.fi", "TestTag2");
     }
     
-    @After
-    public void tearDown() {
+    @Test
+    public void toStringMethodReturnsCorrectDetails() {
+        assertEquals("Tyyppi: Artikkeli"
+                + "\nNimi: TestArticle"
+                + "\nUrl: www.test.fi"
+                + "\nTagit: TestTag", testArticle1.toString());
+        assertEquals("Tyyppi: Artikkeli"
+                + "\nNimi: TestArticle2"
+                + "\nUrl: www.test2.fi"
+                + "\nTagit: TestTag2", testArticle2.toString());
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
+    @Test
+    public void changedArticleDetailsAreShownInListing() {
+        testArticle1.setName("New name");
+        assertEquals("Tyyppi: Artikkeli"
+                + "\nNimi: New name"
+                + "\nUrl: www.test.fi"
+                + "\nTagit: TestTag", testArticle1.toString());
+    }
 }
