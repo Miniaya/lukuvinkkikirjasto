@@ -151,13 +151,15 @@ public class SQLLibraryDao implements LibraryDao {
 
             String title = suggestion.getDetail("nimi");
             String url = suggestion.getDetail("url");
+            String tags = suggestion.getDetail("tagit");
 
             s.execute("BEGIN TRANSACTION");
 
-            PreparedStatement p = conn.prepareStatement("INSERT INTO Article (title, url, time_of_adding, time_of_modifying) "
-                    + "VALUES (?, ?, datetime('now'), datetime('now'))");
+            PreparedStatement p = conn.prepareStatement("INSERT INTO Article (title, url, tags, time_of_adding, time_of_modifying) "
+                    + "VALUES (?, ?, ?, datetime('now'), datetime('now'))");
             p.setString(1, title);
             p.setString(2, url);
+            p.setString(3, tags);
 
             p.executeUpdate();
 

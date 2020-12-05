@@ -1,8 +1,10 @@
 package library.domain;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Set;
 import library.dao.LibraryDao;
 
 public class LibraryService {
@@ -32,19 +34,19 @@ public class LibraryService {
 
         return success;
     }
-    
+
     private String trimTags(int index, String[] detailValues) {
-        
-        String tagInput = detailValues[index];
-            String[] tags = tagInput.trim().split("\\s*,\\s*");
-            StringBuilder tagString = new StringBuilder();
-            
-            for (int i = 0 ; i < tags.length ; i++) {
-                tagString.append(tags[i]);
-                tagString.append(" ");
-            }
-            
-            return tagString.toString().trim();
+        String tagInput = detailValues[index].toLowerCase();
+        Set<String> tags = new HashSet<String>(Arrays.asList(tagInput.trim().split("\\s*,\\s*")));
+        StringBuilder tagString = new StringBuilder();
+
+        Iterator iterator = tags.iterator();
+        while(iterator.hasNext()) {
+            tagString.append(iterator.next());
+            tagString.append(" ");
+        }
+
+        return tagString.toString().trim();
     }
 
     public boolean remove(String name, String type) {

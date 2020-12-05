@@ -15,11 +15,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SQLLibraryDaoTest {
-    
+
     private SQLLibraryDao sqldao;
     private Suggestion book;
     private Suggestion article;
-    
+
     @Before
     public void setUp() throws FileNotFoundException, IOException {
         Properties properties = new Properties();
@@ -28,43 +28,45 @@ public class SQLLibraryDaoTest {
 
         String testiDB = properties.getProperty("testiDB");
         sqldao = new SQLLibraryDao(testiDB);
-        
+
         book = new Book();
         book.addDetail("nimi", "Test Book");
         book.addDetail("kirjoittaja", "Test Author");
         book.addDetail("sivumäärä", "100");
-        
+        book.addDetail("tagit", "tag1, tag2");
+
         article = new Article();
         article.addDetail("nimi", "Test Article");
         article.addDetail("url", "www.testurl.com");
+        article.addDetail("tagit", "tag1, tag2");
     }
-    
+
     @Test
     public void addingBookToDatabaseWorks() {
         boolean added = sqldao.add(book);
         assertTrue(added);
     }
-    
+
     @Test
     public void addingArticleToDatabaseWorks() {
         boolean added = sqldao.add(article);
         assertTrue(added);
     }
-    
+
     @Test
     public void listingBooksFromDatabaseWorks() {
         sqldao.add(book);
         List<Book> books = sqldao.getBooks();
         assertEquals("Test Book", books.get(0).getDetail("nimi"));
     }
-    
+
     @Test
     public void listingArticlesFromDatabaseWorks() {
         sqldao.add(article);
         List<Article> articles = sqldao.getArticles();
         assertEquals("Test Article", articles.get(0).getDetail("nimi"));
     }
-    
+
     @Test
     public void deletingBookFromDatabaseWorks() {
         sqldao.add(book);
@@ -72,7 +74,7 @@ public class SQLLibraryDaoTest {
         boolean removed = sqldao.remove("Test Book", "book");
         assertTrue(removed);
     }
-    
+
     @Test
     public void deletingArticleFromDatabaseWorks() {
         sqldao.add(article);
@@ -80,13 +82,13 @@ public class SQLLibraryDaoTest {
         boolean removed = sqldao.remove("Test Article", "article");
         assertTrue(removed);
     }
-    
+
     @Test
     public void cantDeleteNonexistingType() {
         boolean removed = sqldao.remove("Non-existent", "None");
         assertFalse(removed);
     }
-    
+
     @Test
     public void cantDeleteNonexistentBookOrArticle() {
         boolean removedBook = sqldao.removeBook("Non Existent");
@@ -94,28 +96,30 @@ public class SQLLibraryDaoTest {
         boolean removedArticle = sqldao.removeArticle("Non Existent");
         assertFalse(removedArticle);
     }
-    
+
     @Test
     public void updatingReadPagesWorks() {
         boolean updated = sqldao.update("book", "Test Book", "10");
         assertTrue(updated);
     }
-    
+
     @Test
     public void updatingNonexistentBookDoesntWork() {
         boolean updated = sqldao.update("book", "Non Existent", "100");
         assertFalse(updated);
     }
-    
+
     @Test
     public void updatingOnlyWorksForBooks() {
         boolean updated = sqldao.update("article", "Article", "100");
         assertFalse(updated);
     }
-    
+
+ 
+
     @After
     public void tearDown() {
         sqldao.clearDatabase();
     }
-    
+
 }
