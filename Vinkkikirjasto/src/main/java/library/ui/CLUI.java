@@ -51,6 +51,7 @@ public class CLUI {
         commands.add("uusi - lisää uuden vinkin");
         commands.add("poista - poista olemassaoleva vinkki");
         commands.add("listaa - listaa vinkit");
+        commands.add("hae - hakee vinkkejä tagin perusteella");
         commands.add("muokkaa - päivitä tietokannan tietoja");
         commands.add("sulje - sulkee ohjelman");
         commands.add("help - tulostaa komennot");
@@ -76,6 +77,9 @@ public class CLUI {
                     break;
                 case "listaa":
                     listSuggestions();
+                    break;
+                case "hae":
+                    search();
                     break;
                 case "muokkaa":
                     update();
@@ -275,5 +279,20 @@ public class CLUI {
                 updateReadPages();
             }
         }
+    }
+    
+    private void search() {
+        String tag = io.readLine("Anna tagi, jolla etsitään: ");
+        tag = tag.toLowerCase();
+        List<Suggestion> suggestions = service.searchByTag(tag);
+        if (suggestions.isEmpty()) {
+            io.print("Tagilla ei löytynyt vinkkejä. Tarkista kirjoitusasu.");
+        } else {
+            for (Suggestion sug: suggestions) {
+                io.print(sug.toString() + "\n");
+            }
+        }
+        
+        io.print("But nothing happened.");
     }
 }

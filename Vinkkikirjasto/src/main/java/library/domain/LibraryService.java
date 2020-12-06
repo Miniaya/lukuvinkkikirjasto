@@ -1,10 +1,6 @@
 package library.domain;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import library.dao.LibraryDao;
 
 public class LibraryService {
@@ -63,5 +59,9 @@ public class LibraryService {
 
     public List<Article> listArticles() {
         return libraryDao.getArticles();
+    }
+    
+    public List<Suggestion> searchByTag(String tag) {
+        return new ArrayList<Suggestion>();
     }
 }
