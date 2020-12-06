@@ -90,7 +90,12 @@ public class InMemoryLibraryDao implements LibraryDao {
     
     @Override
     public List<Suggestion> getSuggestionsByTag(String tag) {
-        // palauttaa kaikki, ei vielä rajaa
-        return suggestions;
+        ArrayList<Suggestion> sugs = new ArrayList<>();
+        for (Suggestion sug: suggestions) {
+            if (sug.getDetail("tagit").contains(tag)) {
+                sugs.add(sug);
+            }
+        }
+        return sugs;
     }
 }

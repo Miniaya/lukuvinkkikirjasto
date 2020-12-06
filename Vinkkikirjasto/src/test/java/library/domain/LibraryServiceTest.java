@@ -42,34 +42,60 @@ public class LibraryServiceTest {
 
     @Test
     public void tagsAreTrimmedCorrectly() {
-        bookInput.add("TestBook");
-        bookInput.add("TestAuthor");
-        bookInput.add("100");
-        bookInput.add("tag1, tag2");
-        service.add("book", bookDetails, bookInput.toArray(new String[bookInput.size()]));
+        this.addBookToService("TestBook", "TestAuthor", "100", "tag1, tag2");
         List<Book> books = dao.getBooks();
         assertEquals("tag1 tag2", books.get(0).getDetail("tagit"));
     }
 
     @Test
     public void noDuplicateTags() {
-        bookInput.add("TestBook");
-        bookInput.add("TestAuthor");
-        bookInput.add("100");
-        bookInput.add("tag1, tag1");
-        service.add("book", bookDetails, bookInput.toArray(new String[bookInput.size()]));
+        this.addBookToService("TestBook", "TestAuthor", "100", "tag1, tag1");
         List<Book> books = dao.getBooks();
         assertEquals("tag1", books.get(0).getDetail("tagit"));
     }
 
     @Test
     public void noDuplicateTagsWithDifferentCapitalization() {
-        bookInput.add("TestBook");
-        bookInput.add("TestAuthor");
-        bookInput.add("100");
-        bookInput.add("tag1, TAG1");
-        service.add("book", bookDetails, bookInput.toArray(new String[bookInput.size()]));
+        this.addBookToService("TestBook", "TestAuthor", "100", "tag1, TAG1");
         List<Book> books = dao.getBooks();
         assertEquals("tag1", books.get(0).getDetail("tagit"));
+    }
+    
+    @Test
+    public void searchReturnsEmptyListWhenNoMatches() {
+        List<Suggestion> sugs = service.searchByTag("tag");
+        assertTrue(sugs.isEmpty());
+    }
+    
+    @Test
+    public void searchReturnsSuggestionsWhenMatch() {
+        this.addBookToService("RightBook", "RightAuthor", "200", "right");
+        List<Suggestion> sugs = service.searchByTag("right");
+        assertEquals(1, sugs.size());
+    }
+    
+    @Test
+    public void searchReturnsSuggestionsFromBothTypes() {
+        this.addBookToService("RightBook", "RightAuthor", "200", "right");
+        this.addArticleToService("RightArticle", "articleurl", "right");
+        List<Suggestion> sugs = service.searchByTag("right");
+        assertEquals(2, sugs.size());
+    }
+    
+    private void addBookToService(String name, String author, String pages, String tags) {
+        bookInput.add(name);
+        bookInput.add(author);
+        bookInput.add(pages);
+        bookInput.add(tags);
+        service.add("book", bookDetails, bookInput.toArray(new String[bookInput.size()]));
+        bookInput.clear();
+    }
+    
+    private void addArticleToService(String name, String url, String tags) {
+        articleInput.add(name);
+        articleInput.add(url);
+        articleInput.add(tags);
+        service.add("article", articleDetails, articleInput.toArray(new String[articleInput.size()]));
+        articleInput.clear();
     }
 }
