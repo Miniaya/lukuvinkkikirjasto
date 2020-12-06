@@ -383,6 +383,10 @@ public class SQLLibraryDao implements LibraryDao {
     
     @Override
     public List<Suggestion> getSuggestionsByTag(String tag) {
+        // Tämä kannattanee toteuttaa niin, että listalle menevät arvot ovat bookkeja ja articleja
+        // (siis ei suggestioneja), kun testailin clui:ta niin suggestion.toString vaikuttaa
+        // flippaavaan, jos on tallennettu vaan geneerisenä suggestionina
+        // tag on valmiiksi lowercasena mutta ei muuten muotoiltu
         return null;
     }
 

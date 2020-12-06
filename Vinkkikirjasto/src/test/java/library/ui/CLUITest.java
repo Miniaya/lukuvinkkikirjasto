@@ -151,6 +151,38 @@ public class CLUITest {
         assertTrue(io.getPrints().contains("Virhe. Tarkista, että kirjoitit nimen oikein.")); 
     }
     
+    @Test
+    public void searchingWhenEmptyGivesMessage() {
+       input.add("hae");
+       input.add("tagi");
+       input.add("sulje");
+       
+       this.runClui();
+       assertTrue(io.getPrints().contains("Tagilla tagi ei löytynyt vinkkejä. Tarkista kirjoitusasu."));
+    }
+    
+    @Test
+    public void searchingWithTagReturnsSuggestion() {
+        this.inputBookKotkanpesa();
+        input.add("hae");
+        input.add("dystopia");
+        input.add("sulje");
+        Book kotka = new Book("Kotkanpesä", "Ilkka Remes", 450, 0.0, "dystopia");
+        this.runClui();
+        assertTrue(io.getPrints().contains(kotka.toString() + "\n"));
+    }
+    
+    @Test
+    public void searchingWhenNoMatchesGivesMessage() {
+        this.inputBookKotkanpesa();
+        input.add("hae");
+        input.add("tagi");
+        input.add("sulje");
+        
+        this.runClui();
+        assertTrue(io.getPrints().contains("Tagilla tagi ei löytynyt vinkkejä. Tarkista kirjoitusasu."));
+    }
+    
     private void inputBookKotkanpesa() {
         input.add("uusi");
         input.add("kirja");

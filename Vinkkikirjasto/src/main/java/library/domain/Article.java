@@ -44,6 +44,10 @@ public class Article implements Suggestion {
         return details.get("url");
     }
     
+    public String getTags() {
+        return details.get("tagit");
+    }
+    
     @Override
     public String toString() {
         return "Tyyppi: Artikkeli" 

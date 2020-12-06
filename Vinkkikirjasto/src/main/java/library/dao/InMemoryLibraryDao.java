@@ -7,28 +7,20 @@ import library.domain.Book;
 
 public class InMemoryLibraryDao implements LibraryDao {
 
-    List<Suggestion> suggestions;
     List<Book> books;
     List<Article> articles;
 
     public InMemoryLibraryDao() {
-        suggestions = new ArrayList<>();
+        books = new ArrayList<>();
+        articles = new ArrayList<>();
     }
 
     @Override
     public boolean add(Suggestion sug) {
         if (sug.getType().equals("Book")) {
-            if (books == null) {
-                books = new ArrayList<>();
-            }
-            suggestions.add(sug);
             books.add((new Book(sug.getDetail("nimi"), sug.getDetail("kirjoittaja"), Integer.valueOf(sug.getDetail("sivumäärä")), 0.0, sug.getDetail("tagit"))));
             return true;
         } else if (sug.getType().equals("Article")) {
-            if (articles == null) {
-                articles = new ArrayList<>();
-            }
-            suggestions.add(sug);
             articles.add(new Article(sug.getDetail("nimi"), sug.getDetail("url"), sug.getDetail("tagit")));
             return true;
         }
@@ -91,9 +83,14 @@ public class InMemoryLibraryDao implements LibraryDao {
     @Override
     public List<Suggestion> getSuggestionsByTag(String tag) {
         ArrayList<Suggestion> sugs = new ArrayList<>();
-        for (Suggestion sug: suggestions) {
-            if (sug.getDetail("tagit").contains(tag)) {
-                sugs.add(sug);
+        for (Book book: books) {
+            if (book.getTags().contains(tag)) {
+                sugs.add(book);
+            }
+        }
+        for (Article a: articles) {
+            if (a.getTags().contains(tag)) {
+                sugs.add(a);
             }
         }
         return sugs;
