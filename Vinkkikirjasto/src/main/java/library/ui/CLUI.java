@@ -286,13 +286,11 @@ public class CLUI {
         tag = tag.toLowerCase();
         List<Suggestion> suggestions = service.searchByTag(tag);
         if (suggestions.isEmpty()) {
-            io.print("Tagilla ei löytynyt vinkkejä. Tarkista kirjoitusasu.");
+            io.print("Tagilla " + tag + " ei löytynyt vinkkejä. Tarkista kirjoitusasu.");
         } else {
             for (Suggestion sug: suggestions) {
                 io.print(sug.toString() + "\n");
             }
         }
-        
-        io.print("But nothing happened.");
     }
 }

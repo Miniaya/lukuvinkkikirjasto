@@ -380,6 +380,11 @@ public class SQLLibraryDao implements LibraryDao {
 
         return null;
     }
+    
+    @Override
+    public List<Suggestion> getSuggestionsByTag(String tag) {
+        return null;
+    }
 
     public void clearDatabase() {
         try {

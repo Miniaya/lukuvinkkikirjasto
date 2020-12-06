@@ -18,4 +18,6 @@ public interface LibraryDao {
     List<Book> getBooks();
     
     List<Article> getArticles();
+    
+    List<Suggestion> getSuggestionsByTag(String tag);
 }

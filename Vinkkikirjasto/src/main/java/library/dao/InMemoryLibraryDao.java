@@ -87,4 +87,10 @@ public class InMemoryLibraryDao implements LibraryDao {
     public List<Article> getArticles() {
         return articles;
     }
+    
+    @Override
+    public List<Suggestion> getSuggestionsByTag(String tag) {
+        // palauttaa kaikki, ei vielä rajaa
+        return suggestions;
+    }
 }

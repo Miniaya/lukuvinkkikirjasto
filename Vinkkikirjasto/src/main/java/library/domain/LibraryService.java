@@ -61,7 +61,14 @@ public class LibraryService {
         return libraryDao.getArticles();
     }
     
+    /*
+    tag annetaan lowercasena
+    */
     public List<Suggestion> searchByTag(String tag) {
-        return new ArrayList<Suggestion>();
+        List<Suggestion> sugs = libraryDao.getSuggestionsByTag(tag);
+        if (sugs == null) {
+            return new ArrayList<Suggestion>();
+        }
+        return sugs;
     }
 }
