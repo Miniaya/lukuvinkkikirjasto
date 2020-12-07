@@ -391,20 +391,6 @@ public class SQLLibraryDao implements LibraryDao {
     }
 
     public void clearDatabase() {
-        try {
-            Connection conn = connect();
-
-            Statement s = conn.createStatement();
-
-            s.execute("DELETE FROM Author");
-            s.execute("DELETE FROM Book");
-            s.execute("DELETE FROM Article");
-
-            s.close();
-            conn.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        this.createDatabase();
     }
 }
