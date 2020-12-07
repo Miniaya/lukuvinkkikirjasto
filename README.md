@@ -46,3 +46,4 @@ Sulkee sovelluksen. Kaikki antamasi vinkit säilyvät sovelluksessa.
 - `uusi` - lisää uusi vinkki, joko kirja tai artikkeli
 
 Lisää uusi vinkki kirjastoon. Spesifioi, haluatko lisätä kirjan vai artikkelin, ja anna sitten pyydetty info.
+
