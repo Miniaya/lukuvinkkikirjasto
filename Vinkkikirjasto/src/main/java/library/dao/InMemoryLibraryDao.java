@@ -69,14 +69,22 @@ public class InMemoryLibraryDao implements LibraryDao {
         }
         return updated;
     }
-
+    
     @Override
-    public List<Book> getBooks() {
+    public List<Suggestion> getAll() {
+        List<Suggestion> sugs = new ArrayList<>();
+        
+        sugs.addAll(books);
+        sugs.addAll(articles);
+        
+        return sugs;
+    }
+
+    public List<Book> getBooks(String tag) {
         return books;
     }
 
-    @Override
-    public List<Article> getArticles() {
+    public List<Article> getArticles(String tag) {
         return articles;
     }
     

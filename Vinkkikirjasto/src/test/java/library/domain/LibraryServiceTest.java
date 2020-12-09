@@ -43,21 +43,21 @@ public class LibraryServiceTest {
     @Test
     public void tagsAreTrimmedCorrectly() {
         this.addBookToService("TestBook", "TestAuthor", "100", "tag1, tag2");
-        List<Book> books = dao.getBooks();
+        List<Suggestion> books = dao.getAll();
         assertEquals("tag1 tag2", books.get(0).getDetail("tagit"));
     }
 
     @Test
     public void noDuplicateTags() {
         this.addBookToService("TestBook", "TestAuthor", "100", "tag1, tag1");
-        List<Book> books = dao.getBooks();
+        List<Suggestion> books = dao.getAll();
         assertEquals("tag1", books.get(0).getDetail("tagit"));
     }
 
     @Test
     public void noDuplicateTagsWithDifferentCapitalization() {
         this.addBookToService("TestBook", "TestAuthor", "100", "tag1, TAG1");
-        List<Book> books = dao.getBooks();
+        List<Suggestion> books = dao.getAll();
         assertEquals("tag1", books.get(0).getDetail("tagit"));
     }
     

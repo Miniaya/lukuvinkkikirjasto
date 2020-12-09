@@ -328,15 +328,26 @@ public class SQLLibraryDao implements LibraryDao {
             return false;
         }
     }
-
+    
     @Override
-    public List<Book> getBooks() {
+    public List<Suggestion> getAll() {
+        List<Suggestion> sugs = new ArrayList<>();
+        
+        sugs.addAll(getBooks(""));
+        sugs.addAll(getArticles(""));
+        
+        return sugs;
+    }
+
+    private List<Book> getBooks(String tag) {
         try {
             Connection conn = connect();
 
             PreparedStatement p = conn.prepareStatement("SELECT B.title, A.name, B.pages, "
                     + "ROUND(((CAST(B.pages_read AS float)/B.pages)*100), 1) AS percentage, B.tags "
-                    + "From Book B LEFT JOIN Author A WHERE B.author_id=A.id;");
+                    + "FROM Book B LEFT JOIN Author A "
+                    + "WHERE B.author_id=A.id AND instr(tags, ?) > 0");
+            p.setString(1, tag);
             ResultSet r = p.executeQuery();
 
             List<Book> books = new ArrayList<>();
@@ -345,7 +356,9 @@ public class SQLLibraryDao implements LibraryDao {
                 Book book = new Book(r.getString("title"), r.getString("name"), r.getInt("pages"), r.getDouble("percentage"), r.getString("tags"));
                 books.add(book);
             }
+            
             r.close();
+            p.close();
             conn.close();
 
             return books;
@@ -356,12 +369,12 @@ public class SQLLibraryDao implements LibraryDao {
         return null;
     }
 
-    @Override
-    public List<Article> getArticles() {
+    private List<Article> getArticles(String tag) {
         try {
             Connection conn = connect();
 
-            PreparedStatement p = conn.prepareStatement("SELECT * From Article");
+            PreparedStatement p = conn.prepareStatement("SELECT * From Article WHERE instr(tags, ?) > 0");
+            p.setString(1, tag);
             ResultSet r = p.executeQuery();
 
             List<Article> articles = new ArrayList<>();
@@ -370,7 +383,9 @@ public class SQLLibraryDao implements LibraryDao {
                 Article article = new Article(r.getString("title"), r.getString("url"), r.getString("tags"));
                 articles.add(article);
             }
+            
             r.close();
+            p.close();
             conn.close();
 
             return articles;
@@ -387,6 +402,18 @@ public class SQLLibraryDao implements LibraryDao {
         // (siis ei suggestioneja), kun testailin clui:ta niin suggestion.toString vaikuttaa
         // flippaavaan, jos on tallennettu vaan geneerisenä suggestionina
         // tag on valmiiksi lowercasena mutta ei muuten muotoiltu
+        try {
+            List<Suggestion> sugs = new ArrayList<>();
+            
+            sugs.addAll(getBooks(tag));
+            sugs.addAll(getArticles(tag));
+
+            return sugs;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
         return null;
     }
 

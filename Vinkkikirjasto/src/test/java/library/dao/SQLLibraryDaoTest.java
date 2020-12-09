@@ -56,21 +56,21 @@ public class SQLLibraryDaoTest {
     @Test
     public void listingBooksFromDatabaseWorks() {
         sqldao.add(book);
-        List<Book> books = sqldao.getBooks();
+        List<Suggestion> books = sqldao.getAll();
         assertEquals("Test Book", books.get(0).getDetail("nimi"));
     }
 
     @Test
     public void listingArticlesFromDatabaseWorks() {
         sqldao.add(article);
-        List<Article> articles = sqldao.getArticles();
-        assertEquals("Test Article", articles.get(0).getDetail("nimi"));
+        List<Suggestion> articles = sqldao.getAll();
+        assertEquals("Test Article", articles.get(1).getDetail("nimi"));
     }
 
     @Test
     public void deletingBookFromDatabaseWorks() {
         sqldao.add(book);
-        assertTrue(!sqldao.getBooks().isEmpty());
+        assertTrue(!sqldao.getAll().isEmpty());
         boolean removed = sqldao.remove("Test Book", "book");
         assertTrue(removed);
     }
@@ -78,7 +78,7 @@ public class SQLLibraryDaoTest {
     @Test
     public void deletingArticleFromDatabaseWorks() {
         sqldao.add(article);
-        assertTrue(!sqldao.getArticles().isEmpty());
+        assertTrue(!sqldao.getAll().isEmpty());
         boolean removed = sqldao.remove("Test Article", "article");
         assertTrue(removed);
     }

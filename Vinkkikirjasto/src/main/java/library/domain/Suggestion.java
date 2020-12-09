@@ -50,6 +50,6 @@ public interface Suggestion {
      * Book-luokasta voi katsoa myös mallia.
      * @return oikein formatoitu String joka sisältää objektin kentät ja arvot
      */
-    @Override
+    
     String toString();
 }

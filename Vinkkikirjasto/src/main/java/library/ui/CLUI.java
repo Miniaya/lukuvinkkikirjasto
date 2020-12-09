@@ -105,7 +105,7 @@ public class CLUI {
     }
     
     private void add() {
-        io.print("Lisätään uusi vinkki tietokantaan. Eroita eri tagit pilkulla");
+        io.print("Lisätään uusi vinkki tietokantaan. Erota eri tagit pilkulla");
         while (true) {
             String in = io.readLine("Lisää kirja komennolla kirja tai artikkeli komennolla artikkeli.");
             if (in.equals("kirja")) {
@@ -242,20 +242,12 @@ public class CLUI {
     }
     
     private void listSuggestions() {
-        List<Book> books = service.listBooks();
-        List<Article> articles = service.listArticles();
-        if ((books == null && articles == null) || (books.isEmpty() && articles.isEmpty())) {
+        List<Suggestion> sugs = service.listAll();
+        if (sugs.isEmpty() || sugs == null) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
-            if (books != null) {
-                for (Book book : books) {
-                    io.print(book.toString() + "\n");
-                }
-            }
-            if (articles != null) {
-                for (Article article : articles) {
-                    io.print(article.toString() + "\n");
-                }
+            for (Suggestion sugg : sugs) {
+                io.print(sugg.toString() + "\n");
             }
         }
     }
@@ -288,6 +280,7 @@ public class CLUI {
         if (suggestions.isEmpty()) {
             io.print("Tagilla " + tag + " ei löytynyt vinkkejä. Tarkista kirjoitusasu.");
         } else {
+            io.print("");
             for (Suggestion sug: suggestions) {
                 io.print(sug.toString() + "\n");
             }

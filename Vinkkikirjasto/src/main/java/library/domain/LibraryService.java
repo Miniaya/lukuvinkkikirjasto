@@ -52,13 +52,9 @@ public class LibraryService {
     public boolean update(String type, String name, String pages) {
         return libraryDao.update(type, name, pages);
     }
-
-    public List<Book> listBooks() {
-        return libraryDao.getBooks();
-    }
-
-    public List<Article> listArticles() {
-        return libraryDao.getArticles();
+    
+    public List<Suggestion> listAll() {
+        return libraryDao.getAll();
     }
     
     /*
