@@ -30,6 +30,75 @@ public class LibraryService {
 
         return success;
     }
+    
+    public boolean updateTags(String suggestionType, String name, String tag) {
+        boolean success = false;
+        if (suggestionType.equals("book")) {
+            List<Suggestion> suggestions = listAll();
+            for (Suggestion suggestion: suggestions) {
+                if (suggestion.getDetail("nimi").equals(name)) {
+                    String tags = suggestion.getDetail("tagit");
+                    if (tags.equals("")) {
+                        String updatedTags = tag;
+                        success = libraryDao.updateBookTag(name, updatedTags);
+                    } else {
+                        String updatedTags = tags + " " + tag;
+                        success = libraryDao.updateBookTag(name, updatedTags);
+                    }
+                }
+            }
+        } else if (suggestionType.equals("article")) {
+            List<Suggestion> suggestions = listAll();
+            for (Suggestion suggestion: suggestions) {
+                if (suggestion.getDetail("nimi").equals(name)) {
+                    String tags = suggestion.getDetail("tagit");
+                    if (tags.equals("")) {
+                        String updatedTags = tag;
+                        success = libraryDao.updateArticleTag(name, updatedTags);
+                    } else {
+                        String updatedTags = tags + " " + tag;
+                        success = libraryDao.updateArticleTag(name, updatedTags);
+                    }
+                }
+            }
+        }
+        return success;
+    }
+    
+    public boolean deleteTags(String suggestionType, String name, String tag) {
+        boolean success = false;
+        if (suggestionType.equals("book")) {
+            List<Suggestion> suggestions = listAll();
+            for (Suggestion suggestion: suggestions) {
+                if (suggestion.getDetail("nimi").equals(name)) {
+                    String tags = suggestion.getDetail("tagit");
+                    String updatedTags = deleteChosenTag(tags, tag);
+                    success = libraryDao.updateBookTag(name, updatedTags);
+                }
+            }
+        } else if (suggestionType.equals("article")) {
+            List<Suggestion> suggestions = listAll();
+            for (Suggestion suggestion: suggestions) {
+                if (suggestion.getDetail("nimi").equals(name)) {
+                    String tags = suggestion.getDetail("tagit");
+                    String updatedTags = deleteChosenTag(tags, tag);
+                    success = libraryDao.updateArticleTag(name, updatedTags);
+                }
+            }
+        }
+        return success;
+    }
+    
+    private String deleteChosenTag(String tags, String tagToDelete) {
+        String[] tagsToArray = tags.split("\\s+");
+        String updatedTag = "";
+        for (int i = 0; i < tagsToArray.length; i++) {
+            if (!tagsToArray[i].equals(tagToDelete)) {
+                updatedTag = updatedTag + " " + tagsToArray[i];
+            }
+        }
+        return updatedTag.substring(1);
+    }
 
     private String trimTags(int index, String[] detailValues) {
         String tagInput = detailValues[index].toLowerCase();

@@ -89,6 +89,16 @@ public class InMemoryLibraryDao implements LibraryDao {
     }
     
     @Override
+    public boolean updateBookTag(String name, String tag) {
+        return true;
+    }
+    
+    @Override
+    public boolean updateArticleTag(String name, String tag) {
+        return true;
+    }
+    
+    @Override
     public List<Suggestion> getSuggestionsByTag(String tag) {
         ArrayList<Suggestion> sugs = new ArrayList<>();
         for (Book book: books) {

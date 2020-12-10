@@ -257,7 +257,15 @@ public class CLUI {
     }
     
     private void update() {
-        updateReadPages();
+        String in = io.readLine("Muokkaa kirjan luettua sivumäärää komennolla sivumaara tai lisää/poista tägejä komennolla tagi.");
+        if (in.equals("sivumaara")) {
+            updateReadPages();
+        } else if (in.equals("tagi")) {
+            handleTags();
+        } else {
+            io.print("Virheellinen komento. Yritä uudelleen.");
+            update();
+        }
     }
     
     private void updateReadPages() {
@@ -287,6 +295,90 @@ public class CLUI {
             io.print("");
             for (Suggestion sug: suggestions) {
                 io.print("-------------\n" + sug.toString() + "\n");
+            }
+        }
+    }
+    
+    private void handleTags() {
+        String in = io.readLine("Lisää tägejä olemassaolevalle vinkille komennolla lisaa tai poista tägejä komennolla poista.");
+        if (in.equals("lisaa")) {
+            updateTags();
+        } else if (in.equals("poista")) {
+            deleteTags();
+        } else {
+            String answer = io.readLine("Virheellinen komento. Haluatko yrittää uudelleen? (k/e)");
+            if (answer.equals("k")) {
+                handleTags();
+            }
+        }
+    }
+    
+    private void updateTags() {
+        String type = io.readLine("Lisää tägi kirjalle komennolla kirja tai artikkelille komennolla artikkeli");
+        if (type.equals("kirja")) {
+            String name = io.readLine("Anna kirjan nimi: ");
+            String tag = io.readLine("Lisää haluamasi tägi: ");
+            if (service.updateTags("book", name, tag)) {
+                io.print("Tägi lisätty.");
+            } else {
+                io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
+                String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+                if (in.equals("k")) {
+                    updateTags();
+                }
+            }
+        } else if (type.equals("artikkeli")) {
+            String name = io.readLine("Anna artikkelin nimi: ");
+            String tag = io.readLine("Lisää haluamasi tägi: ");
+            if (service.updateTags("article", name, tag)) {
+                io.print("Tägi lisätty.");
+            } else {
+                io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
+                String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+                if (in.equals("k")) {
+                    updateTags();
+                }
+            }
+        } else {
+            io.print("Virheellinen komento.");
+            String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+            if (in.equals("k")) {
+                updateTags();
+            }
+        }
+    }
+    
+    private void deleteTags() {
+        String type = io.readLine("Poista tägi kirjalta komennolla kirja tai artikkelilta komennolla artikkeli");
+        if (type.equals("kirja")) {
+            String name = io.readLine("Anna kirjan nimi: ");
+            String tag = io.readLine("Anna tägi, jonka haluat poistaa: ");
+            if (service.deleteTags("book", name, tag)) {
+                io.print("Tägi poistettu.");
+            } else {
+                io.print("Virhe. Tarkista, että kirjoitit kirjan ja tägin nimen oikein.");
+                String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+                if (in.equals("k")) {
+                    deleteTags();
+                }
+            }
+        } else if (type.equals("artikkeli")) {
+            String name = io.readLine("Anna artikkelin nimi: ");
+            String tag = io.readLine("Anna tägi, jonka haluat poistaa: ");
+            if (service.deleteTags("article", name, tag)) {
+                io.print("Tägi poistettu.");
+            } else {
+                io.print("Virhe. Tarkista, että kirjoitit artikkelin ja tägin nimen oikein.");
+                String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+                if (in.equals("k")) {
+                    deleteTags();
+                }
+            }
+        } else {
+            io.print("Virheellinen komento.");
+            String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
+            if (in.equals("k")) {
+                deleteTags();
             }
         }
     }

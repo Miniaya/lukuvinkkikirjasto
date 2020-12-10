@@ -15,6 +15,10 @@ public interface LibraryDao {
     
     public boolean update(String type, String name, String update);
     
+    public boolean updateBookTag(String name, String tag);
+    
+    public boolean updateArticleTag(String name, String tag);
+    
     List<Suggestion> getAll();
     
     List<Suggestion> getSuggestionsByTag(String tag);

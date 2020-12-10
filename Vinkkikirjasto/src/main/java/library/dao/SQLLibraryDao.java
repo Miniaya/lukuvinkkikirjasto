@@ -274,6 +274,74 @@ public class SQLLibraryDao implements LibraryDao {
             return false;
         }
     }
+    
+    @Override
+    public boolean updateBookTag(String name, String tag) {
+        try {
+            Connection conn = connect();
+            Statement s = conn.createStatement();
+            
+            s.execute("BEGIN TRANSACTION");
+            
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM Book WHERE title = ?");
+            p.setString(1, name);
+            
+            ResultSet r = p.executeQuery();
+
+            p = conn.prepareStatement("UPDATE Book SET tags = ? WHERE title = ?");
+            p.setString(1, tag);
+            p.setString(2, name);
+
+            p.executeUpdate();
+            
+            s.execute("COMMIT");
+
+            s.close();
+            r.close();
+            p.close();
+            conn.close();
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean updateArticleTag(String name, String tag) {
+        try {
+            Connection conn = connect();
+            Statement s = conn.createStatement();
+            
+            s.execute("BEGIN TRANSACTION");
+            
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM Article WHERE title = ?");
+            p.setString(1, name);
+            
+            ResultSet r = p.executeQuery();
+
+            p = conn.prepareStatement("UPDATE Article SET tags = ? WHERE title = ?");
+            p.setString(1, tag);
+            p.setString(2, name);
+
+            p.executeUpdate();
+            
+            s.execute("COMMIT");
+
+            s.close();
+            r.close();
+            p.close();
+            conn.close();
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
     @Override
     public boolean update(String type, String name, String update) {
@@ -338,7 +406,7 @@ public class SQLLibraryDao implements LibraryDao {
         
         return sugs;
     }
-
+    
     private List<Book> getBooks(String tag) {
         try {
             Connection conn = connect();
@@ -368,7 +436,7 @@ public class SQLLibraryDao implements LibraryDao {
 
         return null;
     }
-
+    
     private List<Article> getArticles(String tag) {
         try {
             Connection conn = connect();
