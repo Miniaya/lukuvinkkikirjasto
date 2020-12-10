@@ -23,6 +23,10 @@ Siirry kansioon ja käynnistä sovellus komentoriviltä komennolla:
 
 
 ## KOMENNOT
+- `hae` - hae vinkkejä tagien avulla
+
+Voit hakea vinkkejä - kirjoja tai artikkeleita - joissa on tietty tagi.
+
 - `help` - listaa kaikki komennot
 
 Tällä komennolla voit nähdä kaikki mahdolliset toiminnot.
@@ -33,7 +37,7 @@ Näet kaikki sovellukseen lisätyt vinkit. Kirjoissa näet kirjan nimen, kirjoit
 
 - `muokkaa` - päivitä vinkkiä
 
-Tällä hetkellä voit lisätä kirjavinkkeihin luetun sivumäärän ja päivittää sitä.
+Lisää tai poista tageja, tai muokkaa kirjavinkkeihin luetun sivumäärää.
 
 - `poista` - poista vinkki
 
