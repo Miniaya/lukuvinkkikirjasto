@@ -38,9 +38,11 @@ public class LibraryService {
             for (Suggestion suggestion: suggestions) {
                 if (suggestion.getDetail("nimi").equals(name)) {
                     String tags = suggestion.getDetail("tagit");
-                    if (tags.equals("")) {
+                    if (tags.equals("") ) {
                         String updatedTags = tag;
                         success = libraryDao.updateBookTag(name, updatedTags);
+                    } else if (tags.contains(tag)){
+                        success = true;
                     } else {
                         String updatedTags = tags + " " + tag;
                         success = libraryDao.updateBookTag(name, updatedTags);
@@ -55,6 +57,8 @@ public class LibraryService {
                     if (tags.equals("")) {
                         String updatedTags = tag;
                         success = libraryDao.updateArticleTag(name, updatedTags);
+                    } else if (tags.contains(tag)) {
+                        success = true;
                     } else {
                         String updatedTags = tags + " " + tag;
                         success = libraryDao.updateArticleTag(name, updatedTags);

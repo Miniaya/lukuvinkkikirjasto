@@ -76,7 +76,7 @@ public class Stepdefs {
     public void commandHaeIsSelected() {
         input.add("hae");
     }
-
+    
     @When("correct book information is given")
     public void correctBookInfoGiven() {
         input.add("kirja");
@@ -298,6 +298,13 @@ public class Stepdefs {
     public void getsMessageForDeletingTagSuccesfully(String tag) {
         this.closeAndRunCLUI();
         boolean result = this.goThroughPrintsLookingFor("Tagi " + tag + " poistettu.");
+        assertTrue(result);
+    }
+    
+    @Then("there is no duplicate of tag {string}")
+    public void noDuplicatedTag(String tag) {
+        this.closeAndRunCLUI();
+        boolean result = !this.goThroughPrintsLookingFor(tag + " " + tag);
         assertTrue(result);
     }
     
