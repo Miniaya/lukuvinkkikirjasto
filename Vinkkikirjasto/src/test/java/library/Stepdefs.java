@@ -141,6 +141,11 @@ public class Stepdefs {
         input.add("www.garbage.com");
         input.add("Nonsense");
     }
+    
+    @When("tag {string} is added to book {string}")
+    public void addDesiredTag(String tag, String book) {
+        input.addAll(Arrays.asList("muokkaa", "tagi", "lisaa", "kirja", book, tag));
+    }
 
     
     @Then("book is saved to library")
@@ -232,6 +237,13 @@ public class Stepdefs {
         Book margarita = this.getBookMargarita();
         boolean result = this.goThroughPrintsLookingFor(finlandia.toString()) 
                 && this.goThroughPrintsLookingFor(margarita.toString());
+        assertTrue(result);
+    }
+    
+    @Then("new tag is added")
+    public void getsMessageForAddingTagSuccesfully() {
+        this.closeAndRunCLUI();
+        boolean result = this.goThroughPrintsLookingFor("Tägi lisätty.");
         assertTrue(result);
     }
     
