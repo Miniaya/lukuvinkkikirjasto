@@ -120,6 +120,17 @@ public class Stepdefs {
         input.add("e");
     }
     
+    @When("tags {string}, {string} and {string} are added")
+    public void tagsAreAdded(String tag1, String tag2, String tag3) {
+        // Poistetaan inputista default-tagi
+        for (int i = 0; i < input.size(); i++) {
+            if (input.get(i).contains("tag")) {
+                input.remove(i);
+            }
+        }
+        input.add(tag1 + "," + tag2 + "," + tag3);
+    }
+
     @When("tag {string} is entered")
     public void enterTag(String tag) {
         input.add(tag);
@@ -132,14 +143,13 @@ public class Stepdefs {
         input.add(string);
         input.add(string2);
     }
-    
-    
+
     @When("correct article information is given")
     public void correctArticleInformationIsGiven() {
         input.add("artikkeli");
         input.add("artikkeli");
         input.add("www.garbage.com");
-        input.add("Nonsense");
+        input.add("tag");
     }
     
     @When("tag {string} is added to {string} named {string}")
@@ -152,7 +162,6 @@ public class Stepdefs {
         input.addAll(Arrays.asList("muokkaa", "tagi", "poista", type, name, tag));
     }
 
-    
     @Then("book is saved to library")
     public void bookIsSaved() {
         this.closeAndRunCLUI();
@@ -208,14 +217,47 @@ public class Stepdefs {
     public void pagesDisplayedGreen() {
         this.closeAndRunCLUI();
         boolean result = false;
-        // BUGI: jostain syystä tätä testiä ei saa toimimaan vaikka se on
-        // periaatteessa täsmälleen samanlainen kuin testit punaiselle ja
-        // keltaiselle. Ohjelma myös toimii toivotulla tavalla.
         for (String s: io.getPrints()) {
             if (s.contains("\nLuettu     | \u001b[38;5;157m")) {
                 result = true;
             }
         }
+        assertTrue(result);
+    }
+    
+    @Then("suggestion has tags {string}, {string} and {string}")
+    public void suggestionHasTags(String tag1, String tag2, String tag3) {
+        String tags = tag1 + " " + tag2 + " " + tag3;
+        input.add("listaa");
+        this.closeAndRunCLUI();
+        boolean result = this.goThroughPrintsLookingFor(tags);
+        assertTrue(result);
+    }
+    
+    @Then("suggestion has no duplicate tags")
+    public void noDuplicateTags() {
+        input.add("listaa");
+        input.add("sulje");
+        io.setInputs(input);
+        ui.init();
+        boolean result = true;
+        String[] tags = new String[2];
+        for (String s: io.getPrints()) {
+            if (s.contains("Tagit")) {
+                tags = s.split("Tagit");
+                System.out.println(Arrays.toString(tags));
+                tags = tags[tags.length-1].split("\\s+");
+                System.out.println(Arrays.toString(tags));
+                break;             
+            }
+        }
+        for (int i = 2; i < tags.length; i++) {
+                    for (int j = i + 1; j < tags.length; j++) {
+                        if (tags[i].equals(tags[j])) {
+                            result = false;
+                        }
+                    }
+                }
         assertTrue(result);
     }
     
