@@ -10,10 +10,10 @@ public class Book implements Suggestion{
     
     private String[] detailTypes;
     private HashMap<String, String> details;
-    private String RED = "\033[0;31m";     // RED
-    private String GREEN = "\033[0;32m";   // GREEN
-    private String YELLOW = "\033[0;33m";  // YELLOW
-    private String RESET = "\033[0m";  // RESET
+    private String RED = "\u001b[38;5;210m";     // RED
+    private String GREEN = "\u001b[38;5;157m";   // GREEN
+    private String YELLOW = "\u001b[38;5;229m";  // YELLOW
+    private String RESET = "\u001b[0m";  // RESET
     
     public Book(String name, String author, int pages, double read, String tags) {
         this.detailTypes = new String[]{"nimi", "kirjoittaja", "sivumäärä", "luettu", "tagit"};
@@ -84,12 +84,13 @@ public class Book implements Suggestion{
     public String toString() {
         String prosentti = details.get("luettu");
         prosentti = getPercentColor(prosentti);
-        return "Tyyppi: Kirja" 
-                + "\nNimi: " + details.get("nimi") 
-                + "\nKirjoittaja: "  + details.get("kirjoittaja") 
-                + "\nSivumäärä: " + details.get("sivumäärä")
-                + "\nLuettu: " + prosentti
-                + "\nTagit: " + details.get("tagit");
+        return "\u001b[38;5;115mKIRJA \u001b[0m" 
+                + "\nNimi       | " + details.get("nimi") 
+                + "\nKirjoittaja| "  + details.get("kirjoittaja") 
+                + "\nSivumäärä  | " + details.get("sivumäärä")
+                + "\nLuettu     | " + prosentti
+                + "\nTagit      | " + details.get("tagit")
+                + "\n-------------";
     }
     
     @Override

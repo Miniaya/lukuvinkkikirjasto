@@ -100,7 +100,7 @@ public class Stepdefs {
 
         io.setInputs(input);
         ui.init();
-        assertTrue(io.getPrints().contains("Vinkki lisätty"));
+        assertTrue(io.getPrints().contains("Vinkki lisätty."));
     }
 
     @Then("error message {string} is shown")
@@ -144,7 +144,7 @@ public class Stepdefs {
 
         io.setInputs(input);
         ui.init();
-        assertTrue(io.getPrints().contains("Vinkki lisätty"));
+        assertTrue(io.getPrints().contains("Vinkki lisätty."));
     }
 
     @When("name of the book {string} and amount of pages read {string} is given")
@@ -171,7 +171,7 @@ public class Stepdefs {
         ui.init();
         boolean result = false;
         for (String s: io.getPrints()) {
-            if (s.contains("\nLuettu: \033[0;31m")) {
+            if (s.contains("\nLuettu     | \u001b[38;5;210m")) {
                 result = true;
             }
         }
@@ -186,7 +186,7 @@ public class Stepdefs {
         ui.init();
         boolean result = false;
         for (String s: io.getPrints()) {
-            if (s.contains("\nLuettu: \033[0;33m")) {
+            if (s.contains("\nLuettu     | \u001b[38;5;229m")) {
                 result = true;
             }
         }
@@ -204,7 +204,7 @@ public class Stepdefs {
         // periaatteessa täsmälleen samanlainen kuin testit punaiselle ja
         // keltaiselle. Ohjelma myös toimii toivotulla tavalla.
         for (String s: io.getPrints()) {
-            if (s.contains("\nLuettu: \033[0;32m")) {
+            if (s.contains("\nLuettu     | \u001b[38;5;157m")) {
                 result = true;
             }
         }

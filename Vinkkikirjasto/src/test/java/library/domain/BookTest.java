@@ -17,10 +17,10 @@ public class BookTest {
     
     private Book testBook1;
     private Book testBook2;
-    private String RED = "\033[0;31m";
-    private String GREEN = "\033[0;32m";
-    private String YELLOW = "\033[0;33m";
-    private String RESET = "\033[0m";
+    private String RED = "\u001b[38;5;210m";     // RED
+    private String GREEN = "\u001b[38;5;157m";   // GREEN
+    private String YELLOW = "\u001b[38;5;229m";  // YELLOW
+    private String RESET = "\u001b[0m";  // RESET
     
     @Before
     public void setUp() {
@@ -32,21 +32,33 @@ public class BookTest {
     public void toStringMethodReturnsCorrectDetails() {
         String percent1 = RED + "0.0%" + RESET;
         String percent2 = GREEN + "100.0%" + RESET;
-        assertEquals("Tyyppi: Kirja" + "\nNimi: TestName" + 
-                "\nKirjoittaja: TestAuthor" + "\nSivumäärä: 100" + 
-                "\nLuettu: " + percent1 + "\nTagit: TestTag", testBook1.toString());
-        assertEquals("Tyyppi: Kirja" + "\nNimi: TestName2" + 
-                "\nKirjoittaja: TestAuthor2" + "\nSivumäärä: 200" + 
-                "\nLuettu: " + percent2 + "\nTagit: TestTag2", testBook2.toString());
+        assertEquals("\u001b[38;5;115mKIRJA \u001b[0m" 
+        + "\nNimi       | TestName"
+        + "\nKirjoittaja| TestAuthor" 
+        + "\nSivumäärä  | 100" 
+        + "\nLuettu     | " + percent1 
+        + "\nTagit      | TestTag"
+        + "\n-------------", testBook1.toString());
+        assertEquals("\u001b[38;5;115mKIRJA \u001b[0m" 
+        + "\nNimi       | TestName2"
+        + "\nKirjoittaja| TestAuthor2" 
+        + "\nSivumäärä  | 200" 
+        + "\nLuettu     | " + percent2 
+        + "\nTagit      | TestTag2"
+        + "\n-------------", testBook2.toString());
     }
     
     @Test
     public void updatedBookDetailsAreShownInListing() {
         testBook1.setRead(50);
         String updatedPercent = YELLOW + "50.0%" + RESET;
-        assertEquals("Tyyppi: Kirja" + "\nNimi: TestName" + 
-                "\nKirjoittaja: TestAuthor" + "\nSivumäärä: 100" + 
-                "\nLuettu: " + updatedPercent + "\nTagit: TestTag", testBook1.toString());
+        assertEquals("\u001b[38;5;115mKIRJA \u001b[0m" 
+        + "\nNimi       | TestName"
+        + "\nKirjoittaja| TestAuthor" 
+        + "\nSivumäärä  | 100" 
+        + "\nLuettu     | " + updatedPercent 
+        + "\nTagit      | TestTag"
+        + "\n-------------", testBook1.toString());
     }
     
 

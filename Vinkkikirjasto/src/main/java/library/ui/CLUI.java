@@ -58,9 +58,12 @@ public class CLUI {
         // Laitetaan komennot aakkosjärjestykseen
         Collections.sort(commands);
         
-        io.print("##############\n"
-                + "# Lukuvinkit #\n"
-                + "##############\n");
+        io.print(
+          "_    _  _ _  _ _  _ _  _ _ _  _ _  _ _ ___ \n"
+        + "|    |  | |_/  |  | |  | | |\\ | |_/  |  |  \n"
+        + "|___ |__| | \\_ |__|  \\/  | | \\| | \\_ |  |\n"
+        + "------------------------------------------\n"
+        + "     TIIMI VIISI - OHTU 2020 SYKSY");
         listCommands();
         // Kysyy ja toteuttaa komentoja kunnes saadaan komento "sulje"
         loop:
@@ -85,7 +88,7 @@ public class CLUI {
                     update();
                     break;
                 case "sulje":
-                    io.print("Suljetaan Lukuvinkit");
+                    io.print("Suljetaan Lukuvinkit...");
                     break loop;
                 case "help":
                     listCommands();
@@ -98,7 +101,7 @@ public class CLUI {
     }
     
     private void listCommands() {
-        io.print("Komennot:");
+        io.print("\n\u001b[1mKOMENNOT\u001b[0m\n-------------");
         for (String s : commands) {
             io.print(s);
         }
@@ -136,7 +139,7 @@ public class CLUI {
                 if (correctType) {
                     input.add(in);
                 } else {
-                    io.print("Syötä " + details[i] + " uudelleen. Varmista, että nimessä ja kirjoittajassa ei numeroita, sekä sivumäärässä kirjaimia ");
+                    io.print("Syötä " + details[i] + " uudelleen. Varmista, että nimessä ja kirjoittajassa ei numeroita, sekä sivumäärässä kirjaimia.");
                 }
             }
         }
@@ -144,10 +147,10 @@ public class CLUI {
         boolean success = service.add("book", details, input.toArray(new String[input.size()]));
         
         if (success) {
-            io.print("Vinkki lisätty");
+            io.print("Vinkki lisätty.");
             io.print("");
         } else {
-            io.print("Vinkin lisäys epäonnistui");
+            io.print("Vinkin lisäys epäonnistui.");
         }
     }
     
@@ -174,10 +177,10 @@ public class CLUI {
         boolean success = service.add("article", details, input.toArray(new String[input.size()]));
         
         if (success) {
-            io.print("Vinkki lisätty");
+            io.print("Vinkki lisätty.");
             io.print("");
         } else {
-            io.print("Vinkin lisäys epäonnistui");
+            io.print("Vinkin lisäys epäonnistui.");
         }
     }
     
@@ -246,8 +249,9 @@ public class CLUI {
         if (sugs.isEmpty() || sugs == null) {
             io.print("Vinkkikirjastossa ei ole vielä vinkkejä.");
         } else {
+            io.print("\u001b[1mKAIKKI VINKIT\u001b[0m\n-------------");
             for (Suggestion sugg : sugs) {
-                io.print(sugg.toString() + "\n");
+                io.print(sugg.toString());
             }
         }
     }
@@ -282,7 +286,7 @@ public class CLUI {
         } else {
             io.print("");
             for (Suggestion sug: suggestions) {
-                io.print(sug.toString() + "\n");
+                io.print("-------------\n" + sug.toString() + "\n");
             }
         }
     }

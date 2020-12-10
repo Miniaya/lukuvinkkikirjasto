@@ -50,10 +50,11 @@ public class Article implements Suggestion {
     
     @Override
     public String toString() {
-        return "Tyyppi: Artikkeli" 
-                + "\nNimi: " + details.get("nimi") 
-                + "\nUrl: " + details.get("url")
-                + "\nTagit: " + details.get("tagit");
+        return "\u001b[38;5;117mARTIKKELI\u001b[0m" 
+                + "\nNimi       | " + details.get("nimi")
+                + "\nUrl        | \u001b[4m\u001b[38;5;159m" + details.get("url") + "\u001b[0m"
+                + "\nTagit      | " + details.get("tagit")
+                + "\n-------------";
     }
     
     @Override
