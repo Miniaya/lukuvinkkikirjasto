@@ -150,6 +150,7 @@ public class Stepdefs {
     @When("name of the book {string} and amount of pages read {string} is given")
     public void nameOfTheBookAndAmountOfPagesReadIsGiven(String string, String string2) {
         input.add("muokkaa");
+        input.add("sivumaara");
         input.add(string);
         input.add(string2);
     }
@@ -157,7 +158,6 @@ public class Stepdefs {
     @Then("pages read is updated with the new value")
     public void pagesReadIsUpdatedWithTheNewValue() {
         input.add("sulje");
-
         io.setInputs(input);
         ui.init();
         assertTrue(io.getPrints().contains("Luettu sivumäärä päivitetty."));

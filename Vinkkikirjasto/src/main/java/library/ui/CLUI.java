@@ -263,8 +263,10 @@ public class CLUI {
         } else if (in.equals("tagi")) {
             handleTags();
         } else {
-            io.print("Virheellinen komento. Yritä uudelleen.");
-            update();
+            String answer = io.readLine("Virheellinen komento. Haluatko yrittää uudelleen? (k/e)");
+            if (answer.equals("k")) {
+                update();
+            }
         }
     }
     
