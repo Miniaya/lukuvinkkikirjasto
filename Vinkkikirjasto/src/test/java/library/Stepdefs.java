@@ -142,9 +142,14 @@ public class Stepdefs {
         input.add("Nonsense");
     }
     
-    @When("tag {string} is added to book {string}")
-    public void addDesiredTag(String tag, String book) {
-        input.addAll(Arrays.asList("muokkaa", "tagi", "lisaa", "kirja", book, tag));
+    @When("tag {string} is added to {string} named {string}")
+    public void addDesiredTag(String tag, String type, String name) {
+        input.addAll(Arrays.asList("muokkaa", "tagi", "lisaa", type, name, tag));
+    }
+    
+    @When("tag {string} is removed from {string} named {string}")
+    public void removeDesiredTagFromGivenBookOrArticle(String tag, String type, String name) {
+        input.addAll(Arrays.asList("muokkaa", "tagi", "poista", type, name, tag));
     }
 
     
@@ -240,12 +245,20 @@ public class Stepdefs {
         assertTrue(result);
     }
     
-    @Then("new tag is added")
-    public void getsMessageForAddingTagSuccesfully() {
+    @Then("new tag {string} is added")
+    public void getsMessageForAddingTagSuccesfully(String tag) {
         this.closeAndRunCLUI();
-        boolean result = this.goThroughPrintsLookingFor("Tagi lisätty.");
+        boolean result = this.goThroughPrintsLookingFor("Tagi " + tag + " lisätty.");
         assertTrue(result);
     }
+    
+    @Then("tag {string} is deleted")
+    public void getsMessageForDeletingTagSuccesfully(String tag) {
+        this.closeAndRunCLUI();
+        boolean result = this.goThroughPrintsLookingFor("Tagi " + tag + " poistettu.");
+        assertTrue(result);
+    }
+    
     
     private void closeAndRunCLUI() {
         input.add("sulje");

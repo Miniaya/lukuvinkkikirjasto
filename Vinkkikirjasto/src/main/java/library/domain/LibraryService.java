@@ -97,7 +97,7 @@ public class LibraryService {
                 updatedTag = updatedTag + " " + tagsToArray[i];
             }
         }
-        return updatedTag.substring(1);
+        return updatedTag;
     }
 
     private String trimTags(int index, String[] detailValues) {

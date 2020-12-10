@@ -312,7 +312,7 @@ public class CLUI {
             String tag = io.readLine("Lisää haluamasi tagi: ");
             tag.toLowerCase();
             if (service.updateTags("book", name, tag)) {
-                io.print("Tagi lisätty.");
+                io.print("Tagi " + tag + " lisätty.");
             } else {
                 io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
                 String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
@@ -325,7 +325,7 @@ public class CLUI {
             String tag = io.readLine("Lisää haluamasi tagi: ");
             tag.toLowerCase();
             if (service.updateTags("article", name, tag)) {
-                io.print("Tagi lisätty.");
+                io.print("Tagi " + tag + " lisätty.");
             } else {
                 io.print("Virhe. Tarkista, että kirjoitit nimen oikein.");
                 String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
@@ -349,7 +349,7 @@ public class CLUI {
             String tag = io.readLine("Anna tagi, jonka haluat poistaa: ");
             tag.toLowerCase();
             if (service.deleteTags("book", name, tag)) {
-                io.print("Tagi poistettu.");
+                io.print("Tagi " + tag + " poistettu.");
             } else {
                 io.print("Virhe. Tarkista, että kirjoitit kirjan ja tagin nimen oikein.");
                 String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
@@ -362,7 +362,7 @@ public class CLUI {
             String tag = io.readLine("Anna tagi, jonka haluat poistaa: ");
             tag.toLowerCase();
             if (service.deleteTags("article", name, tag)) {
-                io.print("Tagi poistettu.");
+                io.print("Tagi " + tag + " poistettu.");
             } else {
                 io.print("Virhe. Tarkista, että kirjoitit artikkelin ja tagin nimen oikein.");
                 String in = io.readLine("Haluatko yrittää uudestaan? (k/e)");
