@@ -243,7 +243,7 @@ public class Stepdefs {
     @Then("new tag is added")
     public void getsMessageForAddingTagSuccesfully() {
         this.closeAndRunCLUI();
-        boolean result = this.goThroughPrintsLookingFor("Tägi lisätty.");
+        boolean result = this.goThroughPrintsLookingFor("Tagi lisätty.");
         assertTrue(result);
     }
     
