@@ -28,6 +28,7 @@ public class SQLLibraryDaoTest {
 
         String testiDB = properties.getProperty("testiDB");
         sqldao = new SQLLibraryDao(testiDB);
+        sqldao.clearDatabase();
 
         book = new Book();
         book.addDetail("nimi", "Test Book");
@@ -64,7 +65,7 @@ public class SQLLibraryDaoTest {
     public void listingArticlesFromDatabaseWorks() {
         sqldao.add(article);
         List<Suggestion> articles = sqldao.getAll();
-        assertEquals("Test Article", articles.get(1).getDetail("nimi"));
+        assertEquals("Test Article", articles.get(2).getDetail("nimi"));
     }
 
     @Test
@@ -77,7 +78,6 @@ public class SQLLibraryDaoTest {
 
     @Test
     public void deletingArticleFromDatabaseWorks() {
-        sqldao.add(article);
         assertTrue(!sqldao.getAll().isEmpty());
         boolean removed = sqldao.remove("Test Article", "article");
         assertTrue(removed);
@@ -115,7 +115,23 @@ public class SQLLibraryDaoTest {
         assertFalse(updated);
     }
 
- 
+    @Test
+    public void addingTagsToExistingSuggestionsWorks() {
+        sqldao.add(article);
+        boolean updatedArticle = sqldao.updateArticleTag("Test Article", "jee");
+        assertTrue(updatedArticle);
+        sqldao.add(book);
+        boolean updatedBook = sqldao.updateBookTag("Test Book", "jee");
+        assertTrue(updatedBook);
+    }
+    
+    @Test
+    public void addingTagsToNonexistingSuggestionDoesntWork() {
+        boolean updatedArticle = sqldao.updateArticleTag("Moi", "jee");
+        assertFalse(updatedArticle);
+        boolean updatedBook = sqldao.updateBookTag("Hei", "jee");
+        assertFalse(updatedBook);
+    }
 
     @After
     public void tearDown() {

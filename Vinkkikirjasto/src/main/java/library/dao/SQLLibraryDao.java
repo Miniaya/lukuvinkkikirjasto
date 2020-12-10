@@ -287,6 +287,16 @@ public class SQLLibraryDao implements LibraryDao {
             p.setString(1, name);
             
             ResultSet r = p.executeQuery();
+            
+            if (!r.next()) {
+                s.execute("COMMIT");
+                
+                s.close();
+                r.close();
+                p.close();
+                
+                return false;
+            }
 
             p = conn.prepareStatement("UPDATE Book SET tags = ? WHERE title = ?");
             p.setString(1, tag);
@@ -321,6 +331,16 @@ public class SQLLibraryDao implements LibraryDao {
             p.setString(1, name);
             
             ResultSet r = p.executeQuery();
+            
+            if (!r.next()) {
+                s.execute("COMMIT");
+                
+                s.close();
+                r.close();
+                p.close();
+                
+                return false;
+            }
 
             p = conn.prepareStatement("UPDATE Article SET tags = ? WHERE title = ?");
             p.setString(1, tag);
@@ -406,7 +426,7 @@ public class SQLLibraryDao implements LibraryDao {
         
         return sugs;
     }
-    
+
     private List<Book> getBooks(String tag) {
         try {
             Connection conn = connect();
