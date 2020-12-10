@@ -28,7 +28,6 @@ public class SQLLibraryDaoTest {
 
         String testiDB = properties.getProperty("testiDB");
         sqldao = new SQLLibraryDao(testiDB);
-        sqldao.clearDatabase();
 
         book = new Book();
         book.addDetail("nimi", "Test Book");

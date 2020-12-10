@@ -18,7 +18,9 @@ public class ConsoleIO implements IO {
     @Override
     public String readLine(String prompt) {
         System.out.println(prompt);
-        return scanner.nextLine();
+        String input = scanner.nextLine();
+        print("");
+        return input;
     }
     
 }
