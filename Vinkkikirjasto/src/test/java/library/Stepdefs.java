@@ -50,6 +50,18 @@ public class Stepdefs {
     public void commandListaaIsSelected() {
         input.add("listaa");
     }
+    
+    @Given ("book Margarita with tag finlandia is saved")
+    public void saveMargaritaBook() {
+        Book m = this.getBookMargarita();
+        library.add("book", m.getDetailTypes(),
+                new String[]{m.getName(), m.getAuthor(), Integer.toString(m.getPages()), Double.toString(m.getRead()), m.getTags()});
+    }
+    
+    @Given ("command hae is selected")
+    public void commandHaeIsSelected() {
+        input.add("hae");
+    }
 
     @When("correct book information is given")
     public void correctBookInfoGiven() {
@@ -92,6 +104,11 @@ public class Stepdefs {
     @When("I don't want to try again")
     public void dontTryAgain() {
         input.add("e");
+    }
+    
+    @When("tag {string} is entered")
+    public void enterTag(String tag) {
+        input.add(tag);
     }
 
     @Then("book is saved to library")
@@ -209,5 +226,25 @@ public class Stepdefs {
             }
         }
         assertTrue(result);
+    }
+    
+    @Then ("info for Margarita is displayed")
+    public void margaritaInfoDisplayed() {
+        input.add("sulje");
+        io.setInputs(input);
+        ui.init();
+        Book book = this.getBookMargarita();
+        boolean result = false;
+        for (String s: io.getPrints()) {
+            if (s.contains(book.toString())) {
+                result = true;
+            }
+        }
+        assertTrue(result);
+    }
+    
+    private Book getBookMargarita() {
+        Book book = new Book("Margarita", "Anni Kytömäki", 581, 0, "finlandia");
+        return book;
     }
 }
