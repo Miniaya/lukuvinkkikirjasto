@@ -49,12 +49,10 @@ public class SQLLibraryDao implements LibraryDao {
 
             s.execute("PRAGMA foreign_keys = ON");
             
-            s.execute("DROP TABLE IF EXISTS Author;");
-            s.execute("CREATE TABLE Author (id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            s.execute("CREATE TABLE IF NOT EXISTS Author (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "name TEXT NOT NULL)");
 
-            s.execute("DROP TABLE IF EXISTS Book;");
-            s.execute("CREATE TABLE Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            s.execute("CREATE TABLE IF NOT EXISTS Book (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "author_id INTEGER REFERENCES Author, "
                     + "pages INTEGER, "
@@ -63,14 +61,14 @@ public class SQLLibraryDao implements LibraryDao {
                     + "time_of_adding DATE, "
                     + "time_of_modifying DATE)");
             
-            s.execute("DROP TABLE IF EXISTS Article;");
-            s.execute("CREATE TABLE Article (id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            s.execute("CREATE TABLE IF NOT EXISTS Article (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "title TEXT, "
                     + "url TEXT, "
                     + "tags TEXT, "
                     + "time_of_adding DATE,"
                     + "time_of_modifying DATE)");
 
+            s.close();
             conn.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -486,10 +484,7 @@ public class SQLLibraryDao implements LibraryDao {
     
     @Override
     public List<Suggestion> getSuggestionsByTag(String tag) {
-        // Tämä kannattanee toteuttaa niin, että listalle menevät arvot ovat bookkeja ja articleja
-        // (siis ei suggestioneja), kun testailin clui:ta niin suggestion.toString vaikuttaa
-        // flippaavaan, jos on tallennettu vaan geneerisenä suggestionina
-        // tag on valmiiksi lowercasena mutta ei muuten muotoiltu
+       
         try {
             List<Suggestion> sugs = new ArrayList<>();
             
@@ -506,6 +501,20 @@ public class SQLLibraryDao implements LibraryDao {
     }
 
     public void clearDatabase() {
-        this.createDatabase();
+        try {
+            Connection conn = connect();
+            Statement s = conn.createStatement();
+        
+            s.execute("DELETE FROM Author");
+            s.execute("DELETE FROM Book;");
+            s.execute("DELETE FROM Article;");
+            
+            s.close();
+            conn.close();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+             
     }
 }

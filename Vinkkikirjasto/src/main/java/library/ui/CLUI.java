@@ -69,7 +69,6 @@ public class CLUI {
         loop:
         while (true) {
             String command = io.readLine("\nSyötä komento: ");
-            io.print("");
             
             switch (command) {
                 case "uusi":
@@ -134,7 +133,6 @@ public class CLUI {
             correctType = false;
             while (!correctType) {
                 String in = io.readLine("Anna kirjan " + details[i] + ": ");
-                io.print("");
                 correctType = checkBook(in, i);
                 if (correctType) {
                     input.add(in);
@@ -148,7 +146,6 @@ public class CLUI {
         
         if (success) {
             io.print("Vinkki lisätty.");
-            io.print("");
         } else {
             io.print("Vinkin lisäys epäonnistui.");
         }
@@ -164,7 +161,6 @@ public class CLUI {
             correctType = false;
             while (!correctType) {
                 String in = io.readLine("Anna artikkelin " + details[i] + ": ");
-                io.print("");
                 correctType = checkArticle(in, i);
                 if (correctType) {
                     input.add(in);
@@ -178,7 +174,6 @@ public class CLUI {
         
         if (success) {
             io.print("Vinkki lisätty.");
-            io.print("");
         } else {
             io.print("Vinkin lisäys epäonnistui.");
         }
@@ -186,7 +181,6 @@ public class CLUI {
     
     private void remove() {
         String in = io.readLine("Mitä poistetaan? (kirja/artikkeli)");
-        io.print("");
         while (true) {
             if (in.equals("kirja")) {
                 removeBook();
@@ -198,14 +192,12 @@ public class CLUI {
                 break;
             } else {
                 in = io.readLine("Tuntematon. Anna poistettava tyyppi (kirja / artikkeli). Tyhjä peruuttaa.");
-                io.print("");
             }
         }
     }
     
     private void removeBook() {
         String name = io.readLine("Anna kirjan nimi: ");
-        io.print("");
         if (service.remove(name, "book")) {
             io.print("Kirja " + name + " poistettu vinkkikirjastosta.");
         } else {
@@ -219,7 +211,6 @@ public class CLUI {
     
     private void removeArticle() {
         String name = io.readLine("Anna artikkelin otsikko:");
-        io.print("");
         if (service.remove(name, "article")) {
             io.print("Artikkeli " + name + " poistettu vinkkikirjastosta.");
         } else {
@@ -273,9 +264,8 @@ public class CLUI {
     private void updateReadPages() {
         io.print("Muokataan kirjan luettua sivumäärää");
         String name = io.readLine("Anna kirjan nimi: ");
-        io.print("");
         String pages = io.readLine("Anna luettu sivumäärä: ");
-        io.print("");
+        
         if (service.update("book", name, pages)) {
             io.print("Luettu sivumäärä päivitetty.");
         } else {
@@ -320,6 +310,7 @@ public class CLUI {
         if (type.equals("kirja")) {
             String name = io.readLine("Anna kirjan nimi: ");
             String tag = io.readLine("Lisää haluamasi tägi: ");
+            tag.toLowerCase();
             if (service.updateTags("book", name, tag)) {
                 io.print("Tägi lisätty.");
             } else {
@@ -332,6 +323,7 @@ public class CLUI {
         } else if (type.equals("artikkeli")) {
             String name = io.readLine("Anna artikkelin nimi: ");
             String tag = io.readLine("Lisää haluamasi tägi: ");
+            tag.toLowerCase();
             if (service.updateTags("article", name, tag)) {
                 io.print("Tägi lisätty.");
             } else {
@@ -355,6 +347,7 @@ public class CLUI {
         if (type.equals("kirja")) {
             String name = io.readLine("Anna kirjan nimi: ");
             String tag = io.readLine("Anna tägi, jonka haluat poistaa: ");
+            tag.toLowerCase();
             if (service.deleteTags("book", name, tag)) {
                 io.print("Tägi poistettu.");
             } else {
@@ -367,6 +360,7 @@ public class CLUI {
         } else if (type.equals("artikkeli")) {
             String name = io.readLine("Anna artikkelin nimi: ");
             String tag = io.readLine("Anna tägi, jonka haluat poistaa: ");
+            tag.toLowerCase();
             if (service.deleteTags("article", name, tag)) {
                 io.print("Tägi poistettu.");
             } else {

@@ -1,6 +1,6 @@
 Feature: Tags can be added to suggestions
 
-    Scenario: Tags can be added to books when adding a new suggestion
+    Scenario: Tags can be added to books when adding a new suggestion and tags
         Given command uusi is selected
         When correct book information is given
         When tags "tag1", "tag2" and "tag3" are added
