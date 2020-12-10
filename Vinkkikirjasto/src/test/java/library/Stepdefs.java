@@ -65,6 +65,13 @@ public class Stepdefs {
                 new String[]{a.getName(), a.getUrl(), a.getTags()});
     }
     
+    @Given("article Finlandia-hymni is saved")
+    public void saveFinlandia() {
+        Article a = this.getArticleFinlandiaHymn();
+        library.add("article", a.getDetailTypes(),
+                new String[]{a.getName(), a.getUrl(), a.getTags()});
+    }
+    
     @Given ("command hae is selected")
     public void commandHaeIsSelected() {
         input.add("hae");
@@ -218,6 +225,16 @@ public class Stepdefs {
         assertTrue(result);
     }
     
+    @Then("info for both Margarita and Finlandia are displayed")
+    public void margaritaAndOhtuInfoDisplayed() {
+        this.closeAndRunCLUI();
+        Article finlandia = this.getArticleFinlandiaHymn();
+        Book margarita = this.getBookMargarita();
+        boolean result = this.goThroughPrintsLookingFor(finlandia.toString()) 
+                && this.goThroughPrintsLookingFor(margarita.toString());
+        assertTrue(result);
+    }
+    
     private void closeAndRunCLUI() {
         input.add("sulje");
         io.setInputs(input);
@@ -240,6 +257,11 @@ public class Stepdefs {
     
     private Article getArticleOhtumateriaali() {
         Article article = new Article("Ohtumateriaali", "https://ohjelmistotuotanto-hy.github.io/", "ohjelmistotuotanto");
+        return article;
+    }
+    
+    private Article getArticleFinlandiaHymn() {
+        Article article = new Article("Finlandia (Youtube)", "https://www.youtube.com/watch?v=F5zg_af9b8c", "finlandia");
         return article;
     }
 }
