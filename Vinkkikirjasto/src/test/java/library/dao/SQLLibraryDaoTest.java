@@ -131,6 +131,13 @@ public class SQLLibraryDaoTest {
         boolean updatedBook = sqldao.updateBookTag("Hei", "jee");
         assertFalse(updatedBook);
     }
+    
+    @Test
+    public void searchingByTagWorks(){
+        List<Suggestion> sugs = sqldao.getSuggestionsByTag("tag1");
+        assertEquals("Test Book", sugs.get(0).getDetail("nimi"));
+        assertEquals("Test Article", sugs.get(1).getDetail("nimi"));
+    }
 
     @After
     public void tearDown() {
