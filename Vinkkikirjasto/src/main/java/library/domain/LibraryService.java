@@ -96,6 +96,10 @@ public class LibraryService {
     
     private String deleteChosenTag(String tags, String tagToDelete) {
         String[] tagsToArray = tags.split(tagToDelete);
+        
+        if(tagsToArray.length == 0) {
+            return "";
+        }
         String updatedTag = trimTags(0, tagsToArray) + " " + trimTags(1, tagsToArray);
         return updatedTag;
     }
