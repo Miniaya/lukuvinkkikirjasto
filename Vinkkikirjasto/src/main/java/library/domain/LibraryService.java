@@ -86,6 +86,7 @@ public class LibraryService {
                 if (suggestion.getDetail("nimi").equals(name)) {
                     String tags = suggestion.getDetail("tagit");
                     String updatedTags = deleteChosenTag(tags, tag);
+                    updatedTags.trim();
                     success = libraryDao.updateArticleTag(name, updatedTags);
                 }
             }
@@ -94,13 +95,8 @@ public class LibraryService {
     }
     
     private String deleteChosenTag(String tags, String tagToDelete) {
-        String[] tagsToArray = tags.split("\\s+");
-        String updatedTag = "";
-        for (int i = 0; i < tagsToArray.length; i++) {
-            if (!tagsToArray[i].equals(tagToDelete)) {
-                updatedTag = updatedTag + " " + tagsToArray[i];
-            }
-        }
+        String[] tagsToArray = tags.split(tagToDelete);
+        String updatedTag = trimTags(0, tagsToArray) + " " + trimTags(1, tagsToArray);
         return updatedTag;
     }
 

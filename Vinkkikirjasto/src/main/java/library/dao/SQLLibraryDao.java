@@ -71,7 +71,6 @@ public class SQLLibraryDao implements LibraryDao {
             s.close();
             conn.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -135,7 +134,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return false;
         }
 
@@ -170,7 +168,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return false;
         }
 
@@ -226,7 +223,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -268,7 +264,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -312,7 +307,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -356,7 +350,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -410,7 +403,6 @@ public class SQLLibraryDao implements LibraryDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -449,10 +441,8 @@ public class SQLLibraryDao implements LibraryDao {
 
             return books;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return null;
         }
-
-        return null;
     }
     
     private List<Article> getArticles(String tag) {
@@ -476,10 +466,8 @@ public class SQLLibraryDao implements LibraryDao {
 
             return articles;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return null;
         }
-
-        return null;
     }
     
     @Override
@@ -513,7 +501,7 @@ public class SQLLibraryDao implements LibraryDao {
             conn.close();
             
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
         }
              
     }
