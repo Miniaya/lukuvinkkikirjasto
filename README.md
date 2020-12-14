@@ -10,6 +10,7 @@ Löydät lisämateriaalit ja käyttöohjeen alta.
 - [Backlog & Sprintlogit](https://docs.google.com/spreadsheets/d/1XuvgQQRyYOgVvAYmBFQm1ab_-g5Kg-24XLIuX7o79t4/)
 - [Definition of Done](https://github.com/Miniaya/lukuvinkkikirjasto/blob/main/Vinkkikirjasto/docs/DOD.md)
 - [GitHub Actions](https://github.com/Miniaya/lukuvinkkikirjasto/actions)
+- [Raportti](https://docs.google.com/document/d/1z7L0XdbaIWffwtrJCPAEk615dwd1JD1m-hIK-V2rm70)
 
 ## KÄYTTÖOHJE
 Asenna sovellus [release](https://github.com/Miniaya/lukuvinkkikirjasto/releases)-sivulta.
